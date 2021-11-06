@@ -1,4 +1,4 @@
-package com.epam.brest;
+package com.zavadski.model;
 
 public class Team {
 

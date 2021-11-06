@@ -1,4 +1,4 @@
-package com.epam.brest;
+package com.zavadski.model;
 
 import java.time.LocalDate;
 
