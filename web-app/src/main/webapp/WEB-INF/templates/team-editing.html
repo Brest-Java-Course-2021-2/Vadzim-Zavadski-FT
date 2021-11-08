@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../../resources/static/css/bootstrap.min.css"
+          th:href="@{/resources/static/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../resources/static/css/style.css"
+          th:href="@{/resources/static/css/style.css}">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
+
+    <title>Team editing</title>
+</head>
+
+
+<header>
+    <nav class="navbar navbar-dark bg-secondary navbar-expand-sm text-light p-1">
+        <div class="container-fluid">
+            <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="teams.html" class="navbar-brand">
+                <img src="../../resources/static/img/emoji-smile.svg" height="24" width="24" alt=":)"></a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="teams.html">Teams</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="players.html">Players</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <nav id="main-header"
+         class="py-1 mb-3 navbar navbar-light bg-primary text-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand text-uppercase">Team editing</span>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="team-adding.html"
+                       class="btn btn-secondary"
+                       title="Add team">
+                        <i class="bi bi-x-circle"></i>
+                        </i>&nbsp;<span class="d-none d-sm-inline">Cancel</span>
+                    </a>
+
+                    <a href="teams.html"
+                       class="btn btn-secondary"
+                       title="Refresh the page">
+                        <i class="bi bi-save2"></i>
+                        </i>&nbsp;<span class="d-none d-sm-inline">Save</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+
+<br>
+
+<section id="teams">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <table class="table table-striped">
+                        <thead class="table-secondary">
+                        <div class="col-auto">
+                            <label for="field_teamName">Name of team:</label>
+                            <input id="field_teamName"
+                                   class="form-control"
+                                   type="text"
+                                   placeholder="Enter name">
+                        </div>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <hr/>
+    <p class="text-center">&copy; 2021</p>
+</footer>
+
+<script src="js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
+
+
