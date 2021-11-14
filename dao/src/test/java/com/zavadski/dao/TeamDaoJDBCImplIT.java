@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-jdbc-conf.xml"})
+@Transactional
 class TeamDaoJDBCImplIT {
 
     private TeamDaoJDBCImpl teamDaoJDBC;
@@ -31,7 +32,7 @@ class TeamDaoJDBCImplIT {
     void create() {
         assertNotNull(teamDaoJDBC);
         int teamSizeBefore = teamDaoJDBC.findAll().size();
-        Team team = new Team("Arsenal 2");
+        Team team = new Team("Arsenal");
         Integer newTeamId = teamDaoJDBC.create(team);
         assertNotNull(newTeamId);
         assertEquals((int) teamSizeBefore, teamDaoJDBC.findAll().size() - 1);
