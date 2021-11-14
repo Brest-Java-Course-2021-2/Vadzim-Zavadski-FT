@@ -17,8 +17,8 @@ public class TeamDaoJDBCImpl implements TeamDao{
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String SQL_ALL_TEAMS="select t.teamId, t.teamName from team t order by t.teamName";
-    private final String SQL_CREATE_TEAM="insert into team(teamName) values(:teamName)";
+    private final String SQL_ALL_TEAMS="select t.team_id, t.team_name from team t order by t.team_name";
+    private final String SQL_CREATE_TEAM="insert into team(team_name) values(:teamName)";
 
     public TeamDaoJDBCImpl(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
@@ -56,8 +56,8 @@ public class TeamDaoJDBCImpl implements TeamDao{
         @Override
         public Team mapRow(ResultSet resultSet, int i) throws SQLException {
             Team team = new Team();
-            team.setTeamId(resultSet.getInt("teamId"));
-            team.setTeamName(resultSet.getString("teamName"));
+            team.setTeamId(resultSet.getInt("team_id"));
+            team.setTeamName(resultSet.getString("team_name"));
             return team;
         }
     }

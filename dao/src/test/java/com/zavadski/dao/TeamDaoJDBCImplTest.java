@@ -31,7 +31,7 @@ class TeamDaoJDBCImplTest {
     void create() {
         assertNotNull(teamDaoJDBC);
         int teamSizeBefore = teamDaoJDBC.findAll().size();
-        Team team = new Team("Arsenal");
+        Team team = new Team("Arsenal 2");
         Integer newTeamId = teamDaoJDBC.create(team);
         assertNotNull(newTeamId);
         assertEquals((int) teamSizeBefore, teamDaoJDBC.findAll().size() - 1);
