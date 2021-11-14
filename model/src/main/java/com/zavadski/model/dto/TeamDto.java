@@ -86,7 +86,7 @@ public class TeamDto {
      *
      * @param numberOfPlayers Number of Players
      */
-    public void setAvgSalary(final Integer numberOfPlayers) {
+    public void setNumberOfPlayers(final Integer numberOfPlayers) {
         this.numberOfPlayers = numberOfPlayers;
     }
 
