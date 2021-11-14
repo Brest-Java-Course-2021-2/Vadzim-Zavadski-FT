@@ -80,17 +80,19 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>Liverpool</td>
-                            <td class="text-center">25</td>
+                        <tr th:each="team : ${teams}">
+                            <td th:text="${team.teamName}">Liverpool</td>
+                            <td th:text="${team.numberOfPlayer}" class="text-center">25</td>
                             <td class="text-end">
                                 <a href="team-editing.html"
+                                th:href="@{|/team/${team.teamId}|}"
                                    class="btn-md btn-outline-secondary"
                                    title="Edit team">
                                     <i class="bi bi-pencil"></i>
                                     <span class="d-none d-md-inline">&nbsp;Edit</span>
                                 </a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
+                                      th:attr="data-id=${team.teamId},data-name=${team.teamName}">
                                 <a href="#"
                                    class="btn-md btn-outline-secondary"
                                    title="delete team"><i class="bi bi-trash"></i>
@@ -98,7 +100,7 @@
                     </a>
                     </span>
                             </td>
-                        </tr>
+                        <tr th:remove="all">
                         </tbody>
                     </table>
                 </div>

@@ -16,8 +16,33 @@
 
   <description>Spring MVC Web application</description>
 
-
   <dependencies>
+
+    <dependency>
+      <groupId>com.zavadski</groupId>
+      <artifactId>model</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zavadski</groupId>
+      <artifactId>dao-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zavadski</groupId>
+      <artifactId>dao</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zavadski</groupId>
+      <artifactId>service-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zavadski</groupId>
+      <artifactId>service</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.zavadski</groupId>
+      <artifactId>test-db</artifactId>
+    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
@@ -40,6 +65,33 @@
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+      <scope>compile</scope>
+    </dependency>
+
+    <!--        test-->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+    </dependency>
+
   </dependencies>
 
   <build>
