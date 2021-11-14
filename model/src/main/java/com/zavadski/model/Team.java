@@ -5,6 +5,18 @@ public class Team {
     private Integer teamId;
     private String teamName;
 
+    public Team() {
+    }
+
+    public Team(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public Team(Integer teamId, String teamName) {
+        this.teamId = teamId;
+        this.teamName = teamName;
+    }
+
     public Integer getTeamId() {
         return teamId;
     }
