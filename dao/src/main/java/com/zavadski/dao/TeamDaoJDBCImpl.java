@@ -1,6 +1,8 @@
 package com.zavadski.dao;
 
 import com.zavadski.model.Team;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -15,6 +17,8 @@ import java.util.List;
 
 public class TeamDaoJDBCImpl implements TeamDao{
 
+    private final Logger logger = LogManager.getLogger(TeamDaoJDBCImpl.class);
+
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final String SQL_ALL_TEAMS="select t.teamId, t.teamName from team t order by t.teamName";
@@ -26,11 +30,13 @@ public class TeamDaoJDBCImpl implements TeamDao{
 
     @Override
     public List<Team> findAll() {
+        logger.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(SQL_ALL_TEAMS, new TeamRowMapper());
     }
 
     @Override
     public Integer create(Team team) {
+        logger.debug("Start: create({})", team);
 
         //TODO: isDepartmentUnique throw new IllegalArgumentException
 
