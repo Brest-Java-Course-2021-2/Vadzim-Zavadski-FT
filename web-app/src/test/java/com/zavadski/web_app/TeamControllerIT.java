@@ -15,8 +15,6 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.math.BigDecimal;
-
 import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
@@ -49,21 +47,21 @@ class TeamControllerIT {
                         allOf(
                                 hasProperty("teamId", is(1)),
                                 hasProperty("teamName", is("Liverpool")),
-                                hasProperty("numberOfPlayers", is(BigDecimal.valueOf(10)))
+                                hasProperty("numberOfPlayers", is(2))
                         )
                 )))
                 .andExpect(model().attribute("teams", hasItem(
                         allOf(
                                 hasProperty("teamId", is(2)),
                                 hasProperty("teamName", is("Arsenal")),
-                                hasProperty("numberOfPlayers", is(BigDecimal.valueOf(150)))
+                                hasProperty("numberOfPlayers", is(3))
                         )
                 )))
                 .andExpect(model().attribute("teams", hasItem(
                         allOf(
                                 hasProperty("teamId", is(3)),
                                 hasProperty("teamName", is("Lester")),
-                                hasProperty("numberOfPlayers", isEmptyOrNullString())
+                                hasProperty("numberOfPlayers", is(0))
                         )
                 )));
     }

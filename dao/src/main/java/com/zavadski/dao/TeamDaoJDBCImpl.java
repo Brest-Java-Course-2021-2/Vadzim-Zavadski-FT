@@ -38,7 +38,7 @@ public class TeamDaoJDBCImpl implements TeamDao{
     public Integer create(Team team) {
         logger.debug("Start: create({})", team);
 
-        //TODO: isDepartmentUnique throw new IllegalArgumentException
+        //TODO: isTeamUnique throw new IllegalArgumentException
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName().toUpperCase());

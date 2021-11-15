@@ -43,7 +43,7 @@ public class TeamController {
      */
     @GetMapping(value = "/team/add")
     public final String gotoAddTeamPage(Model model) {
-        model.addAttribute("departments", teamDtoService.findAllWithNumberOfPlayers());
-        return "teams";
+//        model.addAttribute("departments", teamDtoService.findAllWithNumberOfPlayers());
+        return "team";
     }
 }

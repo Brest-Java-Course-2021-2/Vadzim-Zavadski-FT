@@ -23,7 +23,7 @@ class TeamDtoServiceImplIT {
     TeamDtoService teamDtoService;
 
     @Test
-    public void shouldFindAllWithAvgSalary() {
+    public void shouldFindAllWithNumberOfPlayers() {
         List<TeamDto> teams = teamDtoService.findAllWithNumberOfPlayers();
         assertNotNull(teams);
         assertTrue(teams.size() > 0);

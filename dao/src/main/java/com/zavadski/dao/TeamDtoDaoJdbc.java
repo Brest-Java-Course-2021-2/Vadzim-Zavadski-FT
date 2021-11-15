@@ -15,10 +15,10 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private String findAllWithNumberOfPlayerSql = "SELECT\n" +
+    private String findAllWithNumberOfPlayersSql = "SELECT\n" +
             "\tt.team_id AS teamId,\n" +
             "\tt.team_name AS teamName,\n" +
-            "\tcount(*) AS numberOfPlayers\n" +
+            "\tcount(p.team_id) AS numberOfPlayers\n" +
             "FROM\n" +
             "\tteam t\n" +
             "LEFT JOIN player p ON\n" +
@@ -35,7 +35,7 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
 
     @Override
     public List<TeamDto> findAllWithNumberOfPlayers() {
-        List<TeamDto> teams = namedParameterJdbcTemplate.query(findAllWithNumberOfPlayerSql,
+        List<TeamDto> teams = namedParameterJdbcTemplate.query(findAllWithNumberOfPlayersSql,
                 BeanPropertyRowMapper.newInstance(TeamDto.class));
         return teams;
     }
