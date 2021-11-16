@@ -17,11 +17,13 @@ import java.util.List;
 
 public class TeamDaoJDBCImpl implements TeamDao{
 
-    private final Logger logger = LogManager.getLogger(TeamDaoJDBCImpl.class);
+    private final Logger LOGGER = LogManager.getLogger(TeamDaoJDBCImpl.class);
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final String SQL_ALL_TEAMS="select t.team_id, t.team_name from team t order by t.team_name";
+    private final String SQL_CHECK_UNIQUE_TEAM_NAME="select count(t.team_name) \" +\n" +
+            "            \"from team t where lower(t.team_name) = lower(:teamName)";
     private final String SQL_CREATE_TEAM="insert into team(team_name) values(:teamName)";
 
     public TeamDaoJDBCImpl(DataSource dataSource) {
@@ -30,21 +32,31 @@ public class TeamDaoJDBCImpl implements TeamDao{
 
     @Override
     public List<Team> findAll() {
-        logger.debug("Start: findAll()");
+        LOGGER.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(SQL_ALL_TEAMS, new TeamRowMapper());
     }
 
     @Override
     public Integer create(Team team) {
-        logger.debug("Start: create({})", team);
+        LOGGER.debug("Start: create({})", team);
 
         //TODO: isTeamUnique throw new IllegalArgumentException
+        if (!isTeamUnique(team.getTeamName())) {
+            LOGGER.warn("Team with the same name {} already exists.", team.getTeamName());
+            throw new IllegalArgumentException("Team with the same name already exists in DB.");
+        }
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName().toUpperCase());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(SQL_CREATE_TEAM, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
+    }
+
+    private boolean isTeamUnique(String teamName){
+        LOGGER.debug("Check DepartmentName: {} on unique", teamName);
+        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("teamName", teamName);
+        return namedParameterJdbcTemplate.queryForObject(SQL_CHECK_UNIQUE_TEAM_NAME, sqlParameterSource, Integer.class) == 0;
     }
 
     @Override
