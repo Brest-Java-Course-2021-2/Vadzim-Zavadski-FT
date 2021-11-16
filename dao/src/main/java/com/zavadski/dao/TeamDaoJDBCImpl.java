@@ -26,8 +26,13 @@ public class TeamDaoJDBCImpl implements TeamDao{
             "            \"from team t where lower(t.team_name) = lower(:teamName)";
     private final String SQL_CREATE_TEAM="insert into team(team_name) values(:teamName)";
 
+    @Deprecated
     public TeamDaoJDBCImpl(DataSource dataSource) {
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
+    }
+
+    public TeamDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class TeamDaoJDBCImpl implements TeamDao{
     }
 
     private boolean isTeamUnique(String teamName){
-        LOGGER.debug("Check DepartmentName: {} on unique", teamName);
+        LOGGER.debug("Check TeamName: {} on unique", teamName);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("teamName", teamName);
         return namedParameterJdbcTemplate.queryForObject(SQL_CHECK_UNIQUE_TEAM_NAME, sqlParameterSource, Integer.class) == 0;
     }
@@ -67,6 +72,13 @@ public class TeamDaoJDBCImpl implements TeamDao{
     @Override
     public Integer delete(Team team) {
         return null;
+    }
+
+    @Override
+    public Integer count() {
+        LOGGER.debug("count()");
+        return namedParameterJdbcTemplate
+                .queryForObject("select count(*) from team", new MapSqlParameterSource(), Integer.class);
     }
 
     private class TeamRowMapper implements RowMapper<Team> {

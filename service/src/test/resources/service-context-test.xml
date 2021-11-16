@@ -15,4 +15,12 @@
     <bean id="teamDtoService" class="com.zavadski.service.impl.TeamDtoServiceImpl">
         <constructor-arg name="teamDtoDao" ref="teamDtoDao"/>
     </bean>
+
+    <bean id="teamDao" class="com.zavadski.dao.TeamDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="teamService" class="com.zavadski.service.impl.TeamServiceImpl">
+        <constructor-arg name="teamDao" ref="teamDao"/>
+    </bean>
 </beans>

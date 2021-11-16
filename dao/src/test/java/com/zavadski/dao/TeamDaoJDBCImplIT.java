@@ -19,6 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @Rollback
 class TeamDaoJDBCImplIT {
 
+    private final Logger logger = LogManager.getLogger(TeamDaoJDBCImplIT.class);
+
     private TeamDaoJDBCImpl teamDaoJDBC;
 
     public TeamDaoJDBCImplIT(@Autowired TeamDao teamDaoJDBC) {
@@ -27,6 +29,7 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void findAll() {
+        logger.debug("Execute test: findAll()");
         assertNotNull(teamDaoJDBC);
         assertNotNull(teamDaoJDBC.findAll());
     }
@@ -34,11 +37,11 @@ class TeamDaoJDBCImplIT {
     @Test
     void create() {
         assertNotNull(teamDaoJDBC);
-        int teamSizeBefore = teamDaoJDBC.findAll().size();
+        int teamSizeBefore = teamDaoJDBC.count();
         Team team = new Team("MU");
         Integer newTeamId = teamDaoJDBC.create(team);
         assertNotNull(newTeamId);
-        assertEquals((int) teamSizeBefore, teamDaoJDBC.findAll().size() - 1);
+        assertEquals((int) teamSizeBefore, teamDaoJDBC.count() - 1);
     }
 
     @Test
@@ -50,5 +53,13 @@ class TeamDaoJDBCImplIT {
             teamDaoJDBC.create(team);
             teamDaoJDBC.create(team);
         });
+    }
+    @Test
+    void shouldCount() {
+        assertNotNull(teamDaoJDBC);
+        Integer quantity = teamDaoJDBC.count();
+        assertNotNull(quantity);
+        assertTrue(quantity > 0);
+        assertEquals(Integer.valueOf(3), quantity);
     }
 }

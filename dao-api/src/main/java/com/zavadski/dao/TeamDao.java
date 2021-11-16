@@ -12,6 +12,8 @@ public interface TeamDao {
 
     Integer update(Team team);
 
-    Integer delete(Team team);
+    Integer delete(Team teamId);
+
+    Integer count();
 
 }

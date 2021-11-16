@@ -32,6 +32,14 @@
         <constructor-arg name="teamDtoDao" ref="teamDtoDao"/>
     </bean>
 
+    <bean id="teamDao" class="com.zavadski.dao.TeamDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="teamService" class="com.zavadski.service.impl.TeamServiceImpl">
+        <constructor-arg name="teamDao" ref="teamDao"/>
+    </bean>
+
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">

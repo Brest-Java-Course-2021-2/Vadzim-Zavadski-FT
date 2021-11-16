@@ -1,9 +1,12 @@
 package com.zavadski.web_app;
 
+import com.zavadski.model.Team;
+import com.zavadski.service.TeamService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -16,8 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.*;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
@@ -27,6 +31,9 @@ class TeamControllerIT {
 
     @Autowired
     private WebApplicationContext wac;
+
+        @Autowired
+    private TeamService teamService;
 
     private MockMvc mockMvc;
 
@@ -40,7 +47,7 @@ class TeamControllerIT {
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/teams")
                 ).andDo(MockMvcResultHandlers.print())
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
                 .andExpect(view().name("teams"))
                 .andExpect(model().attribute("teams", hasItem(
@@ -64,5 +71,28 @@ class TeamControllerIT {
                                 hasProperty("numberOfPlayers", is(0))
                         )
                 )));
+    }
+    @Test
+    void shouldAddTeam() throws Exception {
+        // WHEN
+        assertNotNull(teamService);
+        Integer teamsSizeBefore = teamService.count();
+        assertNotNull(teamsSizeBefore);
+        Team team = new Team("MU");
+
+        // THEN
+        //Integer newTeamId = teamService.create(team);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/team")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("teamName", team.getTeamName())
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/teams"))
+                .andExpect(redirectedUrl("/teams"));
+
+
+        // VERIFY
+        assertEquals(teamsSizeBefore, teamService.count() - 1);
     }
 }

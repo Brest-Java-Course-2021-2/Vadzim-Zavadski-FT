@@ -1,18 +1,29 @@
 package com.zavadski.web_app;
 
+import com.zavadski.model.Team;
 import com.zavadski.service.TeamDtoService;
+import com.zavadski.service.TeamService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class TeamController {
 
+    private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
+
     private final TeamDtoService teamDtoService;
 
-    public TeamController(TeamDtoService teamDtoService) {
+    private final TeamService teamService;
+
+    public TeamController(TeamDtoService teamDtoService,
+                          TeamService teamService) {
         this.teamDtoService = teamDtoService;
+        this.teamService = teamService;
     }
 
     /**
@@ -41,9 +52,25 @@ public class TeamController {
      *
      * @return view name
      */
-    @GetMapping(value = "/team/add")
+    @GetMapping(value = "/team")
     public final String gotoAddTeamPage(Model model) {
-//        model.addAttribute("departments", teamDtoService.findAllWithNumberOfPlayers());
+        logger.debug("gotoAddTeamPage({})", model);
+        model.addAttribute("isNew", true);
+        model.addAttribute("team", new Team());
         return "team";
+    }
+
+    /**
+     * Persist new team into persistence storage.
+     *
+     * @param team new team with filled data.
+     * @return view name
+     */
+    @PostMapping(value = "/team")
+    public String addTeam(Team team) {
+
+        logger.debug("addTeam({}, {})", team);
+        this.teamService.create(team);
+        return "redirect:/teams";
     }
 }
