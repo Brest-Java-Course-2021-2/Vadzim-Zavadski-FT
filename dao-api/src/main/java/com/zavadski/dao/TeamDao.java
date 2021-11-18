@@ -8,11 +8,13 @@ public interface TeamDao {
 
     List<Team> findAll();
 
+    Team getTeamById(Integer teamId);
+
     Integer create(Team team);
 
     Integer update(Team team);
 
-    Integer delete(Team teamId);
+    Integer delete(Integer teamId);
 
     Integer count();
 

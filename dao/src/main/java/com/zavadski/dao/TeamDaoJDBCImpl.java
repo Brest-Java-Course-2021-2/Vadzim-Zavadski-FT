@@ -22,9 +22,14 @@ public class TeamDaoJDBCImpl implements TeamDao{
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     private final String SQL_ALL_TEAMS="select t.team_id, t.team_name from team t order by t.team_name";
+    private final String SQL_TEAM_BY_ID = "select t.team_id, t.team_name from team t " +
+            " where team_id = :teamId";
     private final String SQL_CHECK_UNIQUE_TEAM_NAME="select count(t.team_name) \" +\n" +
             "            \"from team t where lower(t.team_name) = lower(:teamName)";
     private final String SQL_CREATE_TEAM="insert into team(team_name) values(:teamName)";
+    private final String SQL_UPDATE_TEAM_NAME="update team set team_name = :teamName" +
+            "where team_id = :teamId";
+    private final String SQL_DELETE_TEAM_BY_ID = "delete from team where team_id = :teamId";
 
     @Deprecated
     public TeamDaoJDBCImpl(DataSource dataSource) {
@@ -42,8 +47,16 @@ public class TeamDaoJDBCImpl implements TeamDao{
     }
 
     @Override
+    public Team getTeamById(Integer teamId) {
+        LOGGER.debug("Get team by id = {}", teamId);
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("teamId", teamId);
+        return namedParameterJdbcTemplate.queryForObject(SQL_TEAM_BY_ID, sqlParameterSource, new TeamRowMapper());
+    }
+
+    @Override
     public Integer create(Team team) {
-        LOGGER.debug("Start: create({})", team);
+        LOGGER.debug("Create team: create({})", team);
 
         //TODO: isTeamUnique throw new IllegalArgumentException
         if (!isTeamUnique(team.getTeamName())) {
@@ -66,12 +79,18 @@ public class TeamDaoJDBCImpl implements TeamDao{
 
     @Override
     public Integer update(Team team) {
-        return null;
+        LOGGER.debug("Update team: create({})", team);
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("teamName", team.getTeamName()).
+                        addValue("teamId", team.getTeamId());
+        return namedParameterJdbcTemplate.update(SQL_UPDATE_TEAM_NAME, sqlParameterSource);
     }
 
     @Override
-    public Integer delete(Team team) {
-        return null;
+    public Integer delete(Integer teamId) {
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("teamId", teamId);
+        return namedParameterJdbcTemplate.update(SQL_DELETE_TEAM_BY_ID, sqlParameterSource);
     }
 
     @Override
@@ -79,6 +98,8 @@ public class TeamDaoJDBCImpl implements TeamDao{
         LOGGER.debug("count()");
         return namedParameterJdbcTemplate
                 .queryForObject("select count(*) from team", new MapSqlParameterSource(), Integer.class);
+        //TODO: SELECT_COUNT_FROM_TEAM
+        //public static final String SELECT_COUNT_FROM_TEAM = "select count(*) from team";
     }
 
     private class TeamRowMapper implements RowMapper<Team> {

@@ -11,6 +11,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
@@ -54,6 +56,42 @@ class TeamDaoJDBCImplIT {
             teamDaoJDBC.create(team);
         });
     }
+
+    @Test
+    void getDepartmentById() {
+        List<Team> teams = teamDaoJDBC.findAll();
+        if (teams.size() == 0) {
+            teamDaoJDBC.create(new Team("TEST TEAM"));
+            teams = teamDaoJDBC.findAll();
+        }
+
+        Team teamSrc = teams.get(0);
+        Team teamDst = teamDaoJDBC.getTeamById(teamSrc.getTeamId());
+        assertEquals(teamSrc.getTeamName(), teamDst.getTeamName());
+    }
+
+    @Test
+    void updateTeam(){
+        List<Team> teams = teamDaoJDBC.findAll();
+        if (teams.size() == 0) {
+            teamDaoJDBC.create(new Team("TEST TEAM"));
+            teams = teamDaoJDBC.findAll();
+        }
+
+        Team teamSrc = teams.get(0);
+        Team teamDst = teamDaoJDBC.getTeamById(teamSrc.getTeamId());
+        assertEquals(teamSrc.getTeamName(), teamDst.getTeamName());
+    }
+
+    @Test
+    void deleteTeam() {
+        teamDaoJDBC.create(new Team("TEST TEAM"));
+        List<Team> teams = teamDaoJDBC.findAll();
+
+        teamDaoJDBC.delete(teams.get(teams.size() - 1).getTeamId());
+        assertEquals(teams.size() - 1, teamDaoJDBC.findAll().size());
+    }
+
     @Test
     void shouldCount() {
         assertNotNull(teamDaoJDBC);
