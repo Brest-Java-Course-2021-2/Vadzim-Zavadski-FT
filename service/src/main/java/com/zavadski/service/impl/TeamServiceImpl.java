@@ -20,10 +20,27 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
+    public Team getTeamById(Integer teamId) {
+        logger.debug("Get team by id = {}", teamId);
+        return this.teamDao.getTeamById(teamId);
+    }
+
+    @Override
     @Transactional
     public Integer create(Team team) {
         logger.debug("create({})", team);
         return this.teamDao.create(team);
+    }
+
+    @Override
+    public Integer update(Team team) {
+        logger.debug("update({})", team);
+        return this.teamDao.update(team);
+    }
+
+    @Override
+    public Integer delete(Integer teamId) {
+        return null;
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.zavadski.web_app;
 
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -18,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
+import static com.zavadski.model.constants.TeamConstants.TEAM_NAME_SIZE;
 import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -91,8 +93,38 @@ class TeamControllerIT {
                 .andExpect(view().name("redirect:/teams"))
                 .andExpect(redirectedUrl("/teams"));
 
-
         // VERIFY
         assertEquals(teamsSizeBefore, teamService.count() - 1);
+    }
+
+    @Test
+    public void shouldOpenEditTeamPageById() throws Exception {
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/team/1")
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType("text/html;charset=UTF-8"))
+                .andExpect(view().name("team"))
+                .andExpect(model().attribute("isNew", is(false)))
+                .andExpect(model().attribute("team", hasProperty("teamId", is(1))))
+                .andExpect(model().attribute("team", hasProperty("teamName", is("Liverpool"))));
+    }
+
+    @Test
+    public void shouldUpdateTeamAfterEdit() throws Exception {
+
+        String testName = RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE);
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/team/1")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("teamId", "1")
+                                .param("teamName", testName)
+                ).andExpect(status().isFound())
+                .andExpect(view().name("redirect:/teams"))
+                .andExpect(redirectedUrl("/teams"));
+
+        Team team = teamService.getTeamById(1);
+        assertNotNull(team);
+        assertEquals(testName, team.getTeamName());
     }
 }

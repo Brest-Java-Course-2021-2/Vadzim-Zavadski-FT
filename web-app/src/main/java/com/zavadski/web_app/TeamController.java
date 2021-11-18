@@ -44,6 +44,9 @@ public class TeamController {
      */
     @GetMapping(value = "/team/{id}")
     public final String gotoEditTeamPage(@PathVariable Integer id, Model model) {
+        logger.debug("gotoEditTeamPage(id:{},model:{})", id, model);
+        model.addAttribute("isNew", false);
+        model.addAttribute("department", teamService.getTeamById(id));
         return "team";
     }
 
@@ -71,6 +74,20 @@ public class TeamController {
 
         logger.debug("addTeam({}, {})", team);
         this.teamService.create(team);
+        return "redirect:/teams";
+    }
+
+    /**
+     * Update team.
+     *
+     * @param team team with filled data.
+     * @return view name
+     */
+    @PostMapping(value = "/team/{id}")
+    public String updateTeam(Team team) {
+
+        logger.debug("updateTeam({}, {})", team);
+        this.teamService.update(team);
         return "redirect:/teams";
     }
 }
