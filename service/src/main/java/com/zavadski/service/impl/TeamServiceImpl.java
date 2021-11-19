@@ -40,7 +40,8 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     public Integer delete(Integer teamId) {
-        return null;
+        logger.debug("delete team with id = {}", teamId);
+        return this.teamDao.delete(teamId);
     }
 
     @Override

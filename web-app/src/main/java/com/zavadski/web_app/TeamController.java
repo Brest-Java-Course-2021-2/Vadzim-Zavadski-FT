@@ -46,7 +46,7 @@ public class TeamController {
     public final String gotoEditTeamPage(@PathVariable Integer id, Model model) {
         logger.debug("gotoEditTeamPage(id:{},model:{})", id, model);
         model.addAttribute("isNew", false);
-        model.addAttribute("department", teamService.getTeamById(id));
+        model.addAttribute("team", teamService.getTeamById(id));
         return "team";
     }
 
@@ -88,6 +88,19 @@ public class TeamController {
 
         logger.debug("updateTeam({}, {})", team);
         this.teamService.update(team);
+        return "redirect:/teams";
+    }
+
+    /**
+     * Delete team.
+     *
+     * @return view name
+     */
+    @GetMapping(value = "/team/{id}/delete")
+    public final String deleteTeamById(@PathVariable Integer id, Model model) {
+
+        logger.debug("delete({},{})", id, model);
+        teamService.delete(id);
         return "redirect:/teams";
     }
 }

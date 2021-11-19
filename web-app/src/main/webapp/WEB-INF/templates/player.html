@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
@@ -10,24 +12,24 @@
           th:href="@{/resources/static/css/style.css}">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
-    <title>Teams</title>
+
+    <title>Player</title>
 </head>
 
-<body>
 <header>
     <nav class="navbar navbar-dark bg-secondary navbar-expand-sm text-light p-1">
         <div class="container-fluid">
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="teams.html" class="navbar-brand">
+            <a href="/" class="navbar-brand">
                 <img src="../../resources/static/img/emoji-smile.svg"
                      th:src="@{/resources/static/img/emoji-smile.svg}"
                      height="24" width="24" alt=":)"></a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="teams.html"
+                        <a class="nav-link" href="teams.html"
                            th:href="@{/teams}">Teams</a>
                     </li>
                     <li class="nav-item">
@@ -40,66 +42,68 @@
     </nav>
 
     <nav id="main-header"
-         class="py-1 mb-3 navbar navbar-light bg-primary text-dark">
-        <ul class="navbar-nav ">
-            <li class="nav-item" title="Back to list">
-                <a href="teams.html"
-                   th:href="@{/teams}"
-                   class="btn btn-secondary btn-block"
-                   title="Back to list">
-                    <i class="bi bi-arrow-left"></i></a>
+         class="ps-1 py-1 mb-3 navbar navbar-light bg-light text-dark">
+        <ul class="navbar-nav float-start">
+            <li class="nav-item"
+                title="Back to list">
+                <a href="players.html"
+                   th:href="@{/players}"
+                   class="btn btn-light btn-block">
+                    <i class="bi-arrow-left"></i></a>
             </li>
         </ul>
-        <span class="navbar-brand text-uppercase me-auto"
-              th:text="${isNew} ? 'New team' : 'Edit team'">Edit team</span>
+        <span class="navbar-brand text-uppercase me-auto">Edit player</span>
     </nav>
 </header>
 
-
-<br>
-
-<section id="team">
+<section id="player">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <form id="teamForm"
-                              th:object="${team}"
-                              action="teams.html"
-                              th:action="@{${#httpServletRequest.servletPath}}"
-                              th:method="@{post}">
-
-                            <input id="field_teamId"
-                                   type="hidden"
-                                   th:field="*{teamId}"/>
-
+                        <form>
                             <div class="mb-3">
                                 <label class="form-label"
-                                       for="field_teamName">Team Name</label>
-                                <input class="form-control "
-                                       id="field_teamName"
-                                       type="text" value="Liverpool"
-                                       th:field="*{teamName}"/>
+                                       for="field_team">Team</label>
+                                <select class="form-control" id="field_team">
+                                    <option value="0">Liverpool</option>
+                                    <option value="1">Arsenal</option>
+                                    <option value="2">Chelsea</option>
+                                    <option value="3">Manchester United</option>
+                                </select>
                             </div>
-
                             <div class="mb-3">
                                 <label class="form-label"
-                                       for="field_description">Description</label>
+                                       for="field_playerName">Player Name</label>
                                 <input class="form-control"
-                                       id="field_description"
-                                       type="text" value="Liverpool team">
+                                       id="field_playerName"
+                                       type="text"
+                                       value="Mohamed"/>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_playerSurame">Player Surname</label>
+                                <input class="form-control"
+                                       id="field_playerSurame"
+                                       type="text"
+                                       value="Salah"/>
+                            </div>
+                            <div>
+                                <label for="field_playerBirthday">Birthday</label>
+                                <input id="field_playerBirthday"
+                                       type="date"
+                                       value="2018-01-10"/>
                             </div>
                             <div class="d-flex justify-content-end">
-                                <a href="teams.html"
-                                   th:href="@{/teams}"
+                                <a href="players.html"
+                                   th:href="@{/players}"
                                    class="btn btn-light me-1"
                                    title="Cancel">Cancel</a>
-                                <a href="teams.html"
-                                   th:href="@{/teams}"
-                                   th:onclick="@{document.forms['teamForm'].submit(); return false;}"
+                                <a href="players.html"
+                                   th:href="@{/players}"
                                    class="btn btn-primary"
-                                   title="Save team">Save</a>
+                                   title="Save player">Save</a>
                             </div>
                         </form>
                     </div>
@@ -116,7 +120,6 @@
 
 <script src="../../resources/static/js/bootstrap.bundle.min.js"
         th:href="@{/resources/static/js/bootstrap.bundle.min.js}"></script>
+
 </body>
 </html>
-
-

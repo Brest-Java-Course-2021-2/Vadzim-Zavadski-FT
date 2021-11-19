@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="../../resources/static/css/bootstrap.min.css"
+    <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
           th:href="@{/resources/static/css/bootstrap.css}">
     <link rel="stylesheet" href="../../resources/static/css/style.css"
           th:href="@{/resources/static/css/style.css}">
@@ -17,22 +15,25 @@
 </head>
 
 <body>
-
 <header>
     <nav class="navbar navbar-dark bg-secondary navbar-expand-sm text-light p-1">
         <div class="container-fluid">
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="players.html" class="navbar-brand">
-                <img src="../../resources/static/img/emoji-smile.svg" height="24" width="24" alt=":)"></a>
+            <a href="/" class="navbar-brand">
+                <img src="../../resources/static/img/emoji-smile.svg"
+                     th:src="@{/resources/static/img/emoji-smile.svg}"
+                     height="24" width="24" alt=":)"></a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="teams.html">Teams</a>
+                        <a class="nav-link" href="teams.html"
+                           th:href="@{/teams}">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" href="players.html">Players</a>
+                        <a class="nav-link active" href="players.html"
+                           th:href="@{/players}">Players</a>
                     </li>
                 </ul>
             </div>
@@ -45,17 +46,17 @@
             <span class="navbar-brand text-uppercase">Players</span>
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a href="player-adding.html"
+                    <a href="player.html"
+                       th:href="@{/player/add}"
                        class="btn btn-secondary"
                        title="Add player">
                         <i class="bi bi-plus-square"></i>
-                        &nbsp;<span class="d-none d-sm-inline">Add</span>
+                        <span class="d-none d-sm-inline">Add</span>
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-
 </header>
 
 <section id="filter">
@@ -85,8 +86,7 @@
 
 <br>
 
-
-<section id="teams">
+<section id="players">
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -106,19 +106,18 @@
                             <td>Salah</td>
                             <td class="text-center">21/10/1992</td>
                             <td class="text-end">
-                                <a href="player-editing.html"
+                                <a href="player.html"
+                                   th:href="@{/player/1}"
                                    class="btn-md btn-outline-secondary"
                                    title="Edit player">
                                     <i class="bi bi-pencil"></i>
-                                    <span class="d-none d-md-inline">&nbsp;Edit</span>
-                                </a>
+                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                <a href="#"
-                                   class="btn-md btn-outline-secondary"
+                                <a href="#" class="btn-md btn-outline-secondary"
                                    title="delete player"><i class="bi bi-trash"></i>
-                        <span class="d-none d-md-inline">&nbsp;Delete</span>
-                    </a>
-                    </span>
+                                <span class="d-none d-md-inline">&nbsp;Delete</span>
+                                </a>
+                                </span>
                             </td>
                         </tr>
                         <tr>
@@ -126,27 +125,26 @@
                             <td>Mane</td>
                             <td class="text-center">05/07/1994</td>
                             <td class="text-end">
-                                <a href="player-editing.html"
+                                <a href="player.html"
+                                   th:href="@{/player/2}"
                                    class="btn-md btn-outline-secondary"
                                    title="Edit player">
                                     <i class="bi bi-pencil"></i>
-                                    <span class="d-none d-md-inline">&nbsp;Edit</span>
-                                </a>
+                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                <a href="#"
-                                   class="btn-md btn-outline-secondary"
+                                <a href="#" class="btn-md btn-outline-secondary"
                                    title="delete player"><i class="bi bi-trash"></i>
                         <span class="d-none d-md-inline">&nbsp;Delete</span>
                     </a>
                     </span>
                             </td>
                         </tr>
-                        <tr>
-                            <td><b>Total: 2</b></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+<!--                        <tr>-->
+<!--                            <td><b>Total: 2</b></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                            <td></td>-->
+<!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>

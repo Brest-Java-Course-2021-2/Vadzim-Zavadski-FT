@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="../../resources/static/css/bootstrap.min.css"
+    <link rel="stylesheet" href="../../resources/static/css/bootstrap.css"
           th:href="@{/resources/static/css/bootstrap.css}">
     <link rel="stylesheet" href="../../resources/static/css/style.css"
           th:href="@{/resources/static/css/style.css}">
@@ -24,16 +23,20 @@
             <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a href="teams.html" class="navbar-brand">
-                <img src="../../resources/static/img/emoji-smile.svg" height="24" width="24" alt=":)"></a>
+            <a href="/" class="navbar-brand">
+                <img src="../../resources/static/img/emoji-smile.svg"
+                     th:src="@{/resources/static/img/emoji-smile.svg}"
+                     height="24" width="24" alt=":)"></a>
             <!--выпадающее меню-->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" href="teams.html">Teams</a>
+                        <a class="nav-link active" href="teams.html"
+                           th:href="@{/teams}">Teams</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="players.html">Players</a>
+                        <a class="nav-link" href="players.html"
+                           th:href="@{/players}">Players</a>
                     </li>
                 </ul>
             </div>
@@ -51,14 +54,7 @@
                        class="btn btn-secondary"
                        title="Add team">
                         <i class="bi bi-plus-square"></i>
-                        </i>&nbsp;<span class="d-none d-sm-inline">Add</span>
-                    </a>
-
-                    <a href="teams.html"
-                       class="btn btn-secondary"
-                       title="Refresh the page">
-                        <i class="bi bi-arrow-repeat"></i>
-                        </i>&nbsp;<span class="d-none d-sm-inline">Refresh</span>
+                        <span class="d-none d-sm-inline">Add</span>
                     </a>
                 </li>
             </ul>
@@ -85,8 +81,8 @@
                             <td th:text="${team.teamName}">Liverpool</td>
                             <td th:text="${team.numberOfPlayers}" class="text-center">2</td>
                             <td class="text-end">
-                                <a href="team-editing.html"
-                                th:href="@{|/team/${team.teamId}|}"
+                                <a href="team.html"
+                                   th:href="@{|/team/${team.teamId}|}"
                                    class="btn-md btn-outline-secondary"
                                    title="Edit team">
                                     <i class="bi bi-pencil"></i>
@@ -104,7 +100,7 @@
                             <td>Arsenal</td>
                             <td class="text-center">2</td>
                             <td class="text-end">
-                                <a href="team-editing.html"
+                                <a href="team.html"
                                    th:href="@{/team/2}"
                                    class="btn-md btn-outline-secondary"
                                    title="Edit team">
@@ -118,11 +114,24 @@
                             </span>
                             </td>
                         </tr>
-
-
-
-
-
+                        <tr th:remove="all">
+                            <td>Arsenal2</td>
+                            <td class="text-center">2</td>
+                            <td class="text-end">
+                                <a href="team.html"
+                                   th:href="@{/team/3}"
+                                   class="btn-md btn-outline-secondary"
+                                   title="Edit team">
+                                    <i class="bi bi-pencil"></i>
+                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
+                                <a href="#" class="btn-md btn-outline-secondary"
+                                   title="delete team"><i class="bi bi-trash"></i><span
+                                        class="d-none d-md-inline">&nbsp;Delete</span>
+                                </a>
+                            </span>
+                            </td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
@@ -151,7 +160,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
-                <button type="button" class="btn btn-danger">Yes</button>
+                <a id="deleteUrl" href="#" class="btn btn-danger">Yes</a>
             </div>
         </div>
     </div>
@@ -159,6 +168,15 @@
 
 <script src="../../resources/static/js/bootstrap.bundle.min.js"
         th:href="@{/resources/static/js/bootstrap.bundle.min.js}"></script>
+<script src="../../resources/static/js/jquery-3.4.1.slim.min.js"
+        th:src="@{/resources/static/js/jquery-3.4.1.slim.min.js}"></script>
+<script>
+    $('#deleteDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Please confirm delete team: "' + target.data('name') + '"')
+        document.getElementById('deleteUrl').href = '/team/' + target.data('id') + '/delete';
+    })
 
+</script>
 </body>
 </html>

@@ -3,6 +3,7 @@ package com.zavadski.web_app;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,10 +21,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.WebApplicationContext;
 
 import static com.zavadski.model.constants.TeamConstants.TEAM_NAME_SIZE;
-import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.allOf;
+import static org.hamcrest.Matchers.hasItem;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.hamcrest.Matchers.is;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
@@ -74,6 +81,7 @@ class TeamControllerIT {
                         )
                 )));
     }
+
     @Test
     void shouldAddTeam() throws Exception {
         // WHEN
@@ -126,5 +134,21 @@ class TeamControllerIT {
         Team team = teamService.getTeamById(1);
         assertNotNull(team);
         assertEquals(testName, team.getTeamName());
+    }
+
+    @Test
+    public void shouldDeleteTeam() throws Exception {
+
+        Integer countBefore = teamService.count();
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/team/3/delete")
+                ).andExpect(status().isFound())
+                .andExpect(view().name("redirect:/teams"))
+                .andExpect(redirectedUrl("/teams"));
+
+        // verify database size
+        Integer countAfter = teamService.count();
+        Assertions.assertEquals(countBefore - 1, countAfter);
     }
 }
