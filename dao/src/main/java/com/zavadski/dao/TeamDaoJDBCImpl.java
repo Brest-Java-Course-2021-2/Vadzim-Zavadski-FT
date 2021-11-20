@@ -3,38 +3,46 @@ package com.zavadski.dao;
 import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.stereotype.Component;
 
-import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-public class TeamDaoJDBCImpl implements TeamDao{
+@Component
+public class TeamDaoJDBCImpl implements TeamDao {
 
     private final Logger LOGGER = LogManager.getLogger(TeamDaoJDBCImpl.class);
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
-    private final String SQL_ALL_TEAMS="select t.team_id, t.team_name from team t order by t.team_name";
-    private final String SQL_TEAM_BY_ID = "select t.team_id, t.team_name from team t " +
-            " where team_id = :teamId";
-    private final String SQL_CHECK_UNIQUE_TEAM_NAME="select count(t.team_name) \" +\n" +
-            "            \"from team t where lower(t.team_name) = lower(:teamName)";
-    private final String SQL_CREATE_TEAM="insert into team(team_name) values(:teamName)";
-    private final String SQL_UPDATE_TEAM_NAME="update team set team_name = :teamName " +
-            "where team_id = :teamId";
-    private final String SQL_DELETE_TEAM_BY_ID = "delete from team where team_id = :teamId";
+    @Value("${SQL_TEAMS_COUNT}")
+    public String sqlTeamCount;
 
-    @Deprecated
-    public TeamDaoJDBCImpl(DataSource dataSource) {
-        this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
-    }
+    @Value("${SQL_ALL_TEAMS}")
+    private String sqlGetAllTeams;
+
+    @Value("${SQL_TEAM_BY_ID}")
+    private String sqlGetTeamById;
+
+    @Value("${SQL_CHECK_UNIQUE_TEAM_NAME}")
+    private String sqlCheckUniqueTeamName;
+
+    @Value("${SQL_CREATE_TEAM}")
+    private String sqlCreateTeam;
+
+    @Value("${SQL_UPDATE_TEAM_NAME}")
+    private String sqlUpdateTeamName;
+
+    @Value("${SQL_DELETE_TEAM_BY_ID}")
+    private String sqlDeleteTeamById;
 
     public TeamDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -43,7 +51,7 @@ public class TeamDaoJDBCImpl implements TeamDao{
     @Override
     public List<Team> findAll() {
         LOGGER.debug("Start: findAll()");
-        return namedParameterJdbcTemplate.query(SQL_ALL_TEAMS, new TeamRowMapper());
+        return namedParameterJdbcTemplate.query(sqlGetAllTeams, new TeamRowMapper());
     }
 
     @Override
@@ -51,7 +59,7 @@ public class TeamDaoJDBCImpl implements TeamDao{
         LOGGER.debug("Get team by id = {}", teamId);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
-        return namedParameterJdbcTemplate.queryForObject(SQL_TEAM_BY_ID, sqlParameterSource, new TeamRowMapper());
+        return namedParameterJdbcTemplate.queryForObject(sqlGetTeamById, sqlParameterSource, new TeamRowMapper());
     }
 
     @Override
@@ -67,14 +75,14 @@ public class TeamDaoJDBCImpl implements TeamDao{
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName().toUpperCase());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(SQL_CREATE_TEAM, sqlParameterSource, keyHolder);
+        namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
     }
 
-    private boolean isTeamUnique(String teamName){
+    private boolean isTeamUnique(String teamName) {
         LOGGER.debug("Check TeamName: {} on unique", teamName);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("teamName", teamName);
-        return namedParameterJdbcTemplate.queryForObject(SQL_CHECK_UNIQUE_TEAM_NAME, sqlParameterSource, Integer.class) == 0;
+        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueTeamName, sqlParameterSource, Integer.class) == 0;
     }
 
     @Override
@@ -83,21 +91,21 @@ public class TeamDaoJDBCImpl implements TeamDao{
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName()).
                         addValue("teamId", team.getTeamId());
-        return namedParameterJdbcTemplate.update(SQL_UPDATE_TEAM_NAME, sqlParameterSource);
+        return namedParameterJdbcTemplate.update(sqlUpdateTeamName, sqlParameterSource);
     }
 
     @Override
     public Integer delete(Integer teamId) {
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
-        return namedParameterJdbcTemplate.update(SQL_DELETE_TEAM_BY_ID, sqlParameterSource);
+        return namedParameterJdbcTemplate.update(sqlDeleteTeamById, sqlParameterSource);
     }
 
     @Override
     public Integer count() {
         LOGGER.debug("count()");
         return namedParameterJdbcTemplate
-                .queryForObject("select count(*) from team", new MapSqlParameterSource(), Integer.class);
+                .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class);
         //TODO: SELECT_COUNT_FROM_TEAM
         //public static final String SELECT_COUNT_FROM_TEAM = "select count(*) from team";
     }
