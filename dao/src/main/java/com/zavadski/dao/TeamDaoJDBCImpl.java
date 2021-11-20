@@ -27,7 +27,7 @@ public class TeamDaoJDBCImpl implements TeamDao{
     private final String SQL_CHECK_UNIQUE_TEAM_NAME="select count(t.team_name) \" +\n" +
             "            \"from team t where lower(t.team_name) = lower(:teamName)";
     private final String SQL_CREATE_TEAM="insert into team(team_name) values(:teamName)";
-    private final String SQL_UPDATE_TEAM_NAME="update team set team_name = :teamName" +
+    private final String SQL_UPDATE_TEAM_NAME="update team set team_name = :teamName " +
             "where team_id = :teamId";
     private final String SQL_DELETE_TEAM_BY_ID = "delete from team where team_id = :teamId";
 

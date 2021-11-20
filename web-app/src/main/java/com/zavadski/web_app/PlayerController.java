@@ -29,7 +29,7 @@ public class PlayerController {
     }
 
     /**
-     * Goto new eplayer page.
+     * Goto new player page.
      *
      * @return view name
      */
