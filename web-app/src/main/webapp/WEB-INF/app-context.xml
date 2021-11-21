@@ -16,7 +16,7 @@
     <mvc:annotation-driven/>
 
     <!-- Component scan for @Controller, @Service... annotations -->
-    <context:component-scan base-package="com.zavadski*"/>
+    <context:component-scan base-package="com.zavadski.*"/>
 
     <import resource="classpath*:test-db.xml"/>
 
@@ -59,6 +59,12 @@
                 <ref bean="templateResolver" />
             </set>
         </property>
+    </bean>
+
+    <bean class="com.zavadski.web_app.MvcMappingExceptionResolver">
+        <property name="defaultErrorView" value="error"/>
+        <property name="exceptionAttribute" value="exception"/>
+        <property name="warnLogCategory" value="warn"/>
     </bean>
 
     <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
