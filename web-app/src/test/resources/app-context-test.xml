@@ -16,7 +16,7 @@
     <mvc:annotation-driven/>
 
     <!-- Component scan for @Controller, @Service... annotations -->
-    <context:component-scan base-package="com.zavadski*"/>
+    <context:component-scan base-package="com.zavadski.*"/>
 
     <import resource="classpath*:test-db.xml"/>
 
@@ -76,4 +76,9 @@
         <property name="characterEncoding" value="UTF-8" />
     </bean>
 
+    <!--    <bean class="com.zavadski.web_app.MvcMappingExceptionResolver">-->
+    <!--        <property name="defaultErrorView" value="error"/>-->
+    <!--        <property name="exceptionAttribute" value="exception"/>-->
+    <!--        <property name="warnLogCategory" value="warn"/>-->
+    <!--    </bean>-->
 </beans>

@@ -40,6 +40,15 @@
         <constructor-arg name="teamDao" ref="teamDao"/>
     </bean>
 
+    <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:test-db.properties</value>
+                <value>classpath*:sql-team.properties</value>
+            </list>
+        </property>
+    </bean>
+
     <!-- Thymeleaf Template Resolver -->
     <bean id="templateResolver"
           class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
@@ -61,11 +70,11 @@
         </property>
     </bean>
 
-    <bean class="com.zavadski.web_app.MvcMappingExceptionResolver">
-        <property name="defaultErrorView" value="error"/>
-        <property name="exceptionAttribute" value="exception"/>
-        <property name="warnLogCategory" value="warn"/>
-    </bean>
+<!--    <bean class="com.zavadski.web_app.MvcMappingExceptionResolver">-->
+<!--        <property name="defaultErrorView" value="error"/>-->
+<!--        <property name="exceptionAttribute" value="exception"/>-->
+<!--        <property name="warnLogCategory" value="warn"/>-->
+<!--    </bean>-->
 
     <!-- Thymeleaf View Resolver - implementation of Spring's ViewResolver interface -->
     <bean id="viewResolver" class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
