@@ -104,6 +104,25 @@ class TeamControllerIT {
         // VERIFY
         assertEquals(teamsSizeBefore, teamService.count() - 1);
     }
+    @Test
+    void shouldFailAddTeamOnEmptyName() throws Exception {
+        // WHEN
+       Team team = new Team("");
+
+        // THEN
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/team")
+                                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                .param("teamName", team.getTeamName())
+                ).andDo(MockMvcResultHandlers.print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("team"))
+                .andExpect(
+                        model().attributeHasFieldErrors(
+                                "team", "teamName"
+                        )
+                );
+    }
 
     @Test
     public void shouldOpenEditTeamPageById() throws Exception {

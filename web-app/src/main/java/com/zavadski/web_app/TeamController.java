@@ -3,10 +3,12 @@ package com.zavadski.web_app;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamDtoService;
 import com.zavadski.service.TeamService;
+import com.zavadski.web_app.validators.TeamValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,10 +22,14 @@ public class TeamController {
 
     private final TeamService teamService;
 
+    private final TeamValidator teamValidator;
+
     public TeamController(TeamDtoService teamDtoService,
-                          TeamService teamService) {
+                          TeamService teamService,
+                          TeamValidator teamValidator) {
         this.teamDtoService = teamDtoService;
         this.teamService = teamService;
+        this.teamValidator = teamValidator;
     }
 
     /**
@@ -70,9 +76,18 @@ public class TeamController {
      * @return view name
      */
     @PostMapping(value = "/team")
-    public String addTeam(Team team) {
+    public String addDepartment(Team team, BindingResult result) {
 
         logger.debug("addTeam({}, {})", team);
+
+        teamValidator.validate(team, result);
+
+        if (result.hasErrors()) {
+            return "team";
+        }
+
+        this.teamService.create(team);
+
         this.teamService.create(team);
         return "redirect:/teams";
     }
@@ -84,9 +99,14 @@ public class TeamController {
      * @return view name
      */
     @PostMapping(value = "/team/{id}")
-    public String updateTeam(Team team) {
+    public String updateTeam(Team team, BindingResult result) {
 
         logger.debug("updateTeam({}, {})", team);
+        teamValidator.validate(team, result);
+
+        if (result.hasErrors()) {
+            return "team";
+        }
         this.teamService.update(team);
         return "redirect:/teams";
     }
