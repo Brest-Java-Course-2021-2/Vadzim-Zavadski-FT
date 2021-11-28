@@ -9,8 +9,8 @@ DROP TABLE IF EXISTS team;
 
 CREATE TABLE player (
     player_id int NOT NULL auto_increment,
-    firstname varchar(255) NOT NULL,
-    surname varchar(255) NOT NULL,
+    first_name varchar(50) NOT NULL,
+    surname varchar(50) NOT NULL,
     birthday date NOT NULL,
     team_id int NOT NULL,
         CONSTRAINT player_pk PRIMARY KEY (player_id),

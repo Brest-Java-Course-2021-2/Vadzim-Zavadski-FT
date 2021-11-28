@@ -7,8 +7,20 @@ public class Player {
     private Integer playerId;
     private String firstName;
     private String surname;
-    private LocalDate dateOfBirthday;
+    private LocalDate birthday;
     private Integer teamId;
+
+    public Player() {
+    }
+
+    public Player(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Player(Integer playerId, String firstName) {
+        this.playerId = playerId;
+        this.firstName = firstName;
+    }
 
     public Integer getPlayerId() {
         return playerId;
@@ -34,12 +46,12 @@ public class Player {
         this.surname = surname;
     }
 
-    public LocalDate getDateOfBirthday() {
-        return dateOfBirthday;
+    public LocalDate getBirthday() {
+        return birthday;
     }
 
-    public void setDateOfBirthday(LocalDate dateOfBirthday) {
-        this.dateOfBirthday = dateOfBirthday;
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
     }
 
     public Integer getTeamId() {
@@ -48,5 +60,16 @@ public class Player {
 
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "playerId=" + playerId +
+                ", firstName='" + firstName + '\'' +
+                ", surname='" + surname + '\'' +
+                ", birthday=" + birthday +
+                ", teamId=" + teamId +
+                '}';
     }
 }

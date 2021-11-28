@@ -16,7 +16,6 @@
 </head>
 
 <body>
-
 <header>
     <nav class="navbar navbar-dark bg-secondary navbar-expand-sm text-light p-1">
         <div class="container-fluid">
@@ -27,7 +26,6 @@
                 <img src="../../resources/static/img/emoji-smile.svg"
                      th:src="@{/resources/static/img/emoji-smile.svg}"
                      height="24" width="24" alt=":)"></a>
-            <!--выпадающее меню-->
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -76,6 +74,7 @@
                             <th></th>
                         </tr>
                         </thead>
+
                         <tbody>
                         <tr th:each="team : ${teams}">
                             <td th:text="${team.teamName}">Liverpool</td>
@@ -90,8 +89,8 @@
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
                                       th:attr="data-id=${team.teamId},data-name=${team.teamName}">
                                 <a href="#" class="btn-md btn-outline-secondary"
-                                   title="delete team"><i class="bi bi-trash"></i><span
-                                        class="d-none d-md-inline">&nbsp;Delete</span>
+                                   title="delete team"><i class="bi bi-trash"></i>
+                                    <span class="d-none d-md-inline">&nbsp;Delete</span>
                                 </a>
                             </span>
                             </td>

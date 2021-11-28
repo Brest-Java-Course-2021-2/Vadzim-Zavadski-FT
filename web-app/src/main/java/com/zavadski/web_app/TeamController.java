@@ -76,7 +76,7 @@ public class TeamController {
      * @return view name
      */
     @PostMapping(value = "/team")
-    public String addDepartment(Team team, BindingResult result) {
+    public String addTeam(Team team, BindingResult result) {
 
         logger.debug("addTeam({}, {})", team);
 
@@ -85,8 +85,6 @@ public class TeamController {
         if (result.hasErrors()) {
             return "team";
         }
-
-        this.teamService.create(team);
 
         this.teamService.create(team);
         return "redirect:/teams";
