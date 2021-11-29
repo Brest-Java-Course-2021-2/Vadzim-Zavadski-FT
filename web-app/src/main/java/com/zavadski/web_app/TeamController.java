@@ -77,15 +77,11 @@ public class TeamController {
      */
     @PostMapping(value = "/team")
     public String addTeam(Team team, BindingResult result) {
-
         logger.debug("addTeam({}, {})", team);
-
         teamValidator.validate(team, result);
-
         if (result.hasErrors()) {
             return "team";
         }
-
         this.teamService.create(team);
         return "redirect:/teams";
     }

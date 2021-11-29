@@ -35,8 +35,8 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     @Value("${SQL_CREATE_PLAYER}")
     private String sqlCreatePlayer;
 
-    @Value("${SQL_UPDATE_PLAYER_NAME}")
-    private String sqlUpdatePlayerName;
+    @Value("${SQL_UPDATE_PLAYER}")
+    private String sqlUpdatePlayer;
 
     @Value("${SQL_DELETE_PLAYER_BY_ID}")
     private String sqlDeletePlayerById;
@@ -70,7 +70,9 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         }
 
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("firstName", player.getFirstName().toUpperCase());
+                new MapSqlParameterSource("firstName", player.getFirstName().toUpperCase()).
+                        addValue("surname", player.getSurname()).
+                        addValue("birthday", player.getBirthday());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sqlCreatePlayer, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
@@ -86,9 +88,11 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     public Integer update(Player player) {
         LOGGER.debug("Update player: create({})", player);
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("firstName", player.getFirstName()).
-                        addValue("playerId", player.getPlayerId());
-        return namedParameterJdbcTemplate.update(sqlUpdatePlayerName, sqlParameterSource);
+                new MapSqlParameterSource("firstName", player.getPlayerId()).
+                        addValue("playerId", player.getFirstName()).
+                        addValue("birthday", player.getSurname()).
+                        addValue("surname", player.getBirthday());
+        return namedParameterJdbcTemplate.update(sqlUpdatePlayer, sqlParameterSource);
     }
 
     @Override
@@ -105,8 +109,9 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
             Player player = new Player();
             player.setPlayerId(resultSet.getInt("player_id"));
             player.setFirstName(resultSet.getString("first_name"));
+            player.setSurname(resultSet.getString("surname"));
+            player.setBirthday(resultSet.getDate("birthday"));
             return player;
         }
     }
-
 }

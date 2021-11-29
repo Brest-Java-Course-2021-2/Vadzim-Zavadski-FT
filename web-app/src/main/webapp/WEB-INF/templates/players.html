@@ -99,7 +99,7 @@
                         <thead class="table-secondary">
                         <tr>
                             <th class="text-uppercase">Name</th>
-                            <th class="text-uppercase">Surname</th>
+                            <th class="text-uppercase text-center">Surname</th>
                             <th class="text-center text-uppercase">Birthday</th>
                             <th></th>
                         </tr>
@@ -116,12 +116,12 @@
                                    class="btn-md btn-outline-secondary"
                                    title="Edit player">
                                     <i class="bi bi-pencil"></i>
-                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>
+                                    <span class="d-none d-md-inline">Edit</span></a>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
                                       th:attr="data-id=${player.playerId},data-name=${player.firstName}">
                                 <a href="#" class="btn-md btn-outline-secondary"
                                    title="delete player"><i class="bi bi-trash"></i>
-                                    <span class="d-none d-md-inline">&nbsp;Delete</span>
+                                    <span class="d-none d-md-inline">Delete</span>
                                 </a>
                                 </span>
                             </td>

@@ -68,29 +68,53 @@
                                    type="hidden"
                                    th:field="*{playerId}"/>
 
-<!--                            <div class="mb-3">-->
-<!--                                <label class="form-label"-->
-<!--                                       for="field_teamName"-->
-<!--                                       th:field="*{teamName}">Team Name</label>-->
-<!--                                <select class="form-control" id="field_teamName">-->
-<!--                                    <option value="0">Liverpool</option>-->
-<!--                                    <option value="1">Arsenal</option>-->
-<!--                                    <option value="2">Chelsea</option>-->
-<!--                                    <option value="3">Manchester United</option>-->
-<!--                                </select>-->
-<!--                            </div>-->
+                            <!--                            <div class="mb-3">-->
+                            <!--                                <label class="form-label"-->
+                            <!--                                       for="field_teamName"-->
+                            <!--                                       th:field="*{teamName}">Team Name</label>-->
+                            <!--                                <select class="form-control" id="field_teamName">-->
+                            <!--                                    <option value="0">Liverpool</option>-->
+                            <!--                                    <option value="1">Arsenal</option>-->
+                            <!--                                    <option value="2">Chelsea</option>-->
+                            <!--                                    <option value="3">Manchester United</option>-->
+                            <!--                                </select>-->
+                            <!--                            </div>-->
 
                             <div class="mb-3">
+
                                 <label class="form-label"
                                        for="field_firstName">Player Name</label>
                                 <input class="form-control"
                                        id="field_firstName"
                                        type="text" value="Garet"
                                        th:field="*{firstName}"/>
-                                <div th:if="${#fields.hasErrors('firstName')}"
-                                     class="text-danger"
-                                     th:errors="*{firstName}">[errors]
-                                </div>
+                                <!--                                <div th:if="${#fields.hasErrors('firstName')}"-->
+                                <!--                                     class="text-danger"-->
+                                <!--                                     th:errors="*{firstName}">[errors]-->
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_surname">Surname</label>
+                                <input class="form-control"
+                                       id="field_surname"
+                                       type="text" value="Bale"
+                                       th:field="*{surname}"/>
+                                <!--                                <div th:if="${#fields.hasErrors('surname')}"-->
+                                <!--                                     class="text-danger"-->
+                                <!--                                     th:errors="*{surname}">[errors]-->
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_birthday">Birthday</label>
+                                <input class="form-control"
+                                       id="field_birthday"
+                                       type="text" value="1991-01-10"
+                                       th:field="*{birthday}"/>
+                                <!--                                <div th:if="${#fields.hasErrors('surname')}"-->
+                                <!--                                     class="text-danger"-->
+                                <!--                                     th:errors="*{surname}">[errors]-->
                             </div>
 
                             <div class="d-flex justify-content-end">

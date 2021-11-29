@@ -67,18 +67,16 @@ public class PlayerController {
     /**
      * Persist new player into persistence storage.
      *
-     * @param player new team with filled data.
+     * @param player new player with filled data.
      * @return view name
      */
     @PostMapping(value = "/player")
     public String addPlayer(Player player, BindingResult result) {
-
         logger.debug("addPlayer({}, {})", player);
         playerValidator.validate(player, result);
         if (result.hasErrors()) {
             return "player";
         }
-
         this.playerService.create(player);
         return "redirect:/players";
     }

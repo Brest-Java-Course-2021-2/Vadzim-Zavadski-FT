@@ -1,13 +1,19 @@
 package com.zavadski.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Player {
 
+//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+
     private Integer playerId;
     private String firstName;
     private String surname;
-    private LocalDate birthday;
+    private Date birthday;
     private Integer teamId;
 
     public Player() {
@@ -46,11 +52,11 @@ public class Player {
         this.surname = surname;
     }
 
-    public LocalDate getBirthday() {
+    public Date getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(LocalDate birthday) {
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
