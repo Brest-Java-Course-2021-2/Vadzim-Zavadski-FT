@@ -117,17 +117,17 @@
                                    title="Save player">Save</a>
                             </div>
 
-                            <div class="mb-3">
-                                <label class="form-label"
-                                       for="field_teamId"> Team</label>
-                                <select class="form-control"
-                                        id="field_teamId"
-                                        th:field="*{teamId}">
-                                    <option th:each="team : ${teams}"
-                                            th:value="${team.teamId}"
-                                            th:text="${team.teamName}"></option>
-                                </select>
-                            </div>
+<!--                            <div class="mb-3">-->
+<!--                                <label class="form-label"-->
+<!--                                       for="field_teamId"> Team</label>-->
+<!--                                <select class="form-control"-->
+<!--                                        id="field_teamId"-->
+<!--                                        th:field="*{teamId}">-->
+<!--                                    <option th:each="team : ${teams}"-->
+<!--                                            th:value="${team.teamId}"-->
+<!--                                            th:text="${team.teamName}"></option>-->
+<!--                                </select>-->
+<!--                            </div>-->
 
                         </form>
                     </div>

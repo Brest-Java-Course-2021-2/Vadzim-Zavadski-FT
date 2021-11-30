@@ -8,7 +8,7 @@ import java.time.LocalDate;
 
 public class Player {
 
-//    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
 
     private Integer playerId;
     private String firstName;

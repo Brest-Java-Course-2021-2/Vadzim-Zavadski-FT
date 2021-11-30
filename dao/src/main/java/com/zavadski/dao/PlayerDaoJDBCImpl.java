@@ -90,10 +90,10 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     public Integer update(Player player) {
         LOGGER.debug("Update player: update({})", player);
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("firstName", player.getPlayerId()).
-                        addValue("playerId", player.getFirstName()).
-                        addValue("birthday", player.getSurname()).
-                        addValue("surname", player.getBirthday());
+                new MapSqlParameterSource("firstName", player.getFirstName()).
+                        addValue("surname", player.getSurname()).
+                        addValue("birthday", player.getBirthday()).
+                        addValue("playerId", player.getPlayerId());
         return namedParameterJdbcTemplate.update(sqlUpdatePlayer, sqlParameterSource);
     }
 
