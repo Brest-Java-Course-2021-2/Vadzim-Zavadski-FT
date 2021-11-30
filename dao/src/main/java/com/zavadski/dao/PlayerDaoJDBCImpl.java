@@ -1,9 +1,11 @@
 package com.zavadski.dao;
 
 import com.zavadski.model.Player;
+import com.zavadski.model.dto.TeamDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -70,7 +72,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         }
 
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("firstName", player.getFirstName().toUpperCase()).
+                new MapSqlParameterSource("firstName", player.getFirstName()).
                         addValue("surname", player.getSurname()).
                         addValue("birthday", player.getBirthday());
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -86,7 +88,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public Integer update(Player player) {
-        LOGGER.debug("Update player: create({})", player);
+        LOGGER.debug("Update player: update({})", player);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", player.getPlayerId()).
                         addValue("playerId", player.getFirstName()).

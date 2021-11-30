@@ -73,7 +73,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
         }
 
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("teamName", team.getTeamName().toUpperCase());
+                new MapSqlParameterSource("teamName", team.getTeamName());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
@@ -87,7 +87,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer update(Team team) {
-        LOGGER.debug("Update team: create({})", team);
+        LOGGER.debug("Update team: update({})", team);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName()).
                         addValue("teamId", team.getTeamId());
@@ -106,8 +106,6 @@ public class TeamDaoJDBCImpl implements TeamDao {
         LOGGER.debug("count()");
         return namedParameterJdbcTemplate
                 .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class);
-        //TODO: SELECT_COUNT_FROM_TEAM
-        //public static final String SELECT_COUNT_FROM_TEAM = "select count(*) from team";
     }
 
     private class TeamRowMapper implements RowMapper<Team> {

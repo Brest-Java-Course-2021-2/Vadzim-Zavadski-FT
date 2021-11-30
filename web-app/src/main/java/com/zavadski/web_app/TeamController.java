@@ -94,10 +94,8 @@ public class TeamController {
      */
     @PostMapping(value = "/team/{id}")
     public String updateTeam(Team team, BindingResult result) {
-
         logger.debug("updateTeam({}, {})", team);
         teamValidator.validate(team, result);
-
         if (result.hasErrors()) {
             return "team";
         }
@@ -112,7 +110,6 @@ public class TeamController {
      */
     @GetMapping(value = "/team/{id}/delete")
     public final String deleteTeamById(@PathVariable Integer id, Model model) {
-
         logger.debug("delete({},{})", id, model);
         teamService.delete(id);
         return "redirect:/teams";

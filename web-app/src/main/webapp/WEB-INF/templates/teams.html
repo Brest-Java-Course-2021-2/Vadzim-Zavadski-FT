@@ -159,7 +159,8 @@
                 Please confirm delete
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <a href="teams.html"
+                   th:href="@{/teams}" class="btn btn-secondary">No</a>
                 <a id="deleteUrl" href="#" class="btn btn-danger">Yes</a>
             </div>
         </div>
@@ -176,10 +177,6 @@
         $(this).find('.modal-body').text('Please confirm delete team: "' + target.data('name') + '"')
         document.getElementById('deleteUrl').href = '/team/' + target.data('id') + '/delete';
     })
-
-
-
-
 </script>
 </body>
 </html>

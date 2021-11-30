@@ -68,18 +68,6 @@
                                    type="hidden"
                                    th:field="*{playerId}"/>
 
-                            <!--                            <div class="mb-3">-->
-                            <!--                                <label class="form-label"-->
-                            <!--                                       for="field_teamName"-->
-                            <!--                                       th:field="*{teamName}">Team Name</label>-->
-                            <!--                                <select class="form-control" id="field_teamName">-->
-                            <!--                                    <option value="0">Liverpool</option>-->
-                            <!--                                    <option value="1">Arsenal</option>-->
-                            <!--                                    <option value="2">Chelsea</option>-->
-                            <!--                                    <option value="3">Manchester United</option>-->
-                            <!--                                </select>-->
-                            <!--                            </div>-->
-
                             <div class="mb-3">
 
                                 <label class="form-label"
@@ -127,6 +115,18 @@
                                    th:onclick="@{document.forms['playerForm'].submit(); return false;}"
                                    class="btn btn-primary"
                                    title="Save player">Save</a>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                       for="field_teamId"> Team</label>
+                                <select class="form-control"
+                                        id="field_teamId"
+                                        th:field="*{teamId}">
+                                    <option th:each="team : ${teams}"
+                                            th:value="${team.teamId}"
+                                            th:text="${team.teamName}"></option>
+                                </select>
                             </div>
 
                         </form>
