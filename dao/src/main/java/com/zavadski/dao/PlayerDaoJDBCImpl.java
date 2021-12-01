@@ -1,12 +1,13 @@
 package com.zavadski.dao;
 
 import com.zavadski.model.Player;
-import com.zavadski.model.dto.TeamDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class PlayerDaoJDBCImpl implements PlayerDao {
@@ -43,6 +45,9 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     @Value("${SQL_DELETE_PLAYER_BY_ID}")
     private String sqlDeletePlayerById;
 
+    @Value("${SQL_FIND_BY_ID}")
+    private String sqlFindById;
+
     public PlayerDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
@@ -62,19 +67,24 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
+    public Optional<Player> findById(Integer playerId) {
+
+        LOGGER.debug("findById(playerId:{})", playerId);
+        SqlParameterSource namedParameters = new MapSqlParameterSource("playerId", playerId);
+        List<Player> results = namedParameterJdbcTemplate.query(sqlFindById, namedParameters,
+                BeanPropertyRowMapper.newInstance(Player.class));
+        return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
+    }
+
+    @Override
     public Integer create(Player player) {
         LOGGER.debug("Create player: create({})", player);
-
-        //TODO: isPlayerUnique throw new IllegalArgumentException
-        if (!isPlayerUnique(player.getFirstName())) {
-            LOGGER.warn("Player with the same name {} already exists.", player.getFirstName());
-            throw new IllegalArgumentException("Player with the same name already exists in DB.");
-        }
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", player.getFirstName()).
                         addValue("surname", player.getSurname()).
-                        addValue("birthday", player.getBirthday());
+                        addValue("birthday", player.getBirthday()).
+                        addValue("teamId", player.getTeamId());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         namedParameterJdbcTemplate.update(sqlCreatePlayer, sqlParameterSource, keyHolder);
         return (Integer) keyHolder.getKey();
@@ -93,9 +103,8 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
                 new MapSqlParameterSource("firstName", player.getFirstName()).
                         addValue("surname", player.getSurname()).
                         addValue("birthday", player.getBirthday()).
-                        addValue("playerId", player.getPlayerId());
-        return namedParameterJdbcTemplate.update(sqlUpdatePlayer, sqlParameterSource);
-    }
+                        addValue("teamId", player.getTeamId());
+        return namedParameterJdbcTemplate.update(sqlUpdatePlayer, sqlParameterSource);    }
 
     @Override
     public Integer delete(Integer playerId) {

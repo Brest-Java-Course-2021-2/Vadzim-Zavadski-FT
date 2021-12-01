@@ -3,6 +3,7 @@ package com.zavadski.dao;
 import com.zavadski.model.Player;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PlayerDao {
 
@@ -13,12 +14,15 @@ public interface PlayerDao {
      */
     List<Player> findAll();
 
+    Optional<Player> findById(Integer playerId);
+
     /**
      * Get player by Id.
      *
      * @param playerId player Id.
      * @return player.
      */
+
     Player getPlayerById(Integer playerId);
 
     Integer create(Player player);

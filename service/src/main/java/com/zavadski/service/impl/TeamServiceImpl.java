@@ -1,12 +1,15 @@
 package com.zavadski.service.impl;
 
 import com.zavadski.dao.TeamDao;
+import com.zavadski.model.Player;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class TeamServiceImpl implements TeamService {
@@ -17,6 +20,13 @@ public class TeamServiceImpl implements TeamService {
 
     public TeamServiceImpl(TeamDao teamDao) {
         this.teamDao = teamDao;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Team> findAll() {
+        logger.debug("Service method called to find all Team");
+        return teamDao.findAll();
     }
 
     @Override

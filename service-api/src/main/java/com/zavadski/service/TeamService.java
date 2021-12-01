@@ -2,7 +2,11 @@ package com.zavadski.service;
 
 import com.zavadski.model.Team;
 
+import java.util.List;
+
 public interface TeamService {
+
+    List<Team> findAll();
 
     Team getTeamById(Integer teamId);
 

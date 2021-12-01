@@ -42,7 +42,6 @@
     </nav>
 
 
-
     <nav id="main-header"
          class="py-1 mb-3 navbar navbar-light bg-primary text-dark">
         <div class="container-fluid">
@@ -127,31 +126,31 @@
                             </td>
                         </tr>
 
-<!--                        <tr th:remove="all">-->
-<!--                            <td>Sadio</td>-->
-<!--                            <td>Mane</td>-->
-<!--                            <td class="text-center">05/07/1994</td>-->
-<!--                            <td class="text-end">-->
-<!--                                <a href="player.html"-->
-<!--                                   th:href="@{/player/2}"-->
-<!--                                   class="btn-md btn-outline-secondary"-->
-<!--                                   title="Edit player">-->
-<!--                                    <i class="bi bi-pencil"></i>-->
-<!--                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>-->
-<!--                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">-->
-<!--                                <a href="#" class="btn-md btn-outline-secondary"-->
-<!--                                   title="delete player"><i class="bi bi-trash"></i>-->
-<!--                        <span class="d-none d-md-inline">&nbsp;Delete</span>-->
-<!--                    </a>-->
-<!--                    </span>-->
-<!--                            </td>-->
-<!--                        </tr>-->
-<!--                        <tr>-->
-<!--                            <td><b>Total: 2</b></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
+                        <!--                        <tr th:remove="all">-->
+                        <!--                            <td>Sadio</td>-->
+                        <!--                            <td>Mane</td>-->
+                        <!--                            <td class="text-center">05/07/1994</td>-->
+                        <!--                            <td class="text-end">-->
+                        <!--                                <a href="player.html"-->
+                        <!--                                   th:href="@{/player/2}"-->
+                        <!--                                   class="btn-md btn-outline-secondary"-->
+                        <!--                                   title="Edit player">-->
+                        <!--                                    <i class="bi bi-pencil"></i>-->
+                        <!--                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>-->
+                        <!--                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">-->
+                        <!--                                <a href="#" class="btn-md btn-outline-secondary"-->
+                        <!--                                   title="delete player"><i class="bi bi-trash"></i>-->
+                        <!--                        <span class="d-none d-md-inline">&nbsp;Delete</span>-->
+                        <!--                    </a>-->
+                        <!--                    </span>-->
+                        <!--                            </td>-->
+                        <!--                        </tr>-->
+                        <!--                        <tr>-->
+                        <!--                            <td><b>Total: 2</b></td>-->
+                        <!--                            <td></td>-->
+                        <!--                            <td></td>-->
+                        <!--                            <td></td>-->
+                        <!--                        </tr>-->
                         </tbody>
                     </table>
                 </div>
@@ -195,6 +194,7 @@
         $(this).find('.modal-body').text('Please confirm delete player: "' + target.data('name') + '"')
         document.getElementById('deleteUrl').href = '/player/' + target.data('id') + '/delete';
     })
+
 
 </script>
 </body>

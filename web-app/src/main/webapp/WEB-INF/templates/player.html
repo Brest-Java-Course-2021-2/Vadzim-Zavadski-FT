@@ -38,14 +38,13 @@
             </div>
         </div>
     </nav>
-
-    <nav id="main-header"
-         class="py-1 mb-3 navbar navbar-light bg-primary text-dark">
-        <div class="container-fluid">
-             <span class="navbar-brand text-uppercase me-auto"
-                   th:text="${isNew} ? 'New player' : 'Edit player'">Edit player</span>
-        </div>
-    </nav>
+<!--    <nav id="main-header"-->
+<!--         class="py-1 mb-3 navbar navbar-light bg-primary text-dark">-->
+<!--        <div class="container-fluid">-->
+<!--             <span class="navbar-brand text-uppercase me-auto"-->
+<!--                   th:text="${isNew} ? 'New player' : 'Edit player'">Edit player</span>-->
+<!--        </div>-->
+<!--    </nav>-->
 </header>
 
 <section id="player">
@@ -76,9 +75,10 @@
                                        id="field_firstName"
                                        type="text" value="Garet"
                                        th:field="*{firstName}"/>
-                                <!--                                <div th:if="${#fields.hasErrors('firstName')}"-->
-                                <!--                                     class="text-danger"-->
-                                <!--                                     th:errors="*{firstName}">[errors]-->
+                                <div th:if="${#fields.hasErrors('firstName')}"
+                                     class="text-danger"
+                                     th:errors="*{firstName}">[errors]
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -88,9 +88,10 @@
                                        id="field_surname"
                                        type="text" value="Bale"
                                        th:field="*{surname}"/>
-                                <!--                                <div th:if="${#fields.hasErrors('surname')}"-->
-                                <!--                                     class="text-danger"-->
-                                <!--                                     th:errors="*{surname}">[errors]-->
+                                <div th:if="${#fields.hasErrors('surname')}"
+                                     class="text-danger"
+                                     th:errors="*{surname}">[errors]
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -100,9 +101,19 @@
                                        id="field_birthday"
                                        type="text" value="1991-01-10"
                                        th:field="*{birthday}"/>
-                                <!--                                <div th:if="${#fields.hasErrors('surname')}"-->
-                                <!--                                     class="text-danger"-->
-                                <!--                                     th:errors="*{surname}">[errors]-->
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-control-label"
+                                       for="field_team">Team</label>
+                                <select class="form-control"
+                                        id="field_team"
+                                        th:field="*{teamId}">
+                                    <option th:each="team : ${teams}"
+                                            th:value="${team.teamId}"
+                                            th:text="${team.teamName}">
+                                    </option>
+                                </select>
                             </div>
 
                             <div class="d-flex justify-content-end">
@@ -116,18 +127,6 @@
                                    class="btn btn-primary"
                                    title="Save player">Save</a>
                             </div>
-
-<!--                            <div class="mb-3">-->
-<!--                                <label class="form-label"-->
-<!--                                       for="field_teamId"> Team</label>-->
-<!--                                <select class="form-control"-->
-<!--                                        id="field_teamId"-->
-<!--                                        th:field="*{teamId}">-->
-<!--                                    <option th:each="team : ${teams}"-->
-<!--                                            th:value="${team.teamId}"-->
-<!--                                            th:text="${team.teamName}"></option>-->
-<!--                                </select>-->
-<!--                            </div>-->
 
                         </form>
                     </div>
