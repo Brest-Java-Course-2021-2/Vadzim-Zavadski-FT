@@ -12,9 +12,9 @@ public interface PlayerDao {
      *
      * @return players list.
      */
-    List<Player> findAll();
+    List<Player> findAllPlayers();
 
-    Optional<Player> findById(Integer playerId);
+    Optional<Player> findPlayerById(Integer playerId);
 
     /**
      * Get player by Id.

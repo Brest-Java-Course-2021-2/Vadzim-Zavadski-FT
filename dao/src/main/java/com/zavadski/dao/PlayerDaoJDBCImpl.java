@@ -45,15 +45,12 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     @Value("${SQL_DELETE_PLAYER_BY_ID}")
     private String sqlDeletePlayerById;
 
-    @Value("${SQL_FIND_BY_ID}")
-    private String sqlFindById;
-
     public PlayerDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
-    public List<Player> findAll() {
+    public List<Player> findAllPlayers() {
         LOGGER.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(sqlGetAllPlayers, new PlayerRowMapper());
     }
@@ -67,11 +64,11 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
-    public Optional<Player> findById(Integer playerId) {
+    public Optional<Player> findPlayerById(Integer playerId) {
 
         LOGGER.debug("findById(playerId:{})", playerId);
         SqlParameterSource namedParameters = new MapSqlParameterSource("playerId", playerId);
-        List<Player> results = namedParameterJdbcTemplate.query(sqlFindById, namedParameters,
+        List<Player> results = namedParameterJdbcTemplate.query(sqlGetPlayerById, namedParameters,
                 BeanPropertyRowMapper.newInstance(Player.class));
         return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
     }
@@ -100,11 +97,13 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     public Integer update(Player player) {
         LOGGER.debug("Update player: update({})", player);
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("firstName", player.getFirstName()).
+                new MapSqlParameterSource("playerId", player.getPlayerId()).
+                        addValue("firstName", player.getFirstName()).
                         addValue("surname", player.getSurname()).
                         addValue("birthday", player.getBirthday()).
                         addValue("teamId", player.getTeamId());
-        return namedParameterJdbcTemplate.update(sqlUpdatePlayer, sqlParameterSource);    }
+        return namedParameterJdbcTemplate.update(sqlUpdatePlayer, sqlParameterSource);
+    }
 
     @Override
     public Integer delete(Integer playerId) {

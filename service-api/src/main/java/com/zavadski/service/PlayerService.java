@@ -7,11 +7,9 @@ import java.util.Optional;
 
 public interface PlayerService {
 
-    List<Player> findAll();
+    List<Player> findAllPlayers();
 
-    Optional<Player> findById(Integer playerId);
-
-    Player getPlayerById(Integer playerId);
+    Optional<Player> getPlayerById(Integer playerId);
 
     Integer create(Player player);
 

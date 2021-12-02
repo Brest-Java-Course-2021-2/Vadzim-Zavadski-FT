@@ -24,39 +24,33 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Player> findAll() {
+    public List<Player> findAllPlayers() {
         logger.debug("Service method called to find all Player");
-        return playerDao.findAll();
+        return playerDao.findAllPlayers();
     }
 
     @Override
-    public Optional<Player> findById(Integer playerId) {
+    public Optional<Player> getPlayerById(Integer playerId) {
         logger.debug("findById(id:{})", playerId);
-        return playerDao.findById(playerId);
-    }
-
-    @Override
-    public Player getPlayerById(Integer playerId) {
-        logger.debug("Get player by id = {}", playerId);
-        return this.playerDao.getPlayerById(playerId);
+        return playerDao.findPlayerById(playerId);
     }
 
     @Override
     public Integer create(Player player) {
         logger.debug("create({})", player);
-        return this.playerDao.create(player);
+        return playerDao.create(player);
     }
 
     @Override
     public Integer update(Player player) {
         logger.debug("update({})", player);
-        return this.playerDao.update(player);
+        return playerDao.update(player);
     }
 
     @Override
     public Integer delete(Integer playerId) {
         logger.debug("delete player with id = {}", playerId);
-        return this.playerDao.delete(playerId);
+        return playerDao.delete(playerId);
     }
 
 }

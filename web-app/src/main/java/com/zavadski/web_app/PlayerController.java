@@ -6,7 +6,6 @@ import com.zavadski.service.TeamService;
 import com.zavadski.web_app.validators.PlayerValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -29,8 +28,8 @@ public class PlayerController {
     public PlayerController(TeamService teamService,
                             PlayerService playerService,
                             PlayerValidator playerValidator) {
-        this.playerService = playerService;
         this.teamService = teamService;
+        this.playerService = playerService;
         this.playerValidator = playerValidator;
     }
 
@@ -41,7 +40,7 @@ public class PlayerController {
      */
     @GetMapping(value = "/players")
     public final String players(Model model) {
-        model.addAttribute("players", playerService.findAll());
+        model.addAttribute("players", playerService.findAllPlayers());
         return "players";
     }
 
@@ -53,11 +52,11 @@ public class PlayerController {
     @GetMapping(value = "/player/{id}")
     public final String gotoEditPlayerPage(@PathVariable Integer id, Model model) {
         logger.debug("gotoEditPlayerPage(id:{},model:{})", id, model);
-        Optional<Player> optionalPlayer = playerService.findById(id);
+        Optional<Player> optionalPlayer = playerService.getPlayerById(id);
         if (optionalPlayer.isPresent()) {
             model.addAttribute("isNew", false);
             model.addAttribute("player", optionalPlayer.get());
-            model.addAttribute("teams", teamService.findAll());
+            model.addAttribute("teams", teamService.findAllTeams());
             return "player";
         } else {
             return "redirect:players";
@@ -73,8 +72,8 @@ public class PlayerController {
     public final String gotoAddPlayerPage(Model model) {
         logger.debug("gotoAddPlayerPage({})", model);
         model.addAttribute("isNew", true);
-        model.addAttribute("player", new Player());
-        model.addAttribute("teams", teamService.findAll());
+        model.addAttribute("player", new Player().setTeamId(0));
+        model.addAttribute("teams", teamService.findAllTeams());
         return "player";
     }
 
@@ -90,15 +89,16 @@ public class PlayerController {
         playerValidator.validate(player, result);
         if (result.hasErrors()) {
             return "player";
+        } else {
+            this.playerService.create(player);
+            return "redirect:/players";
         }
-        this.playerService.create(player);
-        return "redirect:/players";
     }
 
     /**
      * Update player.
      *
-     * @param player team with filled data.
+     * @param player player with filled data.
      * @return view name
      */
     @PostMapping(value = "/player/{id}")
@@ -107,9 +107,10 @@ public class PlayerController {
         playerValidator.validate(player, result);
         if (result.hasErrors()) {
             return "player";
-        }
+        } else {
             this.playerService.update(player);
             return "redirect:/players";
+        }
     }
 
     /**

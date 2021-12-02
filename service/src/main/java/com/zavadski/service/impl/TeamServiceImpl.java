@@ -24,7 +24,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Team> findAll() {
+    public List<Team> findAllTeams() {
         logger.debug("Service method called to find all Team");
         return teamDao.findAll();
     }

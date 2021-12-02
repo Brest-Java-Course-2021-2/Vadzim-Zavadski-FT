@@ -3,7 +3,6 @@ package com.zavadski.model;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 public class Player {
 
@@ -63,8 +62,9 @@ public class Player {
         return teamId;
     }
 
-    public void setTeamId(Integer teamId) {
+    public Player setTeamId(Integer teamId) {
         this.teamId = teamId;
+        return this;
     }
 
     @Override
@@ -77,4 +77,5 @@ public class Player {
                 ", teamId=" + teamId +
                 '}';
     }
+
 }
