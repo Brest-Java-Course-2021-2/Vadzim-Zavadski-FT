@@ -1,5 +1,7 @@
 package com.zavadski.model.dto;
 
+import java.math.BigDecimal;
+
 /**
  * POJO Team for model.
  */
@@ -19,6 +21,16 @@ public class TeamDto {
      * Number of Players in Team.
      */
     private Integer numberOfPlayers;
+
+    private Double avgAge;
+
+    public Double getAvgAge() {
+        return avgAge;
+    }
+
+    public void setAvgAge(final Double avgAge) {
+        this.avgAge = avgAge;
+    }
 
     /**
      * Constructor without arguments.
@@ -100,6 +112,7 @@ public class TeamDto {
                 "teamId=" + teamId +
                 ", teamName='" + teamName + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
+                ", avgAge=" + avgAge +
                 '}';
     }
 }

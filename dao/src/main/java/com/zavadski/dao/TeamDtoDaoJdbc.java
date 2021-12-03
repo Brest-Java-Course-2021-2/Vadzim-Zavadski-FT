@@ -16,7 +16,7 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 @Value("${findAllWithNumberOfPlayersSql}")
-    private String findAllWithNumberOfPlayersSql;
+private String findAllWithNumberOfPlayersSql;
 
     public TeamDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -28,4 +28,5 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
                 BeanPropertyRowMapper.newInstance(TeamDto.class));
         return teams;
     }
+
 }

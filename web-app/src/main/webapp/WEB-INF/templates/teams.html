@@ -71,6 +71,7 @@
                         <tr>
                             <th class="text-uppercase">Name</th>
                             <th class="text-center text-uppercase">Number of players</th>
+                            <th class="text-center text-uppercase">Average age</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -79,6 +80,7 @@
                         <tr th:each="team : ${teams}">
                             <td th:text="${team.teamName}">Liverpool</td>
                             <td th:text="${team.numberOfPlayers}" class="text-center">2</td>
+                            <td th:text="${team.avgAge}" class="text-center"></td>
                             <td class="text-end">
                                 <a href="team.html"
                                    th:href="@{|/team/${team.teamId}|}"

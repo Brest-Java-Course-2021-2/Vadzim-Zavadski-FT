@@ -22,4 +22,5 @@ public class TeamDtoServiceImpl implements TeamDtoService {
     public List<TeamDto> findAllWithNumberOfPlayers() {
         return teamDtoDao.findAllWithNumberOfPlayers();
     }
+
 }
