@@ -77,5 +77,4 @@ public class Player {
                 ", teamId=" + teamId +
                 '}';
     }
-
 }

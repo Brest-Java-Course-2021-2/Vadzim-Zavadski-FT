@@ -1,7 +1,5 @@
 package com.zavadski.model.dto;
 
-import java.math.BigDecimal;
-
 /**
  * POJO Team for model.
  */

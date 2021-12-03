@@ -52,5 +52,4 @@ public class PlayerServiceImpl implements PlayerService {
         logger.debug("delete player with id = {}", playerId);
         return playerDao.delete(playerId);
     }
-
 }

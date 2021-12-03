@@ -28,5 +28,4 @@ private String findAllWithNumberOfPlayersSql;
                 BeanPropertyRowMapper.newInstance(TeamDto.class));
         return teams;
     }
-
 }
