@@ -22,7 +22,7 @@ import java.util.Optional;
 @Component
 public class PlayerDaoJDBCImpl implements PlayerDao {
 
-    private final Logger LOGGER = LogManager.getLogger(PlayerDaoJDBCImpl.class);
+    private final Logger logger = LogManager.getLogger(PlayerDaoJDBCImpl.class);
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -50,13 +50,13 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public List<Player> findAllPlayers() {
-        LOGGER.debug("Start: findAll()");
+        logger.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(sqlGetAllPlayers, new PlayerRowMapper());
     }
 
     @Override
     public Player getPlayerById(Integer playerId) {
-        LOGGER.debug("Get player by id = {}", playerId);
+        logger.debug("Get player by id = {}", playerId);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", playerId);
         return namedParameterJdbcTemplate.queryForObject(sqlGetPlayerById, sqlParameterSource, new PlayerRowMapper());
@@ -65,7 +65,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     @Override
     public Optional<Player> findPlayerById(Integer playerId) {
 
-        LOGGER.debug("findById(playerId:{})", playerId);
+        logger.debug("findById(playerId:{})", playerId);
         SqlParameterSource namedParameters = new MapSqlParameterSource("playerId", playerId);
         List<Player> results = namedParameterJdbcTemplate.query(sqlGetPlayerById, namedParameters,
                 BeanPropertyRowMapper.newInstance(Player.class));
@@ -74,7 +74,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public Integer create(Player player) {
-        LOGGER.debug("Create player: create({})", player);
+        logger.debug("Create player: create({})", player);
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", player.getFirstName()).
@@ -87,14 +87,14 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     private boolean isPlayerUnique(String firstName) {
-        LOGGER.debug("Check FirstName: {} on unique", firstName);
+        logger.debug("Check FirstName: {} on unique", firstName);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("firstName", firstName);
         return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueFirstName, sqlParameterSource, Integer.class) == 0;
     }
 
     @Override
     public Integer update(Player player) {
-        LOGGER.debug("Update player: update({})", player);
+        logger.debug("Update player: update({})", player);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", player.getPlayerId()).
                         addValue("firstName", player.getFirstName()).
@@ -119,7 +119,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
             player.setPlayerId(resultSet.getInt("player_id"));
             player.setFirstName(resultSet.getString("first_name"));
             player.setSurname(resultSet.getString("surname"));
-            player.setBirthday(resultSet.getDate("birthday"));
+            player.setBirthday(resultSet.getDate("birthday").toLocalDate());
             return player;
         }
     }

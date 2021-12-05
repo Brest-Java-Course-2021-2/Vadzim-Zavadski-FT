@@ -1,12 +1,10 @@
-package com.zavadski.model;
+package com.zavadski.model.dto;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
-public class Player {
-
+public class PlayerDto {
     private Integer playerId;
     private String firstName;
     private String surname;
@@ -14,17 +12,14 @@ public class Player {
     private LocalDate birthday;
     private Integer teamId;
 
-    public Player() {
+
+    public PlayerDto() {
     }
 
-    public Player(String firstName) {
+    public PlayerDto(String firstName) {
         this.firstName = firstName;
     }
 
-    public Player(Integer playerId, String firstName) {
-        this.playerId = playerId;
-        this.firstName = firstName;
-    }
 
     public Integer getPlayerId() {
         return playerId;
@@ -62,19 +57,7 @@ public class Player {
         return teamId;
     }
 
-    public Player setTeamId(Integer teamId) {
+    public void setTeamId(Integer teamId) {
         this.teamId = teamId;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Player{" +
-                "playerId=" + playerId +
-                ", firstName='" + firstName + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
-                ", teamId=" + teamId +
-                '}';
     }
 }

@@ -62,10 +62,16 @@
 
 </header>
 
+
+
+
+
+
+
 <section id="filter">
     <div class="container-fluid">
         <nav class="navbar navbar-expand-sm bg-light navbar-light justify-content-center">
-            <form>
+            <form class="d-flex" th:action="@{/players/find}" >
                 <div class="row">
                     <div class="col">
                         <div class="input-group mb-2">
@@ -73,12 +79,36 @@
                                 <div class="input-group-text">Filter from:</div>
                             </div>
 
-                            <input type="date" class="form-control" id="filterFrom" placeholder="filterFrom">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                            <input id="hiddenStartDate" th:value="${startDate}" type="hidden">
+                            <input id="hiddenEndDate" th:value="${endDate}" type="hidden">
+
+                                <input type="date" id="startDate"
+                                             name="startDate" placeholder="Date"
+                                             onchange="setFilterBegin();">
+                            </div>
+                            </div>
 
                             <div class="input-group-prepend">
-                                <div class="input-group-text">to:</div>
+                                <div class="input-group-text">to</div>
                             </div>
-                            <input type="date" class="form-control" id="filterTo" placeholder="filterTo">
+
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                <input type="date" id="endDate"
+                                           name="endDate" placeholder="Date"
+                                           onchange="setFilterEnd();">
+                            </div>
+                            </div>
+                            <script>
+                                var minD = document.getElementById('hiddenStartDate').value.split("/").reverse().join("-");
+                                   document.getElementById('startDate').value = minD;
+                                   document.getElementById('endDate').min = minD;
+                                var maxD = document.getElementById('hiddenEndDate').value.split("/").reverse().join("-");
+                                   document.getElementById('endDate').value = maxD;
+                                   document.getElementById('startDate').max = maxD;
+                                    </script>
                         </div>
                         <button type="submit" class="btn btn-info mb-2">Show</button>
                     </div>
@@ -87,6 +117,17 @@
         </nav>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
 
 <br>
 
@@ -169,7 +210,6 @@
         $(this).find('.modal-body').text('Please confirm delete player: "' + target.data('name') + '"')
         document.getElementById('deleteUrl').href = '/player/' + target.data('id') + '/delete';
     })
-
 </script>
 </body>
 </html>

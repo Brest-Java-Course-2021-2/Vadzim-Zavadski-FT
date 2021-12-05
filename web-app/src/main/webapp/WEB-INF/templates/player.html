@@ -96,10 +96,11 @@
                             <div class="mb-3">
                                 <label class="form-label"
                                        for="field_birthday">Birthday</label>
-                                <input class="form-control"
-                                       id="field_birthday"
-                                       type="text" value="1991-01-10"
-                                       th:field="*{birthday}"/>
+                                <input id="field_birthday" name="field_birthday" type="date"
+                                       th:field="*{birthday}">
+                                <th:block th:if="${#fields.hasErrors('birthday')}">
+                                    <div th:errorclass="invalid-input" th:errors="*{birthday}"></div>
+                                </th:block>
                             </div>
 
                             <div class="mb-3">

@@ -33,6 +33,14 @@
         <constructor-arg name="teamDtoDao" ref="teamDtoDao"/>
     </bean>
 
+    <bean id="playerDtoDao" class="com.zavadski.dao.PlayerDtoDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="playerDtoService" class="com.zavadski.service.impl.PlayerDtoServiceImpl">
+        <constructor-arg name="playerDtoDao" ref="playerDtoDao"/>
+    </bean>
+
     <bean id="teamDao" class="com.zavadski.dao.TeamDaoJDBCImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
