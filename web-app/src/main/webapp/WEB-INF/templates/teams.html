@@ -98,14 +98,14 @@
                             </td>
                         </tr>
 
-<!--                        <thead class="table-secondary">-->
-<!--                        <tr>-->
-<!--                            <th class="text-uppercase"-->
-<!--                                th:text=""></th>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                            <td></td>-->
-<!--                        </tr>-->
+                        <thead class="table-secondary">
+                        <tr>
+                            <th>TOTAL TEAMS:</th>
+                            <th th:text="${count}"></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
                         <tr th:remove="all">
                             <td>Arsenal</td>
@@ -189,6 +189,7 @@
         $(this).find('.modal-body').text('Please confirm delete team: "' + target.data('name') + '"')
         document.getElementById('deleteUrl').href = '/team/' + target.data('id') + '/delete';
     })
+
 </script>
 </body>
 </html>

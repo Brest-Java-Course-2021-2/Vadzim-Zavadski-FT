@@ -104,8 +104,8 @@ public class TeamDaoJDBCImpl implements TeamDao {
     @Override
     public Integer count() {
         LOGGER.debug("count()");
-        return namedParameterJdbcTemplate
-                .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class);
+        return (namedParameterJdbcTemplate
+                .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class));
     }
 
     private class TeamRowMapper implements RowMapper<Team> {
