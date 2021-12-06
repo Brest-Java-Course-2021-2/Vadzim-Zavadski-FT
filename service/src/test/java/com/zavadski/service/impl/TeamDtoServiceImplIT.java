@@ -22,11 +22,11 @@ class TeamDtoServiceImplIT {
     @Autowired
     TeamDtoService teamDtoService;
 
-//    @Test
-//    public void shouldFindAllWithNumberOfPlayers() {
-//        List<TeamDto> teams = teamDtoService.findAllWithNumberOfPlayers();
-//        assertNotNull(teams);
-//        assertTrue(teams.size() > 0);
-//        assertTrue(teams.get(0).getNumberOfPlayers().intValue() > 0);
-//    }
+    @Test
+    public void shouldFindAllWithNumberOfPlayers() {
+        List<TeamDto> teams = teamDtoService.findAllWithNumberOfPlayers();
+        assertNotNull(teams);
+        assertTrue(teams.size() > 0);
+        assertTrue(teams.get(0).getNumberOfPlayers().intValue() > 0);
+    }
 }
