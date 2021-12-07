@@ -19,7 +19,7 @@ import java.util.List;
 @Component
 public class TeamDaoJDBCImpl implements TeamDao {
 
-    private final Logger LOGGER = LogManager.getLogger(TeamDaoJDBCImpl.class);
+    private final Logger logger = LogManager.getLogger(TeamDaoJDBCImpl.class);
 
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -50,13 +50,13 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public List<Team> findAll() {
-        LOGGER.debug("Start: findAll()");
+        logger.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(sqlGetAllTeams, new TeamRowMapper());
     }
 
     @Override
     public Team getTeamById(Integer teamId) {
-        LOGGER.debug("Get team by id = {}", teamId);
+        logger.debug("Get team by id = {}", teamId);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
         return namedParameterJdbcTemplate.queryForObject(sqlGetTeamById, sqlParameterSource, new TeamRowMapper());
@@ -64,11 +64,11 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer create(Team team) {
-        LOGGER.debug("Create team: create({})", team);
+        logger.debug("Create team: create({})", team);
 
         //TODO: isTeamUnique throw new IllegalArgumentException
         if (!isTeamUnique(team.getTeamName())) {
-            LOGGER.warn("Team with the same name {} already exists.", team.getTeamName());
+            logger.warn("Team with the same name {} already exists.", team.getTeamName());
             throw new IllegalArgumentException("Team with the same name already exists in DB.");
         }
 
@@ -80,14 +80,14 @@ public class TeamDaoJDBCImpl implements TeamDao {
     }
 
     private boolean isTeamUnique(String teamName) {
-        LOGGER.debug("Check TeamName: {} on unique", teamName);
+        logger.debug("Check TeamName: {} on unique", teamName);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("teamName", teamName);
         return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueTeamName, sqlParameterSource, Integer.class) == 0;
     }
 
     @Override
     public Integer update(Team team) {
-        LOGGER.debug("Update team: update({})", team);
+        logger.debug("Update team: update({})", team);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName()).
                         addValue("teamId", team.getTeamId());
@@ -103,7 +103,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer count() {
-        LOGGER.debug("count()");
+        logger.debug("count()");
         return (namedParameterJdbcTemplate
                 .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class));
     }
