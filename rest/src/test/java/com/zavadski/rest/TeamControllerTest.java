@@ -31,19 +31,19 @@ class TeamControllerTest {
                 .build();
     }
 
-    @Test
-    void getTeamById() {
-    }
-
-    @Test
-    void createTeam() {
-    }
-
-    @Test
-    void updateTeam() {
-    }
-
-    @Test
-    void deleteTeam() {
-    }
+//    @Test
+//    void getTeamById() {
+//    }
+//
+//    @Test
+//    void createTeam() {
+//    }
+//
+//    @Test
+//    void updateTeam() {
+//    }
+//
+//    @Test
+//    void deleteTeam() {
+//    }
 }

@@ -57,16 +57,6 @@
         <constructor-arg name="playerDao" ref="playerDao"/>
     </bean>
 
-
-    <bean id="playerDao" class="com.zavadski.dao.PlayerDaoJDBCImpl">
-        <constructor-arg ref="namedParameterJdbcTemplate"/>
-    </bean>
-
-    <bean id="playerService" class="com.zavadski.service.impl.PlayerServiceImpl">
-        <constructor-arg name="playerDao" ref="playerDao"/>
-    </bean>
-
-
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="locations">
             <list>
