@@ -22,10 +22,10 @@ public class TeamDtoController {
         this.teamDtoService = teamDtoService;
     }
 
-    @GetMapping(value = "teams_dto")
-    public final Collection<TeamDto> getTeamById(@PathVariable Integer id) {
+    @GetMapping(value = "team_dtos")
+    public final Collection<TeamDto> getTeamById() {
 
-        logger.debug("team()");
+        logger.debug("teamDtos()");
         return teamDtoService.findAllWithNumberOfPlayers();
     }
 }

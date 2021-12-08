@@ -21,16 +21,18 @@ public class Team {
         return teamId;
     }
 
-    public void setTeamId(Integer teamId) {
+    public Team setTeamId(Integer teamId) {
         this.teamId = teamId;
+        return this;
     }
 
     public String getTeamName() {
         return teamName;
     }
 
-    public void setTeamName(String teamName) {
+    public Team setTeamName(String teamName) {
         this.teamName = teamName;
+        return this;
     }
 
     @Override
