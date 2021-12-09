@@ -23,8 +23,7 @@ public class TeamDtoController {
     }
 
     @GetMapping(value = "team_dtos")
-    public final Collection<TeamDto> getTeamById() {
-
+    public final Collection<TeamDto> teamDtos() {
         logger.debug("teamDtos()");
         return teamDtoService.findAllWithNumberOfPlayers();
     }

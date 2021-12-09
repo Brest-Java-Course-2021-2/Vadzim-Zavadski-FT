@@ -1,4 +1,4 @@
-package com.zavadski.service_rest;
+package com.zavadski.service.rest;
 
 import com.zavadski.model.Team;
 import org.junit.jupiter.api.Test;

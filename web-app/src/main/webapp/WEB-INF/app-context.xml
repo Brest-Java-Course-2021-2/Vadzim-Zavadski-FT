@@ -70,6 +70,16 @@
         <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.team_dtos}"/>
         <constructor-arg index="1" ref="restTemplate"/>
     </bean>
+
+<!--    <bean id="playerService" class="com.zavadski.service.rest.PlayerServiceRest">-->
+<!--        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.players}"/>-->
+<!--        <constructor-arg index="1" ref="restTemplate"/>-->
+<!--    </bean>-->
+<!--    <bean id="playerDtoService" class="com.zavadski.service.rest.PlayerDtoServiceRest">-->
+<!--        <constructor-arg index="0" value="${protocol}://${host}:${port}/${point.player_dtos}"/>-->
+<!--        <constructor-arg index="1" ref="restTemplate"/>-->
+<!--    </bean>-->
+
     <bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
     <property name="messageConverters">
         <list>

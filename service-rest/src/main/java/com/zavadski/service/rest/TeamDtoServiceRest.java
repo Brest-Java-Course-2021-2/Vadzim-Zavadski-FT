@@ -1,4 +1,4 @@
-package com.zavadski.service_rest;
+package com.zavadski.service.rest;
 
 import com.zavadski.model.dto.TeamDto;
 import com.zavadski.service.TeamDtoService;

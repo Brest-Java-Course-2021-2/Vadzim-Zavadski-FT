@@ -1,4 +1,4 @@
-package com.zavadski.service_rest;
+package com.zavadski.service.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zavadski.model.dto.TeamDto;

@@ -7,10 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class TeamController {
@@ -51,6 +48,13 @@ public class TeamController {
 
         int result = teamService.delete(id);
         return new ResponseEntity(result, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/teams/count")
+    public final Integer count() {
+
+        logger.debug("count()");
+        return teamService.count();
     }
 
 }
