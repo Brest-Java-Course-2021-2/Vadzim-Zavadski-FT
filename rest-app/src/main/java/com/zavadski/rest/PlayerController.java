@@ -35,12 +35,12 @@ public class PlayerController {
         return playerService.getPlayerById(id);
     }
 
-    @PostMapping(value = "/players", consumes = "application/json", produces = "application/json")
+    @PostMapping(path = "/players", consumes = "application/json", produces = "application/json")
     public final ResponseEntity<Integer> createPlayer(@RequestBody Player player) {
 
         logger.debug("createPlayer({})", player);
         Integer id = playerService.create(player);
-        return new ResponseEntity(id, HttpStatus.CREATED);
+        return new ResponseEntity(id, HttpStatus.OK);
     }
 
     @PutMapping(value = "/players", consumes = {"application/json"}, produces = {"application/json"})

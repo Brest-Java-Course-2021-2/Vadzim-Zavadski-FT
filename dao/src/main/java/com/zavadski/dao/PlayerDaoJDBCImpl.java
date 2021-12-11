@@ -108,6 +108,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
             player.setFirstName(resultSet.getString("first_name"));
             player.setSurname(resultSet.getString("surname"));
             player.setBirthday(resultSet.getDate("birthday").toLocalDate());
+            player.setTeamId(resultSet.getInt("team_id"));
             return player;
         }
     }
