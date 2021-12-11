@@ -1,6 +1,7 @@
 package com.zavadski.service.rest;
 
 import com.zavadski.model.Player;
+import com.zavadski.model.Team;
 import com.zavadski.service.PlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,14 +41,17 @@ public class PlayerServiceRest implements PlayerService {
     public Optional<Player> getPlayerById(Integer playerId) {
         logger.debug("findById({})", playerId);
         ResponseEntity<Player> responseEntity =
-                restTemplate.getForEntity(url + "/" + playerId, Player.class);
+                restTemplate.getForEntity(
+                        url + "/" + playerId,
+                        Player.class);
         return Optional.ofNullable(responseEntity.getBody());
     }
 
     @Override
     public Integer create(Player player) {
         logger.debug("create({})", player);
-        ResponseEntity responseEntity = restTemplate.postForEntity(url, player, Integer.class);
+        ResponseEntity<Integer> responseEntity = restTemplate.postForEntity(
+                url, player, Integer.class);
         return (Integer) responseEntity.getBody();
     }
 
@@ -59,7 +63,8 @@ public class PlayerServiceRest implements PlayerService {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Player> entity = new HttpEntity<>(player, headers);
-        ResponseEntity<Integer> result = restTemplate.exchange(url, HttpMethod.PUT, entity, Integer.class);
+        ResponseEntity<Integer> result = restTemplate.exchange(
+                url, HttpMethod.PUT, entity, Integer.class);
         return result.getBody();
     }
 

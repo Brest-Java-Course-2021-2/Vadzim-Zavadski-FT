@@ -1,6 +1,7 @@
 package com.zavadski.rest;
 
 import com.zavadski.dao.TeamDaoJDBCImpl;
+import com.zavadski.model.Player;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
 import org.apache.logging.log4j.LogManager;
@@ -8,6 +9,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 public class TeamController {
@@ -18,6 +22,13 @@ public class TeamController {
 
     public TeamController(TeamService teamService) {
         this.teamService = teamService;
+    }
+
+    @GetMapping(value = "/teams")
+    public final Collection<Team> teams() {
+
+        logger.debug("teams()");
+        return teamService.findAllTeams();
     }
 
     @GetMapping(value = "/teams/{id}")

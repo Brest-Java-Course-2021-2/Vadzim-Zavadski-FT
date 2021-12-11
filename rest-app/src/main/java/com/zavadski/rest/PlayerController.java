@@ -31,7 +31,6 @@ public class PlayerController {
         return playerService.findAllPlayers();
     }
 
-
     @GetMapping(value = "/players/{id}")
     public final Optional<Player> getPlayerById(@PathVariable Integer id) {
 
@@ -39,16 +38,16 @@ public class PlayerController {
         return playerService.getPlayerById(id);
     }
 
-    @PostMapping(path = "/players", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Integer> createPlayer(@RequestBody Player player) {
+    @PostMapping(value = "/players", consumes = "application/json", produces = "application/json")
+    public final ResponseEntity<Integer> createPlayer(@RequestBody Player player) {
 
         logger.debug("createPlayer({})", player);
         Integer id = playerService.create(player);
-        return new ResponseEntity<>(id, HttpStatus.OK);
+        return new ResponseEntity(id, HttpStatus.CREATED);
     }
 
     @PutMapping(value = "/players", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<Integer> updatePlayer(@RequestBody Player player) {
+    public final ResponseEntity<Integer> updatePlayer(@RequestBody Player player) {
 
         logger.debug("updatePlayer({})", player);
         int result = playerService.update(player);
@@ -61,5 +60,4 @@ public class PlayerController {
         int result = playerService.delete(id);
         return new ResponseEntity(result, HttpStatus.OK);
     }
-
 }
