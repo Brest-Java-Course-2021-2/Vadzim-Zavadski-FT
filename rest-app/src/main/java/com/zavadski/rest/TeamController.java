@@ -67,5 +67,4 @@ public class TeamController {
         logger.debug("count()");
         return teamService.count();
     }
-
 }

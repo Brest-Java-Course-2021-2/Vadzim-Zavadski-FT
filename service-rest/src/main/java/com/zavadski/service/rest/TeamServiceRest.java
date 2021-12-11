@@ -69,7 +69,6 @@ public class TeamServiceRest implements TeamService {
     @Override
     public Integer delete(Integer teamId) {
         logger.debug("delete({})", teamId);
-        //restTemplate.delete(url + "/" + teamId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

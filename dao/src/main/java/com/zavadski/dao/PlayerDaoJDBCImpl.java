@@ -1,11 +1,10 @@
 package com.zavadski.dao;
 
 import com.zavadski.model.Player;
+import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.dao.support.DataAccessUtils;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Optional;
 
 @Component
 public class PlayerDaoJDBCImpl implements PlayerDao {
@@ -60,16 +58,6 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", playerId);
         return namedParameterJdbcTemplate.queryForObject(sqlGetPlayerById, sqlParameterSource, new PlayerRowMapper());
-    }
-
-    @Override
-    public Optional<Player> findPlayerById(Integer playerId) {
-
-        logger.debug("findById(playerId:{})", playerId);
-        SqlParameterSource namedParameters = new MapSqlParameterSource("playerId", playerId);
-        List<Player> results = namedParameterJdbcTemplate.query(sqlGetPlayerById, namedParameters,
-                BeanPropertyRowMapper.newInstance(Player.class));
-        return Optional.ofNullable(DataAccessUtils.uniqueResult(results));
     }
 
     @Override

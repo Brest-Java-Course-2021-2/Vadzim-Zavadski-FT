@@ -1,6 +1,5 @@
 package com.zavadski.rest;
 
-import com.zavadski.dao.PlayerDaoJDBCImpl;
 import com.zavadski.model.Player;
 import com.zavadski.service.PlayerService;
 import org.apache.logging.log4j.LogManager;
@@ -10,13 +9,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Optional;
-
 
 @RestController
 public class PlayerController {
 
-    private static final Logger logger = LogManager.getLogger(PlayerDaoJDBCImpl.class);
+    private static final Logger logger = LogManager.getLogger(PlayerController.class);
 
     private final PlayerService playerService;
 
@@ -32,9 +29,9 @@ public class PlayerController {
     }
 
     @GetMapping(value = "/players/{id}")
-    public final Optional<Player> getPlayerById(@PathVariable Integer id) {
+    public final Player getPlayerById(@PathVariable Integer id) {
 
-        logger.debug("player()");
+        logger.debug("getPlayerById()");
         return playerService.getPlayerById(id);
     }
 

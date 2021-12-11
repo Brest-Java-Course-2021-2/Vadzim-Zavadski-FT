@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlayerServiceImpl implements PlayerService {
@@ -30,9 +29,9 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Optional<Player> getPlayerById(Integer playerId) {
+    public Player getPlayerById(Integer playerId) {
         logger.debug("findById(id:{})", playerId);
-        return playerDao.findPlayerById(playerId);
+        return playerDao.getPlayerById(playerId);
     }
 
     @Override

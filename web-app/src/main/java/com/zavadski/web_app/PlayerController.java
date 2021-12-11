@@ -59,15 +59,12 @@ public class PlayerController {
     @GetMapping(value = "/player/{id}")
     public final String gotoEditPlayerPage(@PathVariable Integer id, Model model) {
         logger.debug("gotoEditPlayerPage(id:{},model:{})", id, model);
-        Optional<Player> optionalPlayer = playerService.getPlayerById(id);
-        if (optionalPlayer.isPresent()) {
+        Player player = playerService.getPlayerById(id);
+
             model.addAttribute("isNew", false);
-            model.addAttribute("player", optionalPlayer.get());
+            model.addAttribute("player", playerService.getPlayerById(id));
             model.addAttribute("teams", teamService.findAllTeams());
-            return "player";
-        } else {
-            return "redirect:players";
-        }
+        return "player";
     }
 
     /**
@@ -79,7 +76,7 @@ public class PlayerController {
     public final String gotoAddPlayerPage(Model model) {
         logger.debug("gotoAddPlayerPage({})", model);
         model.addAttribute("isNew", true);
-        model.addAttribute("player", new Player().setTeamId(0));
+        model.addAttribute("player", new Player());
         model.addAttribute("teams", teamService.findAllTeams());
         return "player";
     }

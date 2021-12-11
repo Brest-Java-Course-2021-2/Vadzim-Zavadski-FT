@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlayerServiceRest implements PlayerService {
@@ -38,13 +37,11 @@ public class PlayerServiceRest implements PlayerService {
     }
 
     @Override
-    public Optional<Player> getPlayerById(Integer playerId) {
+    public Player getPlayerById(Integer playerId) {
         logger.debug("findById({})", playerId);
-        ResponseEntity<Player> responseEntity =
-                restTemplate.getForEntity(
-                        url + "/" + playerId,
-                        Player.class);
-        return Optional.ofNullable(responseEntity.getBody());
+        ResponseEntity<Player> responseEntity = restTemplate.getForEntity(
+                        url + "/" + playerId, Player.class);
+        return responseEntity.getBody();
     }
 
     @Override
@@ -57,7 +54,6 @@ public class PlayerServiceRest implements PlayerService {
 
     @Override
     public Integer update(Player player) {
-
         logger.debug("update({})", player);
 
         HttpHeaders headers = new HttpHeaders();
@@ -71,7 +67,6 @@ public class PlayerServiceRest implements PlayerService {
     @Override
     public Integer delete(Integer playerId) {
         logger.debug("delete({})", playerId);
-        //restTemplate.delete(url + "/" + playerId);
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

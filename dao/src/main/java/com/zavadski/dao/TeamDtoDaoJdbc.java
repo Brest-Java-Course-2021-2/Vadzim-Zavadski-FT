@@ -8,15 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-/**
- *  Team DTO DAO implementation.
- */
 @Component
 public class TeamDtoDaoJdbc implements TeamDtoDao {
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-@Value("${findAllWithNumberOfPlayersSql}")
-private String findAllWithNumberOfPlayersSql;
+
+    @Value("${findAllWithNumberOfPlayersSql}")
+    private String findAllWithNumberOfPlayersSql;
 
     public TeamDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
