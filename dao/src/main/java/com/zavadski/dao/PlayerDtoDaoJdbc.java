@@ -16,8 +16,8 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
     private final Logger logger = LogManager.getLogger(PlayerDtoDaoJdbc.class);
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
-    @Value("${SQL_FILTER_BY_BIRTHDAY}")
-    private String sqlFilterByBirthday;
+    @Value("${SQL_FILTER_BY_START_END_DATE}")
+    private String sqlFilterByStartEndDate;
 
     public PlayerDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -25,6 +25,9 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
 
     @Override
     public List<PlayerDto> filterByBirthday(LocalDate startDate, LocalDate endDate) {
+        logger.debug("filterByBirthday()");
+        logger.debug("Start date: " + startDate);
+        logger.debug("End date: " + endDate);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("START_DATE", startDate);
         parameterSource.addValue("END_DATE", endDate);
@@ -35,18 +38,18 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
     }
 
     private String sqlGetFilterByBirthday(LocalDate startDate, LocalDate endDate) {
-        if (startDate == null && endDate == null) {
-            logger.debug("Don't use a filter");
-            return sqlFilterByBirthday;
-        }
-        if (startDate == null) {
-            logger.debug("Filtering only by end date");
-            return sqlFilterByBirthday;
-        }
-        if (endDate == null) {
-            logger.debug("Filtering only by start date");
-            return sqlFilterByBirthday;
-        }
-        return sqlFilterByBirthday;
+//        if (startDate == null && endDate == null) {
+//            logger.debug("Don't use a filter");
+//            return sqlFilterByStartEndDate;
+//        }
+//        if (startDate == null) {
+//            logger.debug("Filtering only by end date");
+//            return sqlFilterByBirthday;
+//        }
+//        if (endDate == null) {
+//            logger.debug("Filtering only by start date");
+//            return sqlFilterByBirthday;
+//        }
+        return sqlFilterByStartEndDate;
     }
 }

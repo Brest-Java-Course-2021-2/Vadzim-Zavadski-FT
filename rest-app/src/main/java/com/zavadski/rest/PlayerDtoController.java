@@ -25,9 +25,9 @@ public class PlayerDtoController {
     }
 
     @GetMapping(value = "player_dtos")
-    public final Collection<PlayerDto> playerDtos(@RequestParam(required = false)
+    public final Collection<PlayerDto> playerDtos(@RequestParam(name = "startDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                                  @RequestParam(required = false)
+                                                  @RequestParam(name = "endDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         logger.debug("playerDtos()");
         return playerDtoService.filterByBirthday(startDate, endDate);
