@@ -1,7 +1,6 @@
 package com.zavadski.service.rest;
 
 import com.zavadski.model.Player;
-import com.zavadski.model.Team;
 import com.zavadski.service.PlayerService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

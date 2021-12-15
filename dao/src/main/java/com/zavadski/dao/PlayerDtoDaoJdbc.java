@@ -16,8 +16,18 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
     private final Logger logger = LogManager.getLogger(PlayerDtoDaoJdbc.class);
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Value("${SQL_ALL_PLAYERS}")
+    private String sqlGetAllPlayers;
+
     @Value("${SQL_FILTER_BY_START_END_DATE}")
     private String sqlFilterByStartEndDate;
+
+    @Value("${SQL_FILTER_BY_END_DATE}")
+    private String sqlFilterByEndDate;
+
+    @Value("${SQL_FILTER_BY_START_DATE}")
+    private String sqlFilterByStartDate;
 
     public PlayerDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
@@ -38,18 +48,18 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
     }
 
     private String sqlGetFilterByBirthday(LocalDate startDate, LocalDate endDate) {
-//        if (startDate == null && endDate == null) {
-//            logger.debug("Don't use a filter");
-//            return sqlFilterByStartEndDate;
-//        }
-//        if (startDate == null) {
-//            logger.debug("Filtering only by end date");
-//            return sqlFilterByBirthday;
-//        }
-//        if (endDate == null) {
-//            logger.debug("Filtering only by start date");
-//            return sqlFilterByBirthday;
-//        }
+        if (startDate == null && endDate == null) {
+            logger.debug("Don't use a filter");
+            return sqlGetAllPlayers;
+        }
+        if (startDate == null) {
+            logger.debug("Filter by end date");
+            return sqlFilterByEndDate;
+        }
+        if (endDate == null) {
+            logger.debug("Filter by start date");
+            return sqlFilterByStartDate;
+        }
         return sqlFilterByStartEndDate;
     }
 }
