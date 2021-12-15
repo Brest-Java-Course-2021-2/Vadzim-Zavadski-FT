@@ -1,9 +1,7 @@
 package com.zavadski.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
 import java.time.LocalDate;
 
 public class Player {
@@ -11,7 +9,6 @@ public class Player {
     private Integer playerId;
     private String firstName;
     private String surname;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private Integer teamId;

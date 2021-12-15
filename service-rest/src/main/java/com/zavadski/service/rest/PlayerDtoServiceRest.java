@@ -23,7 +23,6 @@ public class PlayerDtoServiceRest implements PlayerDtoService {
     private RestTemplate restTemplate;
 
     public PlayerDtoServiceRest() {
-
     }
 
     public PlayerDtoServiceRest(String url, RestTemplate restTemplate) {

@@ -1,7 +1,6 @@
 package com.zavadski.dao;
 
 import com.zavadski.model.Player;
-import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
