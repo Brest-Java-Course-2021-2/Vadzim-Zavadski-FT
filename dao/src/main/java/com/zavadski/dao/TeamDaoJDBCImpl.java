@@ -1,6 +1,6 @@
 package com.zavadski.dao;
 
-import com.zavadski.dao.exception.UnacceptableTeamName;
+import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import static com.zavadski.model.constants.TeamConstants.TEAM_NAME_SIZE;
 
 @Component
 public class TeamDaoJDBCImpl implements TeamDao {
@@ -69,7 +71,11 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
         if (!isTeamUnique(team.getTeamName())) {
             logger.warn("Team with the same name {} already exists.", team.getTeamName());
-            throw new UnacceptableTeamName("Team with the same name already exists in DB.");
+            throw new UnacceptableName("Team with the same name already exists in DB.");
+        }
+        if (team.getTeamName().length()>TEAM_NAME_SIZE) {
+            logger.warn("Team name is too long", team.getTeamName());
+            throw new UnacceptableName("Team name length should be <="+ TEAM_NAME_SIZE);
         }
 
         SqlParameterSource sqlParameterSource =

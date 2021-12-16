@@ -1,5 +1,6 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,7 +15,10 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+
+import static com.zavadski.model.constants.PlayerConstants.PLAYER_NAME_SIZE;
 
 @Component
 public class PlayerDaoJDBCImpl implements PlayerDao {
@@ -63,6 +67,16 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     public Integer create(Player player) {
         logger.debug("Create player: create({})", player);
 
+        if (player.getFirstName().length()>PLAYER_NAME_SIZE) {
+            logger.warn("Player name is too long", player.getFirstName());
+            throw new UnacceptableName("Player name length should be <="+ PLAYER_NAME_SIZE);
+        }
+
+        if (!isPlayerUnique(player.getFirstName(),player.getSurname(),player.getBirthday())) {
+            logger.warn("Team with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
+            throw new UnacceptableName("Player with the same name and surname already exists in DB.");
+        }
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", player.getFirstName()).
                         addValue("surname", player.getSurname()).
@@ -73,9 +87,12 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         return (Integer) keyHolder.getKey();
     }
 
-    private boolean isPlayerUnique(String firstName) {
-        logger.debug("Check FirstName: {} on unique", firstName);
-        SqlParameterSource sqlParameterSource = new MapSqlParameterSource("firstName", firstName);
+    private boolean isPlayerUnique(String firstName, String surname, LocalDate birthday) {
+        logger.debug("Check Player: {} on unique", firstName, surname, birthday);
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("firstName", firstName).
+                        addValue("surname", surname).
+                        addValue("birthday", birthday);
         return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueFirstName, sqlParameterSource, Integer.class) == 0;
     }
 
