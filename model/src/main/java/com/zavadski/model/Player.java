@@ -11,7 +11,7 @@ public class Player {
     private String firstName;
     private String surname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+3")
     private LocalDate birthday;
     private Integer teamId;
 
