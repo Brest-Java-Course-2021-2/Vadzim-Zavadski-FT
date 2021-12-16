@@ -1,5 +1,6 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.UnacceptableTeamName;
 import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -66,10 +67,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
     public Integer create(Team team) {
         logger.debug("Create team: create({})", team);
 
-        //TODO: isTeamUnique throw new IllegalArgumentException
         if (!isTeamUnique(team.getTeamName())) {
             logger.warn("Team with the same name {} already exists.", team.getTeamName());
-            throw new IllegalArgumentException("Team with the same name already exists in DB.");
+            throw new UnacceptableTeamName("Team with the same name already exists in DB.");
         }
 
         SqlParameterSource sqlParameterSource =

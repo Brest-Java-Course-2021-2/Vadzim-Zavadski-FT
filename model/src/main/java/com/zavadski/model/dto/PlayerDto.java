@@ -1,5 +1,6 @@
 package com.zavadski.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ public class PlayerDto {
     private String firstName;
     private String surname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate birthday;
     private Integer teamId;
 
@@ -19,7 +21,6 @@ public class PlayerDto {
     public PlayerDto(String firstName) {
         this.firstName = firstName;
     }
-
 
     public Integer getPlayerId() {
         return playerId;

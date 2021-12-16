@@ -1,5 +1,6 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.PlayerWrongFilterDate;
 import com.zavadski.model.dto.PlayerDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -59,6 +60,10 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
         if (endDate == null) {
             logger.debug("Filter by start date");
             return sqlFilterByStartDate;
+        }
+        if (startDate.isAfter(endDate)) {
+            logger.error("Start date is after end date");
+            throw new PlayerWrongFilterDate("Start date is after end date");
         }
         return sqlFilterByStartEndDate;
     }
