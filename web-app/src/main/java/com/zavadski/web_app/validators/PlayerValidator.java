@@ -21,6 +21,9 @@ public class PlayerValidator implements Validator {
     public void validate(Object target, Errors errors) {
 
         ValidationUtils.rejectIfEmpty(errors, "firstName", "firstName.empty");
+        ValidationUtils.rejectIfEmpty(errors, "surname", "surname.empty");
+        ValidationUtils.rejectIfEmpty(errors, "birthday", "birthday.empty");
+
         Player player = (Player) target;
 
         if (StringUtils.hasLength(player.getFirstName())
