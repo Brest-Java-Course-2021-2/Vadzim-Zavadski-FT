@@ -1,7 +1,6 @@
 package com.zavadski.dao;
 
 import com.zavadski.dao.exception.FieldNullPointerException;
-import com.zavadski.dao.exception.PlayerWrongFilterDate;
 import com.zavadski.dao.exception.TeamWithPlayerException;
 import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Team;
@@ -79,9 +78,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
             logger.warn("Team with the same name {} already exists.", team.getTeamName());
             throw new UnacceptableName("Team with the same name already exists in DB.");
         }
-        if (team.getTeamName().length()>TEAM_NAME_SIZE) {
+        if (team.getTeamName().length() > TEAM_NAME_SIZE) {
             logger.warn("Team name is too long", team.getTeamName());
-            throw new UnacceptableName("Team name length should be <="+ TEAM_NAME_SIZE);
+            throw new UnacceptableName("Team name length should be <=" + TEAM_NAME_SIZE);
         }
 
         if (team.getTeamName().isEmpty()) {
@@ -115,8 +114,8 @@ public class TeamDaoJDBCImpl implements TeamDao {
     public Integer delete(Integer teamId) {
 
         if (isTeamWithPlayers(teamId)) {
-            logger.error("Can't delete team id: " + teamId +". This team have a players");
-            throw new TeamWithPlayerException("Can't delete team id: " + teamId +". This team have a players");
+            logger.error("Can't delete team id: " + teamId + ". This team have a players");
+            throw new TeamWithPlayerException("Can't delete team id: " + teamId + ". This team have a players");
         }
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
@@ -131,7 +130,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
     }
 
     @Override
-    public boolean isTeamWithPlayers(Integer teamId){
+    public boolean isTeamWithPlayers(Integer teamId) {
         return getPlayersCountForTeam(teamId) > 0;
     }
 
