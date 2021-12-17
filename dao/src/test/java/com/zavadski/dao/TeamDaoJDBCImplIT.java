@@ -1,5 +1,6 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.TeamWithPlayerException;
 import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -99,5 +100,12 @@ class TeamDaoJDBCImplIT {
         assertNotNull(quantity);
         assertTrue(quantity > 0);
         assertEquals(Integer.valueOf(3), quantity);
+    }
+
+    @Test
+    void deleteTeamWithPlayer() {
+        List<Team> teamsBeforeDelete = teamDaoJDBC.findAll();
+        assertThrows(TeamWithPlayerException.class, () ->
+                teamDaoJDBC.delete(teamsBeforeDelete.get(0).getTeamId()));
     }
 }
