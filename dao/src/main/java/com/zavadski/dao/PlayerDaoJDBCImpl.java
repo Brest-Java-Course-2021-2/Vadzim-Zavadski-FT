@@ -78,7 +78,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
             throw new UnacceptableName("Player with the same name and surname already exists in DB.");
         }
 
-        if (player.getFirstName().isEmpty() || player.getSurname().isEmpty() || player.getBirthday().toString().isEmpty()) {
+        if (player.getFirstName().isEmpty() || player.getSurname().isEmpty() || player.getBirthday()==null) {
             logger.error("Not all fields are filled in Player");
             throw new FieldNullPointerException("Not all fields are filled in Player");
         }
