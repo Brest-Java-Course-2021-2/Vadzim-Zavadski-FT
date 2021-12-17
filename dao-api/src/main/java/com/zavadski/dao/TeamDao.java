@@ -18,4 +18,6 @@ public interface TeamDao {
 
     Integer count();
 
+    boolean isTeamWithPlayers(Integer teamId);
+
 }

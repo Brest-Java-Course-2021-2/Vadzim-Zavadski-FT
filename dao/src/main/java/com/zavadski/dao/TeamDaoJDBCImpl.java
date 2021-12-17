@@ -1,5 +1,8 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.FieldNullPointerException;
+import com.zavadski.dao.exception.PlayerWrongFilterDate;
+import com.zavadski.dao.exception.TeamWithPlayerException;
 import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
@@ -47,6 +50,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
     @Value("${SQL_DELETE_TEAM_BY_ID}")
     private String sqlDeleteTeamById;
 
+    @Value("${SQL_PLAYER_COUNT_FOR_TEAM}")
+    private String sqlPlayersCountForTeam;
+
     public TeamDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
@@ -78,6 +84,11 @@ public class TeamDaoJDBCImpl implements TeamDao {
             throw new UnacceptableName("Team name length should be <="+ TEAM_NAME_SIZE);
         }
 
+        if (team.getTeamName().isEmpty()) {
+            logger.error("Not all fields are filled in Team");
+            throw new FieldNullPointerException("Not all fields are filled in Team");
+        }
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName());
         KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -102,6 +113,11 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer delete(Integer teamId) {
+
+        if (isTeamWithPlayers(teamId)) {
+            logger.error("Can't delete team id: " + teamId +". This team have a players");
+            throw new TeamWithPlayerException("Can't delete team id: " + teamId +". This team have a players");
+        }
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
         return namedParameterJdbcTemplate.update(sqlDeleteTeamById, sqlParameterSource);
@@ -112,6 +128,19 @@ public class TeamDaoJDBCImpl implements TeamDao {
         logger.debug("count()");
         return (namedParameterJdbcTemplate
                 .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class));
+    }
+
+    @Override
+    public boolean isTeamWithPlayers(Integer teamId){
+        return getPlayersCountForTeam(teamId) > 0;
+    }
+
+
+    private Integer getPlayersCountForTeam(Integer teamId) {
+        SqlParameterSource sqlParameterSource =
+                new MapSqlParameterSource("teamId", teamId);
+        return namedParameterJdbcTemplate.queryForObject(
+                sqlPlayersCountForTeam, sqlParameterSource, Integer.class);
     }
 
     private class TeamRowMapper implements RowMapper<Team> {

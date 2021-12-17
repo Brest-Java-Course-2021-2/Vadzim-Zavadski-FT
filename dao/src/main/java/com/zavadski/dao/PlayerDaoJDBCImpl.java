@@ -1,5 +1,6 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.FieldNullPointerException;
 import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Player;
 import org.apache.logging.log4j.LogManager;
@@ -75,6 +76,11 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         if (!isPlayerUnique(player.getFirstName(),player.getSurname(),player.getBirthday())) {
             logger.warn("Team with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
             throw new UnacceptableName("Player with the same name and surname already exists in DB.");
+        }
+
+        if (player.getFirstName().isEmpty() || player.getSurname().isEmpty() || player.getBirthday().toString().isEmpty()) {
+            logger.error("Not all fields are filled in Player");
+            throw new FieldNullPointerException("Not all fields are filled in Player");
         }
 
         SqlParameterSource sqlParameterSource =

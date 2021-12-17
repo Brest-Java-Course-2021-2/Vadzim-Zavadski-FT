@@ -1,5 +1,6 @@
 package com.zavadski.rest;
 
+import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Team;
 import com.zavadski.rest.exception.CustomExceptionHandler;
 import com.zavadski.service.TeamService;
@@ -68,7 +69,7 @@ class TeamControllerTest {
     public void getTeamByIdException() throws Exception {
 
         Mockito.when(teamService.getTeamById(anyInt()))
-                .thenThrow(new IllegalArgumentException("test message"));
+                .thenThrow(new UnacceptableName("test message"));
 
         mockMvc.perform(
                         MockMvcRequestBuilders.get("/teams/8")
