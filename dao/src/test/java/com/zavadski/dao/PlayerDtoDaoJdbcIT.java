@@ -10,26 +10,29 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-jdbc-conf.xml"})
 @Transactional
 @Rollback
-class TeamDtoDaoJdbcIT {
+class PlayerDtoDaoJdbcIT {
 
     private final Logger logger = LogManager.getLogger(TeamDtoDaoJdbcIT.class);
 
-    private TeamDtoDaoJdbc teamDtoDaoJdbc;
+    private PlayerDtoDaoJdbc playerDtoDaoJdbc;
 
-    public TeamDtoDaoJdbcIT(@Autowired TeamDtoDao teamDtoDaoJdbc) {
-        this.teamDtoDaoJdbc = (TeamDtoDaoJdbc) teamDtoDaoJdbc;
+    public PlayerDtoDaoJdbcIT(@Autowired PlayerDtoDao playerDtoDaoJdbc) {
+        this.playerDtoDaoJdbc = (PlayerDtoDaoJdbc) playerDtoDaoJdbc;
     }
 
+    //TODO тест нужно доработать
     @Test
-    public void findAllWithNumberOfPlayers() {
-        logger.debug("Execute test: findAllWithNumberOfPlayers");
-        assertNotNull(teamDtoDaoJdbc);
-        assertNotNull(teamDtoDaoJdbc.findAllWithNumberOfPlayers());
+    public void filterByBirthday() {
+        logger.debug("Execute test: filterByBirthday()");
+        assertNotNull(playerDtoDaoJdbc);
+        assertNotNull(playerDtoDaoJdbc.filterByBirthday(LocalDate.parse("1990-01-01"), LocalDate.parse("2010-01-01")));
     }
 }
