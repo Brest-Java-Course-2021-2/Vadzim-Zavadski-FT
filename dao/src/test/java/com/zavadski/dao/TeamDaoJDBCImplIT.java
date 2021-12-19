@@ -78,10 +78,19 @@ class TeamDaoJDBCImplIT {
             teamDaoJDBC.create(new Team("TEST TEAM"));
             teams = teamDaoJDBC.findAll();
         }
-
         Team teamSrc = teams.get(0);
         Team teamDst = teamDaoJDBC.getTeamById(teamSrc.getTeamId());
         assertEquals(teamSrc.getTeamName(), teamDst.getTeamName());
+    }
+
+    @Test
+    void tryToUpdateTeamWithSameName() {
+        assertNotNull(teamDaoJDBC);
+        Team team = new Team("Lester");
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            teamDaoJDBC.update(team);
+        });
     }
 
     @Test
@@ -94,18 +103,18 @@ class TeamDaoJDBCImplIT {
     }
 
     @Test
+    void tryDeleteTeamWithPlayer() {
+        List<Team> teamsBeforeDelete = teamDaoJDBC.findAll();
+        assertThrows(TeamWithPlayerException.class, () ->
+                teamDaoJDBC.delete(teamsBeforeDelete.get(0).getTeamId()));
+    }
+
+    @Test
     void shouldCount() {
         assertNotNull(teamDaoJDBC);
         Integer quantity = teamDaoJDBC.count();
         assertNotNull(quantity);
         assertTrue(quantity > 0);
         assertEquals(Integer.valueOf(3), quantity);
-    }
-
-    @Test
-    void deleteTeamWithPlayer() {
-        List<Team> teamsBeforeDelete = teamDaoJDBC.findAll();
-        assertThrows(TeamWithPlayerException.class, () ->
-                teamDaoJDBC.delete(teamsBeforeDelete.get(0).getTeamId()));
     }
 }

@@ -24,11 +24,30 @@
         <constructor-arg name="teamDao" ref="teamDao"/>
     </bean>
 
+
+    <bean id="playerDtoDao" class="com.zavadski.dao.PlayerDtoDaoJdbc">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="playerDtoService" class="com.zavadski.service.impl.PlayerDtoServiceImpl">
+        <constructor-arg name="playerDtoDao" ref="playerDtoDao"/>
+    </bean>
+
+    <bean id="playerDao" class="com.zavadski.dao.PlayerDaoJDBCImpl">
+        <constructor-arg ref="namedParameterJdbcTemplate"/>
+    </bean>
+
+    <bean id="playerService" class="com.zavadski.service.impl.PlayerServiceImpl">
+        <constructor-arg name="playerDao" ref="playerDao"/>
+    </bean>
+
+
     <bean class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath*:test-db.properties</value>
                 <value>classpath*:sql-team.properties</value>
+                <value>classpath*:sql-player.properties</value>
             </list>
         </property>
     </bean>
