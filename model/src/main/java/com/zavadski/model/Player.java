@@ -27,6 +27,13 @@ public class Player {
         this.firstName = firstName;
     }
 
+    public Player(String firstName, String surname, LocalDate birthday, int teamId) {
+        this.firstName = firstName;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.teamId = teamId;
+    }
+
     public Integer getPlayerId() {
         return playerId;
     }
