@@ -1,3 +1,5 @@
+[![Java CI with Maven](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/actions/workflows/maven.yml/badge.svg?branch=main)](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/actions/workflows/maven.yml)
+
 # Vadzim-Zavadski-FT
 
 This is sample 'Football team' web application.
