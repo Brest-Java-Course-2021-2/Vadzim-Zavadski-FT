@@ -1,7 +1,5 @@
 package com.zavadski.rest;
 
-import com.zavadski.dao.TeamDaoJDBCImpl;
-import com.zavadski.model.Player;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
 import org.apache.logging.log4j.LogManager;

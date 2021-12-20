@@ -1,6 +1,5 @@
 package com.zavadski.rest;
 
-import com.zavadski.dao.PlayerDaoJDBCImpl;
 import com.zavadski.model.dto.PlayerDto;
 import com.zavadski.service.PlayerDtoService;
 import org.apache.logging.log4j.LogManager;
