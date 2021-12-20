@@ -11,12 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @RestController
 public class TeamController {
 
-    private static final Logger logger = LogManager.getLogger(TeamDaoJDBCImpl.class);
+    private static final Logger logger = LogManager.getLogger(TeamController.class);
 
     private final TeamService teamService;
 
@@ -27,21 +26,21 @@ public class TeamController {
     @GetMapping(value = "/teams")
     public final Collection<Team> teams() {
 
-        logger.debug("teams()");
+        logger.debug("rest-app: findAllTeams()");
         return teamService.findAllTeams();
     }
 
     @GetMapping(value = "/teams/{id}")
     public final Team getTeamById(@PathVariable Integer id) {
 
-        logger.debug("team()");
+        logger.debug("rest-app: getTeamById()");
         return teamService.getTeamById(id);
     }
 
     @PostMapping(path = "/teams", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Integer> createTeam(@RequestBody Team team) {
 
-        logger.debug("createTeam({})", team);
+        logger.debug("rest-app: createTeam({})", team);
         Integer id = teamService.create(team);
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
@@ -49,7 +48,7 @@ public class TeamController {
     @PutMapping(value = "/teams", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> updateTeam(@RequestBody Team team) {
 
-        logger.debug("updateTeam({})", team);
+        logger.debug("rest-app: updateTeam({})", team);
         int result = teamService.update(team);
         return new ResponseEntity(result, HttpStatus.OK);
     }
@@ -64,7 +63,7 @@ public class TeamController {
     @GetMapping(value = "/teams/count")
     public final Integer count() {
 
-        logger.debug("count()");
+        logger.debug("rest-app: count()");
         return teamService.count();
     }
 }

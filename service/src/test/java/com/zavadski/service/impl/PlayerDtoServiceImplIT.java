@@ -1,5 +1,6 @@
-package com.zavadski.dao;
+package com.zavadski.service.impl;
 
+import com.zavadski.service.PlayerDtoService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -12,27 +13,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-jdbc-conf.xml"})
+@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:service-context-test.xml"})
 @Transactional
-@Rollback
-class PlayerDtoDaoJdbcIT {
+class PlayerDtoServiceImplIT {
 
-    private final Logger logger = LogManager.getLogger(PlayerDtoDaoJdbcIT.class);
+    private final Logger logger = LogManager.getLogger(PlayerServiceImplIT.class);
 
-    private PlayerDtoDaoJdbc playerDtoDaoJdbc;
-
-    public PlayerDtoDaoJdbcIT(@Autowired PlayerDtoDao playerDtoDaoJdbc) {
-        this.playerDtoDaoJdbc = (PlayerDtoDaoJdbc) playerDtoDaoJdbc;
-    }
+    @Autowired
+    PlayerDtoService playerDtoService;
 
     //TODO тест нужно доработать
     @Test
     public void filterByBirthday() {
         logger.debug("Execute test: filterByBirthday()");
-        assertNotNull(playerDtoDaoJdbc);
-        assertNotNull(playerDtoDaoJdbc.filterByBirthday(LocalDate.parse("1990-01-01"), LocalDate.parse("2010-01-01")));
+        assertNotNull(playerDtoService);
+        assertNotNull(playerDtoService.filterByBirthday(LocalDate.parse("1990-01-01"), LocalDate.parse("2010-01-01")));
     }
 }

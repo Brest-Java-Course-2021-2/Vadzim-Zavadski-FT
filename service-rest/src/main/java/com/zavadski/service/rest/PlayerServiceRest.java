@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class PlayerServiceRest implements PlayerService {
 
-    private final Logger logger = LogManager.getLogger(PlayerDtoServiceRest.class);
+    private final Logger logger = LogManager.getLogger(PlayerServiceRest.class);
 
     private String url;
 

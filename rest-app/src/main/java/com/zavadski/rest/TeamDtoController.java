@@ -13,7 +13,7 @@ import java.util.Collection;
 @RestController
 public class TeamDtoController {
 
-    private static final Logger logger = LogManager.getLogger(TeamDaoJDBCImpl.class);
+    private static final Logger logger = LogManager.getLogger(TeamDtoController.class);
 
     private final TeamDtoService teamDtoService;
 
@@ -23,7 +23,7 @@ public class TeamDtoController {
 
     @GetMapping(value = "team_dtos")
     public final Collection<TeamDto> teamDtos() {
-        logger.debug("teamDtos()");
+        logger.debug("rest-app: teamDtos()");
         return teamDtoService.findAllWithNumberOfPlayers();
     }
 }

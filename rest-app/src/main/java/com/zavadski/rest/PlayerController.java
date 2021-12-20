@@ -24,21 +24,21 @@ public class PlayerController {
     @GetMapping(value = "/players")
     public final Collection<Player> players() {
 
-        logger.debug("players()");
+        logger.debug("rest-app: players()");
         return playerService.findAllPlayers();
     }
 
     @GetMapping(value = "/players/{id}")
     public final Player getPlayerById(@PathVariable Integer id) {
 
-        logger.debug("getPlayerById()");
+        logger.debug("rest-app: getPlayerById()");
         return playerService.getPlayerById(id);
     }
 
     @PostMapping(path = "/players", consumes = "application/json", produces = "application/json")
     public final ResponseEntity<Integer> createPlayer(@RequestBody Player player) {
 
-        logger.debug("createPlayer({})", player);
+        logger.debug("rest-app: createPlayer({})", player);
         Integer id = playerService.create(player);
         return new ResponseEntity(id, HttpStatus.OK);
     }
@@ -46,7 +46,7 @@ public class PlayerController {
     @PutMapping(value = "/players", consumes = {"application/json"}, produces = {"application/json"})
     public final ResponseEntity<Integer> updatePlayer(@RequestBody Player player) {
 
-        logger.debug("updatePlayer({})", player);
+        logger.debug("rest-app: updatePlayer({})", player);
         int result = playerService.update(player);
         return new ResponseEntity(result, HttpStatus.OK);
     }

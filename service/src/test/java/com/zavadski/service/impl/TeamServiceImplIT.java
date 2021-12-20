@@ -129,7 +129,7 @@ class TeamServiceImplIT {
     }
 
     @Test
-    void deleteTeamWithPlayer() {
+    void tryDeleteTeamWithPlayer() {
         logger.debug("Execute test: deleteTeamWithPlayer()");
         List<Team> teamsBeforeDelete = teamService.findAllTeams();
         assertThrows(TeamWithPlayerException.class, () ->

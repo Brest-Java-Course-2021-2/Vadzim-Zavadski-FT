@@ -55,8 +55,7 @@ class TeamControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.teamId", Matchers.is(team.getTeamId())))
-                .andExpect(
-                        MockMvcResultMatchers.jsonPath("$.teamName", Matchers.is(team.getTeamName())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.teamName", Matchers.is(team.getTeamName())))
         ;
 
         Mockito.verify(teamService).getTeamById(captorId.capture());

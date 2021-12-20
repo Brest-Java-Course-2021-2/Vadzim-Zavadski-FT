@@ -1,6 +1,8 @@
 package com.zavadski.dao;
 
 import com.zavadski.model.dto.TeamDto;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -10,6 +12,8 @@ import java.util.List;
 
 @Component
 public class TeamDtoDaoJdbc implements TeamDtoDao {
+
+    private final Logger logger = LogManager.getLogger(TeamDtoDaoJdbc.class);
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -22,6 +26,7 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
 
     @Override
     public List<TeamDto> findAllWithNumberOfPlayers() {
+        logger.debug("Start: findAllWithNumberOfPlayers");
         List<TeamDto> teams = namedParameterJdbcTemplate.query(findAllWithNumberOfPlayersSql,
                 BeanPropertyRowMapper.newInstance(TeamDto.class));
         return teams;

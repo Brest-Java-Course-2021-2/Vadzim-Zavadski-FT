@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class TeamServiceRest implements TeamService {
 
-    private final Logger logger = LogManager.getLogger(TeamDtoServiceRest.class);
+    private final Logger logger = LogManager.getLogger(TeamServiceRest.class);
 
     private String url;
 

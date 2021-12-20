@@ -16,7 +16,7 @@ import java.util.Collection;
 @RestController
 public class PlayerDtoController {
 
-    private static final Logger logger = LogManager.getLogger(PlayerDaoJDBCImpl.class);
+    private static final Logger logger = LogManager.getLogger(PlayerDtoController.class);
 
     private final PlayerDtoService playerDtoService;
 
@@ -29,7 +29,7 @@ public class PlayerDtoController {
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                                   @RequestParam(name = "endDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
-        logger.debug("playerDtos()");
+        logger.debug("rest-app: playerDtos()");
         return playerDtoService.filterByBirthday(startDate, endDate);
     }
 }
