@@ -1,7 +1,7 @@
 package com.zavadski.dao;
 
+import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Player;
-import com.zavadski.model.Team;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,11 +11,14 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Collections;
 import java.util.List;
 
+import static com.zavadski.model.constants.PlayerConstants.PLAYER_NAME_SIZE;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
@@ -31,13 +34,19 @@ public class PlayerDaoJDBCImplTest {
     @Captor
     private ArgumentCaptor<RowMapper<Player>> captorMapper;
 
+    @Captor
+    private ArgumentCaptor<SqlParameterSource> captorSource;
+
+    @Captor
+    private ArgumentCaptor<GeneratedKeyHolder> captorKeyHolder;
+
     @AfterEach
     public void check() {
         Mockito.verifyNoMoreInteractions(namedParameterJdbcTemplate);
     }
 
     @Test
-    public void findAllPlayers(){
+    public void findAllPlayers() {
         String sql = "select";
         ReflectionTestUtils.setField(playerDaoJDBC, "sqlGetAllPlayers", sql);
         Player player = new Player();
@@ -56,5 +65,78 @@ public class PlayerDaoJDBCImplTest {
         Assertions.assertNotNull(result);
         Assertions.assertFalse(result.isEmpty());
         Assertions.assertSame(player, result.get(0));
+    }
+
+    @Test
+    public void getPlayerById() {
+        String sql = "get";
+        ReflectionTestUtils.setField(playerDaoJDBC, "sqlGetPlayerById", sql);
+        int id = 0;
+        Player player = new Player();
+
+        Mockito.when(namedParameterJdbcTemplate.queryForObject(
+                any(),
+                ArgumentMatchers.<SqlParameterSource>any(),
+                ArgumentMatchers.<RowMapper<Player>>any())
+        ).thenReturn(player);
+
+        Player result = playerDaoJDBC.getPlayerById(id);
+
+        Mockito.verify(namedParameterJdbcTemplate)
+                .queryForObject(eq(sql), captorSource.capture(), captorMapper.capture());
+
+        SqlParameterSource source = captorSource.getValue();
+        RowMapper<Player> mapper = captorMapper.getValue();
+
+        Assertions.assertNotNull(source);
+        Assertions.assertNotNull(mapper);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertSame(player, result);
+    }
+
+    //TODO тест нужно доработать
+//    @Test
+//    public void createNewPlayer() {
+//        String sql = "create";
+//        ReflectionTestUtils.setField(playerDaoJDBC, "sqlCreatePlayer", sql);
+//        Player player = new Player();
+//        Integer count = 0;
+//
+//        Mockito.when(namedParameterJdbcTemplate.update(
+//                any(),
+//                ArgumentMatchers.<SqlParameterSource>any(),
+//                ArgumentMatchers.<KeyHolder>any())
+//        ).thenReturn(count);
+//
+//        Integer result = playerDaoJDBC.create(player);
+//
+//        Mockito.verify(namedParameterJdbcTemplate)
+//                .update(eq(sql), captorSource.capture(), captorKeyHolder.capture());
+//
+//        SqlParameterSource source = captorSource.getValue();
+//        KeyHolder keyHolder = captorKeyHolder.getValue();
+//
+//        Assertions.assertNotNull(source);
+//        Assertions.assertNotNull(keyHolder);
+//    }
+
+    @Test
+    public void deletePlayer() {
+        String sql = "delete";
+        ReflectionTestUtils.setField(playerDaoJDBC, "sqlDeletePlayerById", sql);
+        int id = 0;
+        Mockito.when(namedParameterJdbcTemplate.update(
+                        any(),
+                        ArgumentMatchers.<SqlParameterSource>any()))
+                .thenReturn(0);
+
+        int result = playerDaoJDBC.delete(id);
+
+        Mockito.verify(namedParameterJdbcTemplate)
+                .update(eq(sql), captorSource.capture());
+
+        SqlParameterSource source = captorSource.getValue();
+        Assertions.assertNotNull(source);
     }
 }
