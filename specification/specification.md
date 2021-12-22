@@ -17,7 +17,7 @@ Main scenario:
 <br />
 
 
-![Picture 1.1]()
+![Picture 1.1](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/1.jpg)
 
 Picture 1.1 Viewing the list of teams
 
@@ -46,7 +46,7 @@ Cancellation scenario:
   * the user enters data and clicks the "Cancel" button;
   * data is not saved to the database and form for viewing the list of teams is opening with updated data.<br />
  
-![Picture 1.2]()
+![Picture 1.2](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/2.jpg)
 
 Picture 1.2 Team adding
 
@@ -70,7 +70,7 @@ Cancellation scenario:
   * the user enters data and clicks the "Cancel" button;
   * data is not saved to the database and form for viewing the list of teams is opening with updated data.<br />
  
-![Picture 1.3]()
+![Picture 1.3](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/3.jpg)
 
 Picture 1.3 Team editing
 
@@ -96,7 +96,7 @@ Cancellation scenario:
   * the user clicks the "No" button;
   * form for viewing the list of teams is opening with updated data.<br />
  
-![Picture 1.4]()
+![Picture 1.4](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/4.jpg)
 
 Picture 1.4 Team deleting
 
@@ -109,7 +109,7 @@ Main scenario:
 * The user selects the "Players" menu item;
 * The list of all players is displayed<br />
 
-![Picture 2.1]()
+![Picture 2.1](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/5.jpg)
 
 Picture 2.1 Viewing the list of players
 
@@ -127,7 +127,7 @@ The list displays the following columns:
 * The default filter shows all players.
 * Data is updated after selecting filtering data and clicking the "show" button.
 
-![Picture 2.2]()
+![Picture 2.2](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/6.jpg)
 
 Picture 2.2 Filtering the list of players by birthday
 
@@ -149,7 +149,7 @@ Cancellation scenario:
   * the user enters data and clicks the "Cancel" button;
   * data is not saved to the database and form for viewing the list of players is opening with updated data.<br />
  
-![Picture 2.3]()
+![Picture 2.3](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/7.jpg)
 
 Picture 2.3 Player adding
 
@@ -177,7 +177,7 @@ Cancellation scenario:
   * the user enters data and clicks the "Cancel" button;
   * data is not saved to the database and form for viewing the list of players is opening with updated data.<br />
 
-![Picture 2.4]()
+![Picture 2.4](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/8.jpg)
 
 Picture 2.4 Player editing
 
@@ -203,6 +203,6 @@ Cancellation scenario:
   * the user clicks the "No" button;
   * form for viewing the list of players is opening with updated data.<br />
  
-![Picture 2.5]()
+![Picture 2.5](https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT/blob/main/specification/pictures/9.jpg)
 
 Picture 2.5 Player deleting
