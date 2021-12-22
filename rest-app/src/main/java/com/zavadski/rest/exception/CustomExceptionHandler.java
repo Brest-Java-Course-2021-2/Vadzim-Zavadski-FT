@@ -29,4 +29,9 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(String.format("Handle: %s", ex.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    @ExceptionHandler
+    public ResponseEntity<String> handleException(Exception ex) {
+        return new ResponseEntity<>(String.format("Handle: %s", ex.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+
 }
