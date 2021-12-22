@@ -134,14 +134,12 @@ public class PlayerController {
                                          @RequestParam(required = false)
                                          @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
                                          Model model,
-                                         RedirectAttributes redirectAttributes) {
+                                         BindingResult result) {
         logger.debug("user ask trains list from: {} to: {}", startDate, endDate);
         if (!(startDate == null) && !(endDate == null) && endDate.isBefore(startDate)) {
             logger.error("Error filter");
-            redirectAttributes.addAttribute("errorMessage",
-                    "We're sorry, but we use wrong search parameters.");
             return "redirect:/error";
-        } else {
+       } else {
             logger.debug("return result of search");
             model.addAttribute("players", playerDtoService.filterByBirthday(startDate, endDate));
             model.addAttribute("startDate", startDate);
