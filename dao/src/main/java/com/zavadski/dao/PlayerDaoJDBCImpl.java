@@ -133,5 +133,6 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
             player.setTeamId(resultSet.getInt("team_id"));
             return player;
         }
+
     }
 }

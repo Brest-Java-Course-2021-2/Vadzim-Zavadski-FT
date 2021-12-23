@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Controller
 public class PlayerController {
@@ -130,14 +131,17 @@ public class PlayerController {
 
     @GetMapping(value = "/players/find")
     public final String filterByBirthday(@RequestParam(required = false)
-                                             @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
+                                         @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                          @RequestParam(required = false)
                                          @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
                                          Model model,
-                                         BindingResult result) {
+                                         RedirectAttributes redirectAttributes) {
+
         logger.debug("user ask trains list from: {} to: {}", startDate, endDate);
         if (!(startDate == null) && !(endDate == null) && endDate.isBefore(startDate)) {
             logger.error("Error filter");
+            redirectAttributes.addAttribute("errorMessage",
+                    "We're sorry, but we use wrong search parameters.");
             return "redirect:/error";
        } else {
             logger.debug("return result of search");
