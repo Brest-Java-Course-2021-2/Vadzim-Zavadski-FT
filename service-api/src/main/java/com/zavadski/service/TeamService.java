@@ -17,4 +17,6 @@ public interface TeamService {
     Integer delete(Integer teamId);
 
     Integer count();
+
+    boolean isTeamWithPlayers(Integer teamId);
 }

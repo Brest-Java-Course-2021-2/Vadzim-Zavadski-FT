@@ -84,4 +84,9 @@ public class TeamServiceRest implements TeamService {
         ResponseEntity<Integer> responseEntity = restTemplate.getForEntity(url + "/count", Integer.class);
         return responseEntity.getBody();
     }
+
+    @Override
+    public boolean isTeamWithPlayers(Integer teamId) {
+        return false;
+    }
 }

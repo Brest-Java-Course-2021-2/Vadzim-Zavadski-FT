@@ -45,18 +45,10 @@
 </header>
 
 
-
 <section id="message">
     <div class="container-xl">
         <div class="row align-items-center">
-            <div class="col-8">
-                <p class="h5" th:text="${errorMessage}">This URL was wrong.</p>
-            </div>
-            <div class="col-sm-4">
-                <img src="../static/img/lost.svg" class="d-block w-100"
-                     th:src="@{/img/lost.svg}" width="150" height="150"
-                     alt="...">
-            </div>
+            <p class="h5" th:text="${errorMessage}">This URL was wrong.</p>
         </div>
     </div>
 </section>

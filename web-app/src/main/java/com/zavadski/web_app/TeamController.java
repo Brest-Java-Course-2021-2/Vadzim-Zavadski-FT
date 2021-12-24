@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class TeamController {
@@ -110,9 +111,19 @@ public class TeamController {
      * @return view name
      */
     @GetMapping(value = "/team/{id}/delete")
-    public final String deleteTeamById(@PathVariable Integer id, Model model) {
+    public final String deleteTeamById(
+            @PathVariable Integer id,
+            Model model,
+            RedirectAttributes redirectAttributes) {
         logger.debug("delete({},{})", id, model);
-        teamService.delete(id);
-        return "redirect:/teams";
+        teamService.isTeamWithPlayers(id);
+        if (teamService.isTeamWithPlayers(id)) {
+            redirectAttributes.addAttribute("errorMessage",
+                    "We're sorry, but we can't delete");
+            return "redirect:/error";
+        } else {
+            teamService.delete(id);
+            return "redirect:/teams";
+        }
     }
 }
