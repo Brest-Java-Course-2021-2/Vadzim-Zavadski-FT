@@ -101,49 +101,11 @@
                         <thead class="table-secondary">
                         <tr>
                             <th>TOTAL TEAMS:</th>
-                            <th th:text="${count}"></th>
+                            <th th:text="${count}">1</th>
                             <th></th>
                             <th></th>
                         </tr>
-                    </thead>
-
-                        <tr th:remove="all">
-                            <td>Arsenal</td>
-                            <td class="text-center">2</td>
-                            <td class="text-end">
-                                <a href="team.html"
-                                   th:href="@{/team/2}"
-                                   class="btn-md btn-outline-secondary"
-                                   title="Edit team">
-                                    <i class="bi bi-pencil"></i>
-                                    <span class="d-none d-md-inline">&nbsp;Edit</span></a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                <a href="#" class="btn-md btn-outline-secondary"
-                                   title="delete team"><i class="bi bi-trash"></i><span
-                                        class="d-none d-md-inline">&nbsp;Delete</span>
-                                </a>
-                            </span>
-                            </td>
-                        </tr>
-                        <tr th:remove="all">
-                            <td>Arsenal2</td>
-                            <td class="text-center">2</td>
-                            <td class="text-end">
-                                <a href="team.html"
-                                   th:href="@{/team/3}"
-                                   class="btn-md btn-outline-secondary"
-                                   title="Edit team">
-                                    <i class="bi bi-pencil"></i>
-                                    <span class="d-none d-md-inline">Edit</span>
-                                </a>
-                                <span data-bs-toggle="modal" data-bs-target="#deleteDialog">
-                                <a href="#" class="btn-md btn-outline-secondary" title="delete team">
-                                    <i class="bi bi-trash"></i>
-                                    <span class="d-none d-md-inline">Delete</span>
-                                </a>
-                            </span>
-                            </td>
-                        </tr>
+                        </thead>
                         </tbody>
                     </table>
                 </div>
@@ -156,7 +118,6 @@
     <hr/>
     <p class="text-center">&copy; 2021</p>
 </footer>
-
 
 <!-- Confirm delete Modal -->
 <div class="modal fade" id="deleteDialog" tabindex="-1" role="dialog"
@@ -183,13 +144,14 @@
         th:href="@{/resources/static/js/bootstrap.bundle.min.js}"></script>
 <script src="../../resources/static/js/jquery-3.4.1.slim.min.js"
         th:src="@{/resources/static/js/jquery-3.4.1.slim.min.js}"></script>
+
 <script>
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)
         $(this).find('.modal-body').text('Please confirm delete team: "' + target.data('name') + '"')
         document.getElementById('deleteUrl').href = '/team/' + target.data('id') + '/delete';
     })
-
 </script>
+
 </body>
 </html>
