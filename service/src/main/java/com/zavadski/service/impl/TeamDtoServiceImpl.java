@@ -27,4 +27,5 @@ public class TeamDtoServiceImpl implements TeamDtoService {
         logger.debug("Start: findAllWithNumberOfPlayers");
         return teamDtoDao.findAllWithNumberOfPlayers();
     }
+
 }

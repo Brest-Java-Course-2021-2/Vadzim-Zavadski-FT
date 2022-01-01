@@ -61,9 +61,9 @@ public class PlayerController {
         logger.debug("gotoEditPlayerPage(id:{},model:{})", id, model);
         Player player = playerService.getPlayerById(id);
 
-            model.addAttribute("isNew", false);
-            model.addAttribute("player", playerService.getPlayerById(id));
-            model.addAttribute("teams", teamService.findAllTeams());
+        model.addAttribute("isNew", false);
+        model.addAttribute("player", playerService.getPlayerById(id));
+        model.addAttribute("teams", teamService.findAllTeams());
         return "player";
     }
 
@@ -143,7 +143,7 @@ public class PlayerController {
             redirectAttributes.addAttribute("errorMessage",
                     "We're sorry, but we use wrong search parameters.");
             return "redirect:/error";
-       } else {
+        } else {
             logger.debug("return result of search");
             model.addAttribute("players", playerDtoService.filterByBirthday(startDate, endDate));
             model.addAttribute("startDate", startDate);

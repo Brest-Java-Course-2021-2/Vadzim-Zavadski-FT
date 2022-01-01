@@ -64,4 +64,5 @@ public class TeamController {
         logger.debug("rest-app: count()");
         return teamService.count();
     }
+
 }

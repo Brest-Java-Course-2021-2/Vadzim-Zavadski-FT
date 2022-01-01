@@ -28,4 +28,5 @@ public class PlayerDtoServiceImpl implements PlayerDtoService {
         logger.debug("Start: filterByBirthday");
         return playerDtoDao.filterByBirthday(startDate, endDate);
     }
+
 }
