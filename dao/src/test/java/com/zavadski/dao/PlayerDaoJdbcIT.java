@@ -28,25 +28,25 @@ class PlayerDaoJdbcIT {
 
     @Test
     void findAllPlayers() {
-        logger.debug("Execute test: findAllPlayers()");
+        logger.debug("PlayerDaoJdbcIT test: findAllPlayers()");
         assertNotNull(playerDaoJDBC);
         assertNotNull(playerDaoJDBC.findAllPlayers());
     }
 
     @Test
     void create() {
-        logger.debug("Execute test: createPlayer()");
+        logger.debug("PlayerDaoJdbcIT test: createPlayer()");
         assertNotNull(playerDaoJDBC);
         int teamSizeBefore = playerDaoJDBC.findAllPlayers().size();
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
         Integer newPlayerId = playerDaoJDBC.create(player);
         assertNotNull(newPlayerId);
-        assertEquals((int) teamSizeBefore, playerDaoJDBC.findAllPlayers().size() - 1);
+        assertEquals(teamSizeBefore, playerDaoJDBC.findAllPlayers().size() - 1);
     }
 
     @Test
     void tryToCreateEqualsPlayers() {
-        logger.debug("Execute test: tryToCreateEqualsPlayers()");
+        logger.debug("PlayerDaoJdbcIT test: tryToCreateEqualsPlayers()");
         assertNotNull(playerDaoJDBC);
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
 
@@ -58,7 +58,7 @@ class PlayerDaoJdbcIT {
 
     @Test
     void getPlayerById() {
-        logger.debug("Execute test: getPlayerById()");
+        logger.debug("PlayerDaoJdbcIT test: getPlayerById()");
         List<Player> players = playerDaoJDBC.findAllPlayers();
         if (players.size() == 0) {
             playerDaoJDBC.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
@@ -72,7 +72,7 @@ class PlayerDaoJdbcIT {
 
     @Test
     void updatePlayer() {
-        logger.debug("Execute test: updatePlayer()");
+        logger.debug("PlayerDaoJdbcIT test: updatePlayer()");
         List<Player> players = playerDaoJDBC.findAllPlayers();
         if (players.size() == 0) {
             playerDaoJDBC.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
@@ -86,7 +86,7 @@ class PlayerDaoJdbcIT {
 
     @Test
     void deletePlayer() {
-        logger.debug("Execute test: deletePlayer()");
+        logger.debug("PlayerDaoJdbcIT test: deletePlayer()");
         playerDaoJDBC.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
         List<Player> players = playerDaoJDBC.findAllPlayers();
 
