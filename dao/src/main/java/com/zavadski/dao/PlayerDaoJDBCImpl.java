@@ -68,17 +68,17 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     public Integer create(Player player) {
         logger.debug("Create player: create({})", player);
 
-        if (player.getFirstName().length() > PLAYER_NAME_SIZE) {
+        if (player.getFirstName().length()>PLAYER_NAME_SIZE) {
             logger.warn("Player name is too long", player.getFirstName());
-            throw new UnacceptableName("Player name length should be <=" + PLAYER_NAME_SIZE);
+            throw new UnacceptableName("Player name length should be <="+ PLAYER_NAME_SIZE);
         }
 
-        if (!isPlayerUnique(player.getFirstName(), player.getSurname(), player.getBirthday())) {
-            logger.warn("Team with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
+        if (!isPlayerUnique(player.getFirstName(),player.getSurname(),player.getBirthday(), 0)) {
+            logger.warn("Player with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
             throw new UnacceptableName("Player with the same name and surname already exists in DB.");
         }
 
-        if (player.getFirstName().isEmpty() || player.getSurname().isEmpty() || player.getBirthday() == null) {
+        if (player.getFirstName().isEmpty() || player.getSurname().isEmpty() || player.getBirthday()==null) {
             logger.error("Not all fields are filled in Player");
             throw new FieldNullPointerException("Not all fields are filled in Player");
         }
@@ -93,18 +93,33 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         return (Integer) keyHolder.getKey();
     }
 
-    private boolean isPlayerUnique(String firstName, String surname, LocalDate birthday) {
+    private boolean isPlayerUnique(String firstName, String surname, LocalDate birthday, Integer count) {
         logger.debug("Check Player: {} on unique", firstName, surname, birthday);
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", firstName).
                         addValue("surname", surname).
                         addValue("birthday", birthday);
-        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueFirstName, sqlParameterSource, Integer.class) == 0;
+        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueFirstName, sqlParameterSource, Integer.class) == count;
     }
 
     @Override
     public Integer update(Player player) {
         logger.debug("Update player: update({})", player);
+
+        if (player.getFirstName().length()>PLAYER_NAME_SIZE) {
+            logger.warn("Player name is too long", player.getFirstName());
+            throw new UnacceptableName("Player name length should be <="+ PLAYER_NAME_SIZE);
+        }
+
+        if (!isPlayerUnique(player.getFirstName(),player.getSurname(),player.getBirthday(), 1)) {
+            logger.warn("Player with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
+            throw new UnacceptableName("Player with the same name and surname already exists in DB.");
+        }
+
+        if (player.getFirstName().isEmpty() || player.getSurname().isEmpty() || player.getBirthday()==null) {
+            logger.error("Not all fields are filled in Player");
+            throw new FieldNullPointerException("Not all fields are filled in Player");
+        }
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", player.getPlayerId()).
                         addValue("firstName", player.getFirstName()).
