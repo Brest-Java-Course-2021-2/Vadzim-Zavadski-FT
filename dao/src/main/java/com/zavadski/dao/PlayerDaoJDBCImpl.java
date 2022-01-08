@@ -99,7 +99,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
                 new MapSqlParameterSource("firstName", firstName).
                         addValue("surname", surname).
                         addValue("birthday", birthday);
-        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueFirstName, sqlParameterSource, Integer.class) == count;
+        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueFirstName, sqlParameterSource, Integer.class) <= count;
     }
 
     @Override

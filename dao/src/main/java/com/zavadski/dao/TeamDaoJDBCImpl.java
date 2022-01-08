@@ -78,6 +78,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
             logger.warn("Team with the same name {} already exists.", team.getTeamName());
             throw new UnacceptableName("Team with the same name already exists in DB.");
         }
+
         if (team.getTeamName().length() > TEAM_NAME_SIZE) {
             logger.warn("Team name is too long", team.getTeamName());
             throw new UnacceptableName("Team name length should be <=" + TEAM_NAME_SIZE);
@@ -98,7 +99,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
     private boolean isTeamUnique(String teamName, Integer count) {
         logger.debug("Check TeamName: {} on unique", teamName);
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("teamName", teamName);
-        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueTeamName, sqlParameterSource, Integer.class) == count;
+        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueTeamName, sqlParameterSource, Integer.class) <= count;
     }
 
     @Override
