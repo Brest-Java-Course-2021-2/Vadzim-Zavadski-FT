@@ -1,26 +1,26 @@
 package com.zavadski.rest;
-
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.Collection;
 
 @RestController
+@Api(tags = {"Team controllers"})
 public class TeamController {
 
     private static final Logger logger = LogManager.getLogger(TeamController.class);
-
     private final TeamService teamService;
-
     public TeamController(TeamService teamService) {
         this.teamService = teamService;
     }
 
+    @ApiOperation(value = "Returns team list")
     @GetMapping(value = "/teams")
     public final Collection<Team> teams() {
 
@@ -28,6 +28,7 @@ public class TeamController {
         return teamService.findAllTeams();
     }
 
+    @ApiOperation(value = "Returns one particular team")
     @GetMapping(value = "/teams/{id}")
     public final Team getTeamById(@PathVariable Integer id) {
 
@@ -35,6 +36,7 @@ public class TeamController {
         return teamService.getTeamById(id);
     }
 
+    @ApiOperation(value = "Creates team instance")
     @PostMapping(path = "/teams", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Integer> createTeam(@RequestBody Team team) {
 
@@ -43,6 +45,7 @@ public class TeamController {
         return new ResponseEntity<>(id, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Updates particular team instance")
     @PutMapping(value = "/teams", consumes = {"application/json"}, produces = {"application/json"})
     public ResponseEntity<Integer> updateTeam(@RequestBody Team team) {
 
@@ -51,6 +54,7 @@ public class TeamController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Deletes particular teams instance")
     @DeleteMapping(value = "/teams/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deleteTeam(@PathVariable Integer id) {
 
@@ -58,6 +62,7 @@ public class TeamController {
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Returns teams count")
     @GetMapping(value = "/teams/count")
     public final Integer count() {
 

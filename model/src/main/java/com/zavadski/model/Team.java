@@ -1,8 +1,12 @@
 package com.zavadski.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class Team {
 
+    @ApiModelProperty(notes = "Teams id")
     private Integer teamId;
+    @ApiModelProperty(notes = "Teams name")
     private String teamName;
 
     public Team() {

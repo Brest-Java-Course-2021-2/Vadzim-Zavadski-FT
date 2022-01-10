@@ -1,11 +1,19 @@
 package com.zavadski.model.dto;
 
+import io.swagger.annotations.ApiModelProperty;
+
 public class TeamDto {
 
-
+    @ApiModelProperty(notes = "Teams id")
     private Integer teamId;
+
+    @ApiModelProperty(notes = "Teams name")
     private String teamName;
+
+    @ApiModelProperty(notes = "Number of players in team")
     private Integer numberOfPlayers;
+
+    @ApiModelProperty(notes = "Average age all players in team")
     private Double avgAge;
 
     public TeamDto() {

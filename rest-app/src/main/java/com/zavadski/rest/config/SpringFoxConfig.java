@@ -1,12 +1,15 @@
-package com.zavadski;
+package com.zavadski.rest.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.Tag;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
+import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+@EnableSwagger2
 @Configuration
 public class SpringFoxConfig {
     @Bean
@@ -15,6 +18,9 @@ public class SpringFoxConfig {
                 .select()
                 .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
-                .build();
-    }
+                .build()
+                .tags(new Tag("Player controllers", "Player list operations"),
+                        new Tag("Team controllers", "Team list operations"),
+                        new Tag("Team dto controller", "Team list with average age"),
+                        new Tag("Player dto controller", "Filter players"));    }
 }

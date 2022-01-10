@@ -1,6 +1,5 @@
 package com.zavadski.web_app;
 
-import com.zavadski.model.Player;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamDtoService;
 import com.zavadski.service.TeamService;
@@ -101,11 +100,11 @@ public class TeamController {
         teamValidator.validate(team, result);
         if (result.hasErrors()) {
             return "team";
-        } else {
-            this.teamService.update(team);
-            return "redirect:/teams";
         }
+        this.teamService.update(team);
+        return "redirect:/teams";
     }
+
     /**
      * Delete team.
      *
