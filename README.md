@@ -3,97 +3,49 @@
 # Vadzim-Zavadski-FT
 
 This is sample 'Football team' web application.
+
 ## Requirements
 * JDK 11
 * Apache Maven3+
         
 #### Check environment configuration
 
-        $ java -version
-        $ mvn -version        
+        java -version
+        mvn -version        
 
 ### Installing
 Choose directory for project, download project from github:
  
-       $ git clone https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT.gitt
+       git clone https://github.com/Brest-Java-Course-2021-2/Vadzim-Zavadski-FT.git
 
 #### Build project
 Run terminal command in project directory:
 
-        $ mvn clean install
+        mvn clean install
 
-#### Use embedded jetty server for REST application test
-   Run terminal command in project directory:
 
-        $ mvn -pl rest-app/ jetty:run
-
-        Once started, the REST server should be available at:
-
-        http://localhost:8088        
-
-Try CURL:
-- Team Controller
-
-        Get all teams:
-        $ curl -X GET "http://localhost:8088/teams" | json_pp
-        
-        Create team:
-        curl -X POST "http://localhost:8088/teams" -H "accept: application/json" -H "Content-Type: application/json" -d "{"teamName": "Arsenal2"}"
-        
-        Update team:
-        curl -X PUT "http://localhost:8088/teams" -H "accept: application/json" -H "Content-Type: application/json" -d "{"teamId": 2, "teamName": "Arsenal3"}"
-        
-        Find team by id:
-        curl -X GET "http://localhost:8088/teams/1" -H "accept: */*"
-        
-        Delete team:
-        curl -X DELETE "http://localhost:8088/teams/1" -H "accept: application/json"
-
-- TeamDto Controller
-        
-        Get all teams withaverage age and total players in team:
-        curl -X GET "http://localhost:8088/team_dtos" -H "accept: */*" | json_pp
-        
-- Player Controller
-        
-        Get all players:
-        $ curl -X GET "http://localhost:8088/players" | json_pp
-        
-        Create Player:
-        curl -X POST "http://localhost:8088/players" -H "accept: application/json" -H "Content-Type: application/json" -d "{
-        "firstName": "Alexandr",
-        "surname": "Lacazette",
-        "birthday": "1991-05-28",
-        "teamId": 2}"
-        
-        Update Player:
-        curl -X PUT "http://localhost:8088/players" -H "accept: application/json" -H "Content-Type: application/json" -d "{
-        "firstName": "Alexandr",
-        "surname": "Lacazette",
-        "birthday": "1991-05-28",
-        "teamId": 2}"
-        
-        Find player by id:
-        curl -X GET "http://localhost:8088/players/1" -H "accept: */*"
-        
-        Delete player:
-        curl -X DELETE "http://localhost:8088/players/1" -H "accept: application/json"
-        
-- Player Dto Controller
-        
-        Get players with filter by date of birthday:
-        curl -s -X GET "localhost:8088/player_dtos?startDate=1992-01-01&endDate=1994-01-01" | json_pp
-        
-#### Use embedded jetty server for WEB RESTful application test
-You need to run these commands in different tabs or terminal windows:
-        
-        $ mvn -pl rest-app/ jetty:run
-
-        $ mvn -pl web-app/ jetty:run
-
-   Once started, the application should be available at:
-
-        http://localhost:8080
-
-   if you wanna shutdown jetty server, go to terminal tab or window
-   you wanna stop and press "CTRL+C".
+### Run application
+Application consists 2 particular modules (web-application & rest-app) that are dependent on each other.
+### Start Rest application
+To start Rest server (rest-app module):
+```
+java -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar
+```
+rest-app is set up on http://localhost:8088 (no default redirect provided)
+### Start Web application
+To start WEB application (web-application module):
+```
+java -jar ./web-application/target/web-application-1.0-SNAPSHOT.jar
+```
+web-application is set up on http://localhost:8080 and is listening to :8088 so rest-app must be started already.
+### Stop applications
+To trigger Rest Shutdown Hook:
+```
+^C
+```
+## Rest API
+There is an API provided for the rest-app in the project. To access it, go to the
+```
+http://localhost:8088/swagger-ui.html
+```
+Note: Rest app should be built and ran for api page to work.
