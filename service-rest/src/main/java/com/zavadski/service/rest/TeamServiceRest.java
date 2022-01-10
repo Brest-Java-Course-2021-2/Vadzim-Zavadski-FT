@@ -1,5 +1,6 @@
 package com.zavadski.service.rest;
 
+import com.zavadski.model.Player;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
 import org.apache.logging.log4j.LogManager;
@@ -62,7 +63,8 @@ public class TeamServiceRest implements TeamService {
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
         HttpEntity<Team> entity = new HttpEntity<>(team, headers);
-        ResponseEntity<Integer> result = restTemplate.exchange(url, HttpMethod.PUT, entity, Integer.class);
+        ResponseEntity<Integer> result = restTemplate.exchange(
+                url, HttpMethod.PUT, entity, Integer.class);
         return result.getBody();
     }
 

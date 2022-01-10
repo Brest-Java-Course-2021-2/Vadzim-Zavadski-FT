@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Component
 public class PlayerDtoDaoJdbc implements PlayerDtoDao {
 
     private final Logger logger = LogManager.getLogger(PlayerDtoDaoJdbc.class);
@@ -36,7 +38,9 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
 
     @Override
     public List<PlayerDto> filterByBirthday(LocalDate startDate, LocalDate endDate) {
-        logger.debug("filterByBirthday(). Start date:" + startDate + "End date: " + endDate);
+        logger.debug("filterByBirthday()Start date: " + startDate);
+        logger.debug("Start date: " + startDate);
+        logger.debug("End date: " + endDate);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("START_DATE", startDate);
         parameterSource.addValue("END_DATE", endDate);

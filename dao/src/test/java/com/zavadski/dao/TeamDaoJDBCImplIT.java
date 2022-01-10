@@ -2,22 +2,28 @@ package com.zavadski.dao;
 
 import com.zavadski.dao.exception.TeamWithPlayerException;
 import com.zavadski.model.Team;
+import com.zavadski.testdb.SpringJdbcConfig;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:test-jdbc-conf.xml"})
+@DataJdbcTest
+@Import({TeamDaoJDBCImpl.class})
+@PropertySource({"classpath:dao.properties"})
+@ContextConfiguration(classes = SpringJdbcConfig.class)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Transactional
 @Rollback
 class TeamDaoJDBCImplIT {
@@ -32,14 +38,13 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void findAll() {
-        logger.debug("TeamDaoJDBCImpl test: findAll()");
+        logger.debug("Execute test: findAll()");
         assertNotNull(teamDaoJDBC);
         assertNotNull(teamDaoJDBC.findAll());
     }
 
     @Test
     void create() {
-        logger.debug("TeamDaoJDBCImpl test: create()");
         assertNotNull(teamDaoJDBC);
         int teamSizeBefore = teamDaoJDBC.count();
         Team team = new Team("MU");
@@ -50,7 +55,6 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void tryToCreateEqualsTeams() {
-        logger.debug("TeamDaoJDBCImpl test: tryToCreateEqualsTeams()");
         assertNotNull(teamDaoJDBC);
         Team team = new Team("MU");
 
@@ -62,7 +66,6 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void getDepartmentById() {
-        logger.debug("TeamDaoJDBCImpl test: getDepartmentById()");
         List<Team> teams = teamDaoJDBC.findAll();
         if (teams.size() == 0) {
             teamDaoJDBC.create(new Team("TEST TEAM"));
@@ -75,8 +78,7 @@ class TeamDaoJDBCImplIT {
     }
 
     @Test
-    void updateTeam() {
-        logger.debug("TeamDaoJDBCImpl test: updateTeam()");
+    void updateTeam(){
         List<Team> teams = teamDaoJDBC.findAll();
         if (teams.size() == 0) {
             teamDaoJDBC.create(new Team("TEST TEAM"));
@@ -89,16 +91,16 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void tryToUpdateTeamWithSameName() {
-        logger.debug("TeamDaoJDBCImpl test: tryToUpdateTeamWithSameName()");
         assertNotNull(teamDaoJDBC);
         Team team = new Team("Lester");
 
-        assertThrows(IllegalArgumentException.class, () -> teamDaoJDBC.update(team));
+        assertThrows(IllegalArgumentException.class, () -> {
+            teamDaoJDBC.update(team);
+        });
     }
 
     @Test
     void deleteTeam() {
-        logger.debug("TeamDaoJDBCImpl test: deleteTeam()");
         teamDaoJDBC.create(new Team("TEST TEAM"));
         List<Team> teams = teamDaoJDBC.findAll();
 
@@ -108,7 +110,6 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void tryDeleteTeamWithPlayer() {
-        logger.debug("TeamDaoJDBCImpl test: tryDeleteTeamWithPlayer()");
         List<Team> teamsBeforeDelete = teamDaoJDBC.findAll();
         assertThrows(TeamWithPlayerException.class, () ->
                 teamDaoJDBC.delete(teamsBeforeDelete.get(0).getTeamId()));
@@ -116,7 +117,6 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void shouldCount() {
-        logger.debug("TeamDaoJDBCImpl test: shouldCount()");
         assertNotNull(teamDaoJDBC);
         Integer quantity = teamDaoJDBC.count();
         assertNotNull(quantity);

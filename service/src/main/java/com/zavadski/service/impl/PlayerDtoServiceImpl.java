@@ -24,9 +24,9 @@ public class PlayerDtoServiceImpl implements PlayerDtoService {
     }
 
     @Override
+    @Transactional
     public List<PlayerDto> filterByBirthday(LocalDate startDate, LocalDate endDate) {
         logger.debug("Start: filterByBirthday");
         return playerDtoDao.filterByBirthday(startDate, endDate);
     }
-
 }

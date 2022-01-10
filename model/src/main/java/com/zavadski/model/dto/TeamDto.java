@@ -2,6 +2,7 @@ package com.zavadski.model.dto;
 
 public class TeamDto {
 
+
     private Integer teamId;
     private String teamName;
     private Integer numberOfPlayers;

@@ -1,6 +1,5 @@
 package com.zavadski.dao;
 
-import com.zavadski.dao.exception.PlayerWrongFilterDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Test;
@@ -29,15 +28,11 @@ class PlayerDtoDaoJdbcIT {
         this.playerDtoDaoJdbc = (PlayerDtoDaoJdbc) playerDtoDaoJdbc;
     }
 
-    //TODO тест можно доработать
+    //TODO тест нужно доработать
     @Test
     public void filterByBirthday() {
-        logger.debug("PlayerDtoDaoJdbcIT test: filterByBirthday()");
+        logger.debug("Execute test: filterByBirthday()");
         assertNotNull(playerDtoDaoJdbc);
         assertNotNull(playerDtoDaoJdbc.filterByBirthday(LocalDate.parse("1990-01-01"), LocalDate.parse("2010-01-01")));
-        assertNotNull(playerDtoDaoJdbc.filterByBirthday(LocalDate.parse("1990-01-01"), null));
-        assertNotNull(playerDtoDaoJdbc.filterByBirthday(null, LocalDate.parse("1991-01-01")));
-        assertThrows(PlayerWrongFilterDate.class, () ->
-                playerDtoDaoJdbc.filterByBirthday(LocalDate.parse("2020-01-01"), LocalDate.parse("2010-01-01")));
     }
 }

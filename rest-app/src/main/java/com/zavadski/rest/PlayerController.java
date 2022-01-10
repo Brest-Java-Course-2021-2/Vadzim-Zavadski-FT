@@ -54,9 +54,7 @@ public class PlayerController {
     @DeleteMapping(value = "/players/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deletePlayer(@PathVariable Integer id) {
 
-        logger.debug("rest-app: updatePlayer({})", id);
         int result = playerService.delete(id);
         return new ResponseEntity(result, HttpStatus.OK);
     }
-
 }

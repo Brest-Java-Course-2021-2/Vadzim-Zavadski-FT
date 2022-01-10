@@ -19,5 +19,4 @@ public interface TeamService {
     Integer count();
 
     boolean isTeamWithPlayers(Integer teamId);
-
 }

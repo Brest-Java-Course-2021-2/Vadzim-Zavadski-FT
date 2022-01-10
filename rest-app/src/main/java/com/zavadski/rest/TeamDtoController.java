@@ -25,5 +25,4 @@ public class TeamDtoController {
         logger.debug("rest-app: teamDtos()");
         return teamDtoService.findAllWithNumberOfPlayers();
     }
-
 }

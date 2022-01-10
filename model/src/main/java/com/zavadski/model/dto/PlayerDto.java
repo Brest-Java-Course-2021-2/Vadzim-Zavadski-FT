@@ -10,9 +10,10 @@ public class PlayerDto {
     private String firstName;
     private String surname;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+3")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone="GMT+3")
     private LocalDate birthday;
     private Integer teamId;
+
 
     public PlayerDto() {
     }
@@ -60,5 +61,4 @@ public class PlayerDto {
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
     }
-
 }

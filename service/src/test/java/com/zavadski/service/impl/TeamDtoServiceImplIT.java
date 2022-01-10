@@ -2,10 +2,12 @@ package com.zavadski.service.impl;
 
 import com.zavadski.model.dto.TeamDto;
 import com.zavadski.service.TeamDtoService;
+import com.zavadski.service.config.ServiceTestConfig;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
+import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,7 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(locations = {"classpath*:test-db.xml", "classpath*:service-context-test.xml"})
+@Import({ServiceTestConfig.class})
+@PropertySource({"classpath:dao.properties"})
 @Transactional
 class TeamDtoServiceImplIT {
 

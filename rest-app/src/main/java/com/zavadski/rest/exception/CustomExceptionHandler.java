@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class CustomExceptionHandler {
 
+    public static final String TEAM_NOT_FOUND = "team.not_found";
+    public static final String VALIDATION_ERROR = "validation_error";
+
     @ExceptionHandler(value = {UnacceptableName.class})
     public ResponseEntity<String> handleUnacceptableName(Exception ex) {
         return new ResponseEntity<>(String.format("Handle: %s", ex.getMessage()), HttpStatus.UNPROCESSABLE_ENTITY);
