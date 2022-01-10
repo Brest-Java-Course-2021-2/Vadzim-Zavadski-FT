@@ -3,6 +3,7 @@
 # Vadzim-Zavadski-FT
 
 This is sample 'Football team' web application.
+- [Software requirements specification](specification/specification.md)
 
 ## Requirements
 * JDK 11
