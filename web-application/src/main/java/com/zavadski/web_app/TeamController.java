@@ -120,7 +120,7 @@ public class TeamController {
         if (teamService.isTeamWithPlayers(id)) {
             redirectAttributes.addAttribute("errorMessage",
                     "We're sorry, but we can't delete");
-            return "redirect:/error";
+            return "redirect:/errors";
         } else {
             teamService.delete(id);
             return "redirect:/teams";

@@ -1,6 +1,5 @@
 package com.zavadski.service.rest;
 
-import com.zavadski.model.Player;
 import com.zavadski.model.Team;
 import com.zavadski.service.TeamService;
 import org.apache.logging.log4j.LogManager;
@@ -86,6 +85,8 @@ public class TeamServiceRest implements TeamService {
         ResponseEntity<Integer> responseEntity = restTemplate.getForEntity(url + "/count", Integer.class);
         return responseEntity.getBody();
     }
+
+    //TODO подумать
 
     @Override
     public boolean isTeamWithPlayers(Integer teamId) {

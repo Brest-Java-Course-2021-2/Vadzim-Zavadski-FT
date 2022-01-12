@@ -91,7 +91,7 @@ public class PlayerController {
         logger.debug("addPlayer({}, {})", player);
         playerValidator.validate(player, result);
         if (result.hasErrors()) {
-            return "player";
+            return "redirect:/errors";
         } else {
             this.playerService.create(player);
             return "redirect:/players";
@@ -141,7 +141,7 @@ public class PlayerController {
             logger.error("Error filter");
             redirectAttributes.addAttribute("errorMessage",
                     "We're sorry, but we use wrong search parameters.");
-            return "redirect:/error";
+            return "redirect:/errors";
         } else {
             logger.debug("return result of search");
             model.addAttribute("players", playerDtoService.filterByBirthday(startDate, endDate));
