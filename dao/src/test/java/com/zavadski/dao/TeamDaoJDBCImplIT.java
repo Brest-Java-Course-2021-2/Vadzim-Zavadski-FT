@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,7 +79,7 @@ class TeamDaoJDBCImplIT {
     }
 
     @Test
-    void updateTeam(){
+    void updateTeam() {
         List<Team> teams = teamDaoJDBC.findAll();
         if (teams.size() == 0) {
             teamDaoJDBC.create(new Team("TEST TEAM"));
@@ -91,10 +92,10 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void tryToUpdateTeamWithSameName() {
-        assertNotNull(teamDaoJDBC);
-        Team team = new Team("Lester");
-
-        assertThrows(IllegalArgumentException.class, () -> {
+        List<Team> teams = teamDaoJDBC.findAll();
+        assertThrows(DuplicateKeyException.class, () -> {
+            Team team = teams.get(0);
+            team.setTeamName("Lester");
             teamDaoJDBC.update(team);
         });
     }
