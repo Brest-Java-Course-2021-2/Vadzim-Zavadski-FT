@@ -25,9 +25,9 @@ public class PlayerDtoController {
 
     @ApiOperation(value = "Filter players by birthday")
     @GetMapping(value = "player_dtos")
-    public final Collection<PlayerDto> playerDtos(@RequestParam("startDate")
+    public final Collection<PlayerDto> playerDtos(@RequestParam(value = "startDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                                                  @RequestParam("endDate")
+                                                  @RequestParam(value = "endDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
         logger.debug("rest-app: playerDtos()");
         return playerDtoService.filterByBirthday(startDate, endDate);
