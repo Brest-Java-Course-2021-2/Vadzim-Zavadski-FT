@@ -38,9 +38,7 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
 
     @Override
     public List<PlayerDto> filterByBirthday(LocalDate startDate, LocalDate endDate) {
-        logger.debug("filterByBirthday()Start date: " + startDate);
-        logger.debug("Start date: " + startDate);
-        logger.debug("End date: " + endDate);
+        logger.debug("filterByBirthday()Start date: " + startDate + " end date: " + endDate);
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("START_DATE", startDate);
         parameterSource.addValue("END_DATE", endDate);

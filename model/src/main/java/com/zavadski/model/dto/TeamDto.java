@@ -27,11 +27,9 @@ public class TeamDto {
         return teamId;
     }
 
-
     public void setTeamId(final Integer teamId) {
         this.teamId = teamId;
     }
-
 
     public String getTeamName() {
         return teamName;

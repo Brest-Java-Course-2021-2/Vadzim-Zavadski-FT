@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.client.ExpectedCount;
 import org.springframework.test.web.client.MockRestServiceServer;
@@ -53,7 +52,7 @@ class TeamDtoServiceRestTest {
     }
 
     @Test
-    void findAllWithNumberOfPlayers()  throws Exception {
+    void findAllWithNumberOfPlayers() throws Exception {
 
         logger.debug("shouldFindAllTeams()");
         // given
@@ -76,7 +75,7 @@ class TeamDtoServiceRestTest {
 
     private TeamDto create(int index) {
         TeamDto teamDto = new TeamDto();
-       teamDto.setTeamId(index);
+        teamDto.setTeamId(index);
         teamDto.setTeamName("d" + index);
         teamDto.setNumberOfPlayers(Integer.valueOf(100 + index));
         return teamDto;

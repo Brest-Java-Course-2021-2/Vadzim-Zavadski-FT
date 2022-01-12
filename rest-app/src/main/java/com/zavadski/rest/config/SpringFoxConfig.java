@@ -22,5 +22,6 @@ public class SpringFoxConfig {
                 .tags(new Tag("Player controllers", "Player list operations"),
                         new Tag("Team controllers", "Team list operations"),
                         new Tag("Team dto controller", "Team list with average age"),
-                        new Tag("Player dto controller", "Filter players"));    }
+                        new Tag("Player dto controller", "Filter players"));
+    }
 }
