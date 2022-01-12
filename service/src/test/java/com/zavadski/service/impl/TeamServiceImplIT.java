@@ -12,6 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -113,10 +114,10 @@ class TeamServiceImplIT {
 
     @Test
     void tryToUpdateTeamWithSameName() {
-        assertNotNull(teamService);
-        Team team = new Team("Lester");
-
-        assertThrows(IllegalArgumentException.class, () -> {
+        List<Team> teams = teamService.findAllTeams();
+        assertThrows(DuplicateKeyException.class, () -> {
+            Team team = teams.get(0);
+            team.setTeamName("Lester");
             teamService.update(team);
         });
     }

@@ -1,5 +1,6 @@
 package com.zavadski.service.impl;
 
+import com.zavadski.dao.exception.PlayerWrongFilterDate;
 import com.zavadski.service.PlayerDtoService;
 import com.zavadski.service.config.ServiceTestConfig;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ExtendWith(SpringExtension.class)
 @Import({ServiceTestConfig.class})
@@ -27,11 +29,13 @@ class PlayerDtoServiceImplIT {
     @Autowired
     PlayerDtoService playerDtoService;
 
-    //TODO тест нужно доработать
     @Test
     public void filterByBirthday() {
         logger.debug("Execute test: filterByBirthday()");
         assertNotNull(playerDtoService);
-        assertNotNull(playerDtoService.filterByBirthday(LocalDate.parse("1990-01-01"), LocalDate.parse("2010-01-01")));
+        assertNotNull(playerDtoService.filterByBirthday(LocalDate.parse("2000-01-01"), LocalDate.parse("2010-01-01")));
+        assertThrows(PlayerWrongFilterDate.class, () -> {
+            playerDtoService.filterByBirthday(LocalDate.parse("2020-01-01"), LocalDate.parse("2010-01-01"));
+        });
     }
 }
