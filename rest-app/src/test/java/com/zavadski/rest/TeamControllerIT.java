@@ -154,21 +154,6 @@ public class TeamControllerIT {
     }
 
     @Test
-    public void shouldReturnTeamNotFoundError() throws Exception {
-
-        LOGGER.debug("shouldReturnTeamNotFoundError()");
-        MockHttpServletResponse response =
-                mockMvc.perform(MockMvcRequestBuilders.get(TEAMS_ENDPOINT + "/999999")
-                                .accept(MediaType.APPLICATION_JSON)
-                        ).andExpect(status().isNotFound())
-                        .andReturn().getResponse();
-        assertNotNull(response);
-        ErrorResponse errorResponse = objectMapper.readValue(response.getContentAsString(), ErrorResponse.class);
-        assertNotNull(errorResponse);
-        assertEquals(errorResponse.getMessage(), TEAM_NOT_FOUND);
-    }
-
-    @Test
     public void shouldFailOnCreateTeamWithDuplicateName() throws Exception {
         Team team1 = new Team(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
         Integer id = teamService.create(team1);
