@@ -86,8 +86,6 @@ public class TeamServiceRest implements TeamService {
         return responseEntity.getBody();
     }
 
-    //TODO подумать
-
     @Override
     public boolean isTeamWithPlayers(Integer teamId) {
         Boolean result = restTemplate.getForObject(url+"/check/" + teamId,Boolean.class);
