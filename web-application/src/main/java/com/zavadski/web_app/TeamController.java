@@ -81,6 +81,7 @@ public class TeamController {
     public String addTeam(Team team, BindingResult result) {
         logger.debug("addTeam({}, {})", team);
         teamValidator.validate(team, result);
+        //TODO здесь переделываю
         if (result.hasErrors()) {
             return "team";
         }
@@ -98,9 +99,11 @@ public class TeamController {
     public String updateTeam(Team team, BindingResult result) {
         logger.debug("updateTeam({}, {})", team);
         teamValidator.validate(team, result);
+        //TODO здесь переделываю
         if (result.hasErrors()) {
             return "team";
         }
+
         this.teamService.update(team);
         return "redirect:/teams";
     }
@@ -119,7 +122,7 @@ public class TeamController {
         teamService.isTeamWithPlayers(id);
         if (teamService.isTeamWithPlayers(id)) {
             redirectAttributes.addAttribute("errorMessage",
-                    "We're sorry, but we can't delete");
+                    "You can't delete this team, because it has players");
             return "redirect:/errors";
         } else {
             teamService.delete(id);

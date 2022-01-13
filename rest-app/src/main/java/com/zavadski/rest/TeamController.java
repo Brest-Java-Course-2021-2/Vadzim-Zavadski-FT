@@ -69,4 +69,9 @@ public class TeamController {
         logger.debug("rest-app: count()");
         return teamService.count();
     }
+
+    @GetMapping("/teams/check/{teamId}")
+    public boolean isTeamWithPlayers(@PathVariable int teamId) {
+        return teamService.isTeamWithPlayers(teamId);
+    }
 }

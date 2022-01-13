@@ -90,6 +90,7 @@ public class PlayerController {
     public String addPlayer(Player player, BindingResult result) {
         logger.debug("addPlayer({}, {})", player);
         playerValidator.validate(player, result);
+        //TODO здесь переделываю
         if (result.hasErrors()) {
             return "redirect:/errors";
         } else {
@@ -108,6 +109,7 @@ public class PlayerController {
     public String updatePlayer(Player player, BindingResult result) {
         logger.debug("updatePlayer({}, {})", player);
         playerValidator.validate(player, result);
+        //TODO здесь переделываю
         if (result.hasErrors()) {
             return "player";
         } else {

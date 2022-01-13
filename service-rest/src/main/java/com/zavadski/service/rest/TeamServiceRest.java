@@ -90,6 +90,7 @@ public class TeamServiceRest implements TeamService {
 
     @Override
     public boolean isTeamWithPlayers(Integer teamId) {
-        return false;
+        Boolean result = restTemplate.getForObject(url+"/check/" + teamId,Boolean.class);
+        return result;
     }
 }
