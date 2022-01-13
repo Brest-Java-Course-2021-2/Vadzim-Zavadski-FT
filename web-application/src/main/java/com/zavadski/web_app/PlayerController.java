@@ -87,11 +87,14 @@ public class PlayerController {
      * @return view name
      */
     @PostMapping(value = "/player")
-    public String addPlayer(Player player, BindingResult result) {
+    public String addPlayer(Player player, BindingResult result,
+                            RedirectAttributes redirectAttributes) {
         logger.debug("addPlayer({}, {})", player);
         playerValidator.validate(player, result);
-        //TODO здесь переделываю
+
         if (result.hasErrors()) {
+            redirectAttributes.addAttribute("errorMessage",
+                    "Incorrect data entered");
             return "redirect:/errors";
         } else {
             this.playerService.create(player);
@@ -106,12 +109,15 @@ public class PlayerController {
      * @return view name
      */
     @PostMapping(value = "/player/{id}")
-    public String updatePlayer(Player player, BindingResult result) {
+    public String updatePlayer(Player player, BindingResult result,
+                               RedirectAttributes redirectAttributes) {
         logger.debug("updatePlayer({}, {})", player);
         playerValidator.validate(player, result);
-        //TODO здесь переделываю
+
         if (result.hasErrors()) {
-            return "player";
+            redirectAttributes.addAttribute("errorMessage",
+                    "Incorrect data entered");
+            return "redirect:/errors";
         } else {
             this.playerService.update(player);
             return "redirect:/players";
