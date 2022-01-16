@@ -144,7 +144,7 @@ public class PlayerController {
                                          Model model,
                                          RedirectAttributes redirectAttributes) {
 
-        logger.debug("user ask trains list from: {} to: {}", startDate, endDate);
+        logger.debug("players list from: {} to: {}", startDate, endDate);
         if (!(startDate == null) && !(endDate == null) && endDate.isBefore(startDate)) {
             logger.error("Error filter");
             redirectAttributes.addAttribute("errorMessage",
