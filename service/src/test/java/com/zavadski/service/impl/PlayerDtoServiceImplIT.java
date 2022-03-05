@@ -31,9 +31,17 @@ class PlayerDtoServiceImplIT {
 
     @Test
     public void filterByBirthday() {
+
         logger.debug("Execute test: filterByBirthday()");
         assertNotNull(playerDtoService);
         assertNotNull(playerDtoService.filterByBirthday(LocalDate.parse("2000-01-01"), LocalDate.parse("2010-01-01")));
+    }
+
+    @Test
+    public void wrongFilterByBirthday() {
+
+        logger.debug("Execute test: filterByBirthday()");
+
         assertThrows(PlayerWrongFilterDate.class, () -> {
             playerDtoService.filterByBirthday(LocalDate.parse("2020-01-01"), LocalDate.parse("2010-01-01"));
         });

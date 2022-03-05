@@ -47,6 +47,7 @@ class TeamServiceImplIT {
 
     @Test
     void shouldCount() {
+
         logger.debug("Execute test: shouldCount()");
 
         assertNotNull(teamService);
@@ -58,19 +59,21 @@ class TeamServiceImplIT {
 
     @Test
     void create() {
+
         logger.debug("Execute test: create()");
 
         assertNotNull(teamService);
         Integer teamsSizeBefore = teamService.count();
         assertNotNull(teamsSizeBefore);
         Team team = new Team("MU");
-        Integer newTeamId =teamService.create(team);
+        Integer newTeamId = teamService.create(team);
         assertNotNull(newTeamId);
         assertEquals(teamsSizeBefore, teamService.count() - 1);
     }
 
     @Test
     void tryToCreateEqualsTeams() {
+
         logger.debug("Execute test: tryToCreateEqualsTeams()");
 
         assertNotNull(teamService);
@@ -84,6 +87,7 @@ class TeamServiceImplIT {
 
     @Test
     void getDepartmentById() {
+
         logger.debug("Execute test: getDepartmentById()");
 
         List<Team> teams = teamService.findAllTeams();
@@ -98,7 +102,8 @@ class TeamServiceImplIT {
     }
 
     @Test
-    void updateTeam(){
+    void updateTeam() {
+
         logger.debug("Execute test: updateTeam()");
 
         List<Team> teams = teamService.findAllTeams();
@@ -114,7 +119,11 @@ class TeamServiceImplIT {
 
     @Test
     void tryToUpdateTeamWithSameName() {
+
+        logger.debug("Execute test: tryToUpdateTeamWithSameName()");
+
         List<Team> teams = teamService.findAllTeams();
+
         assertThrows(DuplicateKeyException.class, () -> {
             Team team = teams.get(0);
             team.setTeamName("Lester");
@@ -124,7 +133,9 @@ class TeamServiceImplIT {
 
     @Test
     void deleteTeam() {
+
         logger.debug("Execute test: deleteTeam()");
+
         teamService.create(new Team("TEST TEAM"));
         List<Team> teams = teamService.findAllTeams();
 
@@ -134,7 +145,9 @@ class TeamServiceImplIT {
 
     @Test
     void tryDeleteTeamWithPlayer() {
+
         logger.debug("Execute test: deleteTeamWithPlayer()");
+
         List<Team> teamsBeforeDelete = teamService.findAllTeams();
         assertThrows(TeamWithPlayerException.class, () ->
                 teamService.delete(teamsBeforeDelete.get(0).getTeamId()));
