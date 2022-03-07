@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 public class PlayerController {
@@ -47,7 +46,7 @@ public class PlayerController {
      */
     @GetMapping(value = "/players")
     public final String players(Model model) {
-        model.addAttribute("players", playerService.findAllPlayers());
+        model.addAttribute("players", playerService.getAllPlayers());
         return "players";
     }
 

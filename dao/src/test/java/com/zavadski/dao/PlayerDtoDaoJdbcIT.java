@@ -37,7 +37,9 @@ class PlayerDtoDaoJdbcIT {
 
     @Test
     public void filterByBirthday() {
+
         logger.debug("Execute test: filterByBirthday()");
+
         assertNotNull(playerDtoDaoJdbc);
         assertNotNull(playerDtoDaoJdbc.filterByBirthday(LocalDate.parse("2000-01-01"), LocalDate.parse("2010-01-01")));
         assertThrows(PlayerWrongFilterDate.class, () -> {

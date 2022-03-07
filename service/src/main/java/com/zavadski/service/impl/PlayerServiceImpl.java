@@ -23,7 +23,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Player> findAllPlayers() {
+    public List<Player> getAllPlayers() {
         logger.debug("Service method called to find all Player");
         return playerDao.findAllPlayers();
     }

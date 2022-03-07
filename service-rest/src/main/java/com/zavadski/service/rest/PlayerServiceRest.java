@@ -29,7 +29,7 @@ public class PlayerServiceRest implements PlayerService {
     }
 
     @Override
-    public List<Player> findAllPlayers() {
+    public List<Player> getAllPlayers() {
         logger.debug("findAll()");
         ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
         return (List<Player>) responseEntity.getBody();

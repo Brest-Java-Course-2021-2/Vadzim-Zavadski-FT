@@ -34,7 +34,9 @@ class TeamDtoDaoJdbcIT {
 
     @Test
     public void findAllWithNumberOfPlayers() {
+
         logger.debug("Execute test: findAllWithNumberOfPlayers");
+
         assertNotNull(teamDtoDaoJdbc);
         assertNotNull(teamDtoDaoJdbc.findAllWithNumberOfPlayers());
     }

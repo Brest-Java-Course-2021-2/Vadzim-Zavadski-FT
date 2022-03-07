@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.zavadski.model.constants.TeamConstants.TEAM_NAME_SIZE;
-import static com.zavadski.rest.exception.CustomExceptionHandler.TEAM_NOT_FOUND;
 import static com.zavadski.rest.exception.CustomExceptionHandler.VALIDATION_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -50,7 +49,8 @@ public class TeamControllerIT {
     @Autowired
     private CustomExceptionHandler customExceptionHandler;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
 

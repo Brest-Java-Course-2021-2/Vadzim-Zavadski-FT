@@ -39,7 +39,9 @@ class TeamDaoJDBCImplIT {
 
     @Test
     void findAll() {
+
         logger.debug("Execute test: findAll()");
+
         assertNotNull(teamDaoJDBC);
         assertNotNull(teamDaoJDBC.findAll());
     }

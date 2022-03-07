@@ -41,7 +41,7 @@ class PlayerServiceImplIT {
         logger.debug("Execute test: findAllPlayers()");
 
         assertNotNull(playerService);
-        assertNotNull(playerService.findAllPlayers());
+        assertNotNull(playerService.getAllPlayers());
     }
 
     @Test
@@ -49,11 +49,11 @@ class PlayerServiceImplIT {
 
         logger.debug("Execute test: getPlayerById()");
 
-        List<Player> players = playerService.findAllPlayers();
+        List<Player> players = playerService.getAllPlayers();
 
         if (players.size() == 0) {
             playerService.create(new Player("Topol"));
-            players = playerService.findAllPlayers();
+            players = playerService.getAllPlayers();
         }
 
         Player playerSrc = players.get(0);
@@ -77,14 +77,14 @@ class PlayerServiceImplIT {
         logger.debug("Execute test: createPlayer()");
 
         assertNotNull(playerService);
-        int playerSizeBefore = playerService.findAllPlayers().size();
+        int playerSizeBefore = playerService.getAllPlayers().size();
 
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
 
         Integer newPlayerId = playerService.create(player);
         assertNotNull(newPlayerId);
 
-        int playerSizeAfter = playerService.findAllPlayers().size();
+        int playerSizeAfter = playerService.getAllPlayers().size();
         assertEquals(playerSizeBefore, (playerSizeAfter-1));
     }
 
@@ -107,11 +107,11 @@ class PlayerServiceImplIT {
 
         logger.debug("Execute test: updatePlayer()");
 
-        List<Player> players = playerService.findAllPlayers();
+        List<Player> players = playerService.getAllPlayers();
 
         if (players.size() == 0) {
             playerService.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
-            players = playerService.findAllPlayers();
+            players = playerService.getAllPlayers();
         }
 
         Player teamSrc = players.get(0);
@@ -125,9 +125,9 @@ class PlayerServiceImplIT {
         logger.debug("Execute test: deletePlayer()");
 
         playerService.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
-        List<Player> players = playerService.findAllPlayers();
+        List<Player> players = playerService.getAllPlayers();
 
         playerService.delete(players.get(players.size() - 1).getPlayerId());
-        assertEquals(players.size() - 1, playerService.findAllPlayers().size());
+        assertEquals(players.size() - 1, playerService.getAllPlayers().size());
     }
 }

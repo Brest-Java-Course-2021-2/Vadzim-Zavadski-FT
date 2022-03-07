@@ -82,6 +82,9 @@ public class PlayerDaoJDBCImplTest {
 
         Player result = playerDaoJDBC.getPlayerById(id);
 
+        Assertions.assertNotNull(result);
+        Assertions.assertSame(player, result);
+
         Mockito.verify(namedParameterJdbcTemplate)
                 .queryForObject(eq(sql), captorSource.capture(), captorMapper.capture());
 
@@ -90,9 +93,6 @@ public class PlayerDaoJDBCImplTest {
 
         Assertions.assertNotNull(source);
         Assertions.assertNotNull(mapper);
-
-        Assertions.assertNotNull(result);
-        Assertions.assertSame(player, result);
     }
 
     //TODO тест нужно доработать
