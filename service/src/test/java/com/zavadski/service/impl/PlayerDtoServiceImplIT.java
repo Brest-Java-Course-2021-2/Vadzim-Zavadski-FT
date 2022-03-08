@@ -33,6 +33,7 @@ class PlayerDtoServiceImplIT {
     public void filterByBirthday() {
 
         logger.debug("Execute test: filterByBirthday()");
+
         assertNotNull(playerDtoService);
         assertNotNull(playerDtoService.filterByBirthday(LocalDate.parse("2000-01-01"), LocalDate.parse("2010-01-01")));
     }

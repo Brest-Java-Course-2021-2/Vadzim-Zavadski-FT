@@ -22,10 +22,10 @@ public class TeamController {
 
     @ApiOperation(value = "Returns team list")
     @GetMapping(value = "/teams")
-    public final Collection<Team> teams() {
+    public final Collection<Team> getAllTeams() {
 
         logger.debug("rest-app: findAllTeams()");
-        return teamService.findAllTeams();
+        return teamService.getAllTeams();
     }
 
     @ApiOperation(value = "Returns one particular team")

@@ -23,7 +23,7 @@ public class TeamServiceImpl implements TeamService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Team> findAllTeams() {
+    public List<Team> getAllTeams() {
         logger.debug("Service method called to find all Team");
         return teamDao.findAll();
     }

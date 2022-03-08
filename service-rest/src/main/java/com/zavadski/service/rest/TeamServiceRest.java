@@ -33,7 +33,7 @@ public class TeamServiceRest implements TeamService {
     }
 
     @Override
-    public List<Team> findAllTeams() {
+    public List<Team> getAllTeams() {
         logger.debug("findAll()");
         ResponseEntity responseEntity = restTemplate.getForEntity(url, List.class);
         return (List<Team>) responseEntity.getBody();

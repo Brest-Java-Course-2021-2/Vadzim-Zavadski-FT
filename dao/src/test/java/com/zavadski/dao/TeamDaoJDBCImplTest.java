@@ -151,20 +151,20 @@ public class TeamDaoJDBCImplTest {
 //
 //    }
 
-//    @Test
-//    public void isTeamUnique() {
-//        String sql = "create";
-//        ReflectionTestUtils.setField(teamDaoJDBC, "sqlCheckUniqueTeamName", sql);
-//        String teamName = "Li";
-//        Team team = new Team();
-//
-//        Mockito.when(namedParameterJdbcTemplate.queryForObject(
-//                any(),
-//                ArgumentMatchers.<SqlParameterSource>any(),
-//                ArgumentMatchers.<Class<Integer>>any())).thenReturn(0);
-//
-//    }
-//
+    @Test
+    public void isTeamUnique() {
+        String sql = "create";
+        ReflectionTestUtils.setField(teamDaoJDBC, "sqlCheckUniqueTeamName", sql);
+        String teamName = "Li";
+        Team team = new Team();
+
+        Mockito.when(namedParameterJdbcTemplate.queryForObject(
+                any(),
+                ArgumentMatchers.<SqlParameterSource>any(),
+                ArgumentMatchers.<Class<Integer>>any())).thenReturn(0);
+
+    }
+
 //    @Test
 //    public void createTeam() {
 //

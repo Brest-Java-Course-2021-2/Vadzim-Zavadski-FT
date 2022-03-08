@@ -66,6 +66,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public Integer create(Player player) {
+
         logger.debug("Create player: create({})", player);
 
         if (player.getFirstName().length() > PLAYER_NAME_SIZE) {
@@ -94,7 +95,9 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     private boolean isPlayerUnique(String firstName, String surname, LocalDate birthday, Integer count) {
+
         logger.debug("Check Player: {} on unique", firstName, surname, birthday);
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", firstName).
                         addValue("surname", surname).
@@ -104,6 +107,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public Integer update(Player player) {
+
         logger.debug("Update player: update({})", player);
 
         if (player.getFirstName().length() > PLAYER_NAME_SIZE) {

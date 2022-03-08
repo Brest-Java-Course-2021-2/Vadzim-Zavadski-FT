@@ -61,7 +61,7 @@ public class PlayerController {
 
         model.addAttribute("isNew", false);
         model.addAttribute("player", playerService.getPlayerById(id));
-        model.addAttribute("teams", teamService.findAllTeams());
+        model.addAttribute("teams", teamService.getAllTeams());
         return "player";
     }
 
@@ -75,7 +75,7 @@ public class PlayerController {
         logger.debug("gotoAddPlayerPage({})", model);
         model.addAttribute("isNew", true);
         model.addAttribute("player", new Player());
-        model.addAttribute("teams", teamService.findAllTeams());
+        model.addAttribute("teams", teamService.getAllTeams());
         return "player";
     }
 
