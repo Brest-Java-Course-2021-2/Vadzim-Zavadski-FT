@@ -16,6 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceImplUnitTest {
@@ -44,11 +46,16 @@ class PlayerServiceImplUnitTest {
 
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
 
-        Mockito.when(playerDao.create(Mockito.any(Player.class))).thenReturn(player.getPlayerId());
+        Mockito.when(playerDao.create(player)).thenReturn(anyInt());
 
         Integer newPlayerId = playerDao.create(player);
 
+        List<Player> players = new ArrayList<>();
+
+        players.add(player);
+
         assertEquals(0, newPlayerId);
+
     }
 
     @Test

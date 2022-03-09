@@ -38,7 +38,9 @@ class PlayerDaoJdbcIT {
 
     @Test
     void findAllPlayers() {
+
         logger.debug("Execute test: findAllPlayers()");
+
         assertNotNull(playerDaoJDBC);
         assertNotNull(playerDaoJDBC.findAllPlayers());
     }
