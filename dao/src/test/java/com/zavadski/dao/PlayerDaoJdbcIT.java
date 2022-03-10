@@ -43,29 +43,29 @@ class PlayerDaoJdbcIT {
         assertNotNull(playerDaoJDBC.findAllPlayers());
     }
 
-    //todo
-//    @Test
-//    void create() {
-//        logger.debug("Execute test: createPlayer()");
-//        assertNotNull(playerDaoJDBC);
-//        int teamSizeBefore = playerDaoJDBC.findAllPlayers().size();
-//        Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
-//        Integer newPlayerId = playerDaoJDBC.create(player);
-//        assertNotNull(newPlayerId);
-//        assertEquals((int) teamSizeBefore, playerDaoJDBC.findAllPlayers().size() - 1);
-//    }
-    //todo
-//    @Test
-//    void tryToCreateEqualsPlayers() {
-//        logger.debug("Execute test: tryToCreateEqualsPlayers()");
-//        assertNotNull(playerDaoJDBC);
-//        Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
-//
-//        assertThrows(IllegalArgumentException.class, () -> {
-//            playerDaoJDBC.create(player);
-//            playerDaoJDBC.create(player);
-//        });
-//    }
+    @Test
+    void create() {
+        logger.debug("Execute test: createPlayer()");
+        assertNotNull(playerDaoJDBC);
+        int teamSizeBefore = playerDaoJDBC.findAllPlayers().size();
+        Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
+        Integer newPlayerId = playerDaoJDBC.create(player);
+        System.out.println(newPlayerId);
+        assertNotNull(newPlayerId);
+        assertEquals((int) teamSizeBefore, playerDaoJDBC.findAllPlayers().size() - 1);
+    }
+
+    @Test
+    void tryToCreateEqualsPlayers() {
+        logger.debug("Execute test: tryToCreateEqualsPlayers()");
+        assertNotNull(playerDaoJDBC);
+        Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
+
+        assertThrows(IllegalArgumentException.class, () -> {
+            playerDaoJDBC.create(player);
+            playerDaoJDBC.create(player);
+        });
+    }
 
     @Test
     void getPlayerById() {
@@ -94,14 +94,14 @@ class PlayerDaoJdbcIT {
         Player teamDst = playerDaoJDBC.getPlayerById(teamSrc.getPlayerId());
         assertEquals(teamSrc.getFirstName(), teamDst.getFirstName());
     }
-    //todo
-//    @Test
-//    void deletePlayer() {
-//        logger.debug("Execute test: deletePlayer()");
-//        playerDaoJDBC.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
-//        List<Player> players = playerDaoJDBC.findAllPlayers();
-//
-//        playerDaoJDBC.delete(players.get(players.size() - 1).getPlayerId());
-//        assertEquals(players.size() - 1, playerDaoJDBC.findAllPlayers().size());
-//    }
+
+    @Test
+    void deletePlayer() {
+        logger.debug("Execute test: deletePlayer()");
+        playerDaoJDBC.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
+        List<Player> players = playerDaoJDBC.findAllPlayers();
+
+        playerDaoJDBC.delete(players.get(players.size() - 1).getPlayerId());
+        assertEquals(players.size() - 1, playerDaoJDBC.findAllPlayers().size());
+    }
 }

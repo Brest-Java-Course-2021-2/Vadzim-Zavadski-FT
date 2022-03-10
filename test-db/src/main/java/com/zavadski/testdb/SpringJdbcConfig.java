@@ -25,10 +25,12 @@ public class SpringJdbcConfig {
         return new DriverManagerDataSource(
                 "jdbc:postgresql://localhost:5432/Vadzim-Zavadski-FT","epam","epam");
 
+//        return new DriverManagerDataSource(
+//                "jdbc:h2:mem:test;DB_CLOSE_DELAY=-1","sa","");
+
 //        return new EmbeddedDatabaseBuilder()
 //                .setType(EmbeddedDatabaseType.H2)
-//                .addScript("create-db.sql")
-//                .addScript("init-db.sql")
+//                .addScript("create_and_init_db.sql")
 //                .build();
 
     }

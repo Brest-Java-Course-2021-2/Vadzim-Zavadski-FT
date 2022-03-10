@@ -58,13 +58,17 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public List<Team> findAll() {
+
         logger.debug("Start: findAll()");
+
         return namedParameterJdbcTemplate.query(sqlGetAllTeams, new TeamRowMapper());
     }
 
     @Override
     public Team getTeamById(Integer teamId) {
+
         logger.debug("Get team by id = {}", teamId);
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
         return namedParameterJdbcTemplate.queryForObject(sqlGetTeamById, sqlParameterSource, new TeamRowMapper());
@@ -72,6 +76,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer create(Team team) {
+
         logger.debug("Create team: create({})", team);
 
         if (!isTeamUnique(team.getTeamName(), 0)) {
@@ -92,8 +97,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
-        return (Integer) keyHolder.getKey();
+        return namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
     }
 
     private boolean isTeamUnique(String teamName, Integer count) {
@@ -104,6 +108,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer update(Team team) {
+
         logger.debug("Update team: update({})", team);
 
         if (!isTeamUnique(team.getTeamName(), 1)) {
@@ -129,7 +134,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer delete(Integer teamId) {
+
         logger.debug("Delete team by id = {}", teamId);
+
         if (isTeamWithPlayers(teamId)) {
             logger.error("Can't delete team id: " + teamId + ". This team have a players");
             throw new TeamWithPlayerException("Can't delete team id: " + teamId + ". This team have a players");
