@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
 public class PlayerController {
@@ -47,7 +46,7 @@ public class PlayerController {
      */
     @GetMapping(value = "/players")
     public final String players(Model model) {
-        model.addAttribute("players", playerService.findAllPlayers());
+        model.addAttribute("players", playerService.getAllPlayers());
         return "players";
     }
 
@@ -62,7 +61,7 @@ public class PlayerController {
 
         model.addAttribute("isNew", false);
         model.addAttribute("player", playerService.getPlayerById(id));
-        model.addAttribute("teams", teamService.findAllTeams());
+        model.addAttribute("teams", teamService.getAllTeams());
         return "player";
     }
 
@@ -76,7 +75,7 @@ public class PlayerController {
         logger.debug("gotoAddPlayerPage({})", model);
         model.addAttribute("isNew", true);
         model.addAttribute("player", new Player());
-        model.addAttribute("teams", teamService.findAllTeams());
+        model.addAttribute("teams", teamService.getAllTeams());
         return "player";
     }
 

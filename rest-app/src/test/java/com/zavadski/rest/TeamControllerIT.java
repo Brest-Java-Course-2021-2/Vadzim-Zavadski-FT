@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static com.zavadski.model.constants.TeamConstants.TEAM_NAME_SIZE;
-import static com.zavadski.rest.exception.CustomExceptionHandler.TEAM_NOT_FOUND;
 import static com.zavadski.rest.exception.CustomExceptionHandler.VALIDATION_ERROR;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -50,7 +49,8 @@ public class TeamControllerIT {
     @Autowired
     private CustomExceptionHandler customExceptionHandler;
 
-    ObjectMapper objectMapper = new ObjectMapper();
+    @Autowired
+    ObjectMapper objectMapper;
 
     private MockMvc mockMvc;
 
@@ -68,21 +68,19 @@ public class TeamControllerIT {
     @Test
     public void shouldFindAllTeams() throws Exception {
 
-        // given
-        Team team = new Team(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
+        Team team = new Team("testTeam");
         Integer id = teamService.create(team);
 
-        // when
         List<Team> teams = teamService.findAll();
 
-        // then
         assertNotNull(teams);
+        System.out.println(teams);
         assertTrue(teams.size() > 0);
     }
 
     @Test
     public void shouldCreateTeam() throws Exception {
-        Team team = new Team(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
+        Team team = new Team("testTeam");
         Integer id = teamService.create(team);
         assertNotNull(id);
     }
@@ -90,16 +88,13 @@ public class TeamControllerIT {
     @Test
     public void shouldFindTeamById() throws Exception {
 
-        // given
-        Team team = new Team(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
+        Team team = new Team("testTeam");
         Integer id = teamService.create(team);
 
         assertNotNull(id);
 
-        // when
         Optional<Team> optionalTeam = teamService.findById(id);
 
-        // then
         assertTrue(optionalTeam.isPresent());
         assertEquals(optionalTeam.get().getTeamId(), id);
         assertEquals(team.getTeamName(), optionalTeam.get().getTeamName());
@@ -108,22 +103,18 @@ public class TeamControllerIT {
     @Test
     public void shouldUpdateTeam() throws Exception {
 
-        // given
-        Team team = new Team(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
+        Team team = new Team("testTeam");
         Integer id = teamService.create(team);
         assertNotNull(id);
 
         Optional<Team> teamOptional = teamService.findById(id);
         assertTrue(teamOptional.isPresent());
 
-        teamOptional.get().
-               setTeamName(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
+        teamOptional.get().setTeamName("testTeam");
 
-        // when
         int result = teamService.update(teamOptional.get());
 
-        // then
-        assertTrue(1 == result);
+        assertEquals(1, result);
 
         Optional<Team> updatedTeamOptional = teamService.findById(id);
         assertTrue(updatedTeamOptional.isPresent());
@@ -133,24 +124,21 @@ public class TeamControllerIT {
     }
 
     @Test
-    public void shouldDeleteDepartment() throws Exception {
-        // given
-        Team team = new Team(RandomStringUtils.randomAlphabetic(TEAM_NAME_SIZE));
+    public void shouldDeleteTeam() throws Exception {
+
+        Team team = new Team("testTeam");
         Integer id = teamService.create(team);
 
         List<Team> teams = teamService.findAll();
         assertNotNull(teams);
 
-        // when
         int result = teamService.delete(id);
 
-        // then
-        assertTrue(1 == result);
+        assertEquals(1, result);
 
         List<Team> currentTeams =teamService.findAll();
         assertNotNull(currentTeams);
-
-        assertTrue(teams.size() - 1 == currentTeams.size());
+        assertEquals(teams.size() - 1, currentTeams.size());
     }
 
     @Test

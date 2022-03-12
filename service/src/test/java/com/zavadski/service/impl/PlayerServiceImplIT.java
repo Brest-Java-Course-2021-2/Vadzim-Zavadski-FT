@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,19 +37,23 @@ class PlayerServiceImplIT {
 
     @Test
     void findAllPlayers() {
+
         logger.debug("Execute test: findAllPlayers()");
+
         assertNotNull(playerService);
-        assertNotNull(playerService.findAllPlayers());
+        assertNotNull(playerService.getAllPlayers());
     }
 
     @Test
     void getPlayerById() {
+
         logger.debug("Execute test: getPlayerById()");
 
-        List<Player> players = playerService.findAllPlayers();
+        List<Player> players = playerService.getAllPlayers();
+
         if (players.size() == 0) {
             playerService.create(new Player("Topol"));
-            players = playerService.findAllPlayers();
+            players = playerService.getAllPlayers();
         }
 
         Player playerSrc = players.get(0);
@@ -57,19 +62,37 @@ class PlayerServiceImplIT {
     }
 
     @Test
+    void tryToGetPlayerByWrongId() {
+
+        logger.debug("Execute test: tryToGetPlayerByWrongId()");
+
+        assertThrows(EmptyResultDataAccessException.class, () -> {
+            playerService.getPlayerById(-1);
+        });
+    }
+
+    @Test
     void create() {
+
         logger.debug("Execute test: createPlayer()");
+
         assertNotNull(playerService);
-        int teamSizeBefore = playerService.findAllPlayers().size();
+        int playerSizeBefore = playerService.getAllPlayers().size();
+
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
+
         Integer newPlayerId = playerService.create(player);
         assertNotNull(newPlayerId);
-        assertEquals((int) teamSizeBefore, playerService.findAllPlayers().size() - 1);
+
+        int playerSizeAfter = playerService.getAllPlayers().size();
+        assertEquals(playerSizeBefore, (playerSizeAfter-1));
     }
 
     @Test
     void tryToCreateEqualsPlayers() {
+
         logger.debug("Execute test: tryToCreateEqualsPlayers()");
+
         assertNotNull(playerService);
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
 
@@ -81,11 +104,14 @@ class PlayerServiceImplIT {
 
     @Test
     void updatePlayer() {
+
         logger.debug("Execute test: updatePlayer()");
-        List<Player> players = playerService.findAllPlayers();
+
+        List<Player> players = playerService.getAllPlayers();
+
         if (players.size() == 0) {
             playerService.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
-            players = playerService.findAllPlayers();
+            players = playerService.getAllPlayers();
         }
 
         Player teamSrc = players.get(0);
@@ -95,11 +121,13 @@ class PlayerServiceImplIT {
 
     @Test
     void deletePlayer() {
+
         logger.debug("Execute test: deletePlayer()");
+
         playerService.create(new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1));
-        List<Player> players = playerService.findAllPlayers();
+        List<Player> players = playerService.getAllPlayers();
 
         playerService.delete(players.get(players.size() - 1).getPlayerId());
-        assertEquals(players.size() - 1, playerService.findAllPlayers().size());
+        assertEquals(players.size() - 1, playerService.getAllPlayers().size());
     }
 }

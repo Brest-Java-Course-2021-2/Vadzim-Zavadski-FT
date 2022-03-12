@@ -23,10 +23,10 @@ public class PlayerController {
 
     @ApiOperation(value = "Returns player list")
     @GetMapping(value = "/players")
-    public final Collection<Player> players() {
+    public final Collection<Player> getAllPlayers() {
 
-        logger.debug("rest-app: players()");
-        return playerService.findAllPlayers();
+        logger.debug("rest-app: getAllPlayers()");
+        return playerService.getAllPlayers();
     }
 
     @ApiOperation(value = "Returns one particular player")

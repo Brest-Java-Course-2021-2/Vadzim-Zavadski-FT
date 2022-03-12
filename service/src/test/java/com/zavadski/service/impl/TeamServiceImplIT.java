@@ -42,11 +42,12 @@ class TeamServiceImplIT {
     void findAll() {
         logger.debug("Execute test: findAll()");
         assertNotNull(teamService);
-        assertNotNull(teamService.findAllTeams());
+        assertNotNull(teamService.getAllTeams());
     }
 
     @Test
     void shouldCount() {
+
         logger.debug("Execute test: shouldCount()");
 
         assertNotNull(teamService);
@@ -58,19 +59,21 @@ class TeamServiceImplIT {
 
     @Test
     void create() {
+
         logger.debug("Execute test: create()");
 
         assertNotNull(teamService);
         Integer teamsSizeBefore = teamService.count();
         assertNotNull(teamsSizeBefore);
         Team team = new Team("MU");
-        Integer newTeamId =teamService.create(team);
+        Integer newTeamId = teamService.create(team);
         assertNotNull(newTeamId);
         assertEquals(teamsSizeBefore, teamService.count() - 1);
     }
 
     @Test
     void tryToCreateEqualsTeams() {
+
         logger.debug("Execute test: tryToCreateEqualsTeams()");
 
         assertNotNull(teamService);
@@ -84,12 +87,13 @@ class TeamServiceImplIT {
 
     @Test
     void getDepartmentById() {
+
         logger.debug("Execute test: getDepartmentById()");
 
-        List<Team> teams = teamService.findAllTeams();
+        List<Team> teams = teamService.getAllTeams();
         if (teams.size() == 0) {
             teamService.create(new Team("TEST TEAM"));
-            teams = teamService.findAllTeams();
+            teams = teamService.getAllTeams();
         }
 
         Team teamSrc = teams.get(0);
@@ -98,13 +102,14 @@ class TeamServiceImplIT {
     }
 
     @Test
-    void updateTeam(){
+    void updateTeam() {
+
         logger.debug("Execute test: updateTeam()");
 
-        List<Team> teams = teamService.findAllTeams();
+        List<Team> teams = teamService.getAllTeams();
         if (teams.size() == 0) {
             teamService.create(new Team("TEST TEAM"));
-            teams = teamService.findAllTeams();
+            teams = teamService.getAllTeams();
         }
 
         Team teamSrc = teams.get(0);
@@ -114,7 +119,11 @@ class TeamServiceImplIT {
 
     @Test
     void tryToUpdateTeamWithSameName() {
-        List<Team> teams = teamService.findAllTeams();
+
+        logger.debug("Execute test: tryToUpdateTeamWithSameName()");
+
+        List<Team> teams = teamService.getAllTeams();
+
         assertThrows(DuplicateKeyException.class, () -> {
             Team team = teams.get(0);
             team.setTeamName("Lester");
@@ -124,18 +133,22 @@ class TeamServiceImplIT {
 
     @Test
     void deleteTeam() {
+
         logger.debug("Execute test: deleteTeam()");
+
         teamService.create(new Team("TEST TEAM"));
-        List<Team> teams = teamService.findAllTeams();
+        List<Team> teams = teamService.getAllTeams();
 
         teamService.delete(teams.get(teams.size() - 1).getTeamId());
-        assertEquals(teams.size() - 1, teamService.findAllTeams().size());
+        assertEquals(teams.size() - 1, teamService.getAllTeams().size());
     }
 
     @Test
     void tryDeleteTeamWithPlayer() {
+
         logger.debug("Execute test: deleteTeamWithPlayer()");
-        List<Team> teamsBeforeDelete = teamService.findAllTeams();
+
+        List<Team> teamsBeforeDelete = teamService.getAllTeams();
         assertThrows(TeamWithPlayerException.class, () ->
                 teamService.delete(teamsBeforeDelete.get(0).getTeamId()));
     }

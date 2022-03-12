@@ -67,7 +67,7 @@ public class TeamServiceRestTest {
                 );
 
         // when
-        List<Team> teams = teamService.findAllTeams();
+        List<Team> teams = teamService.getAllTeams();
 
         // then
         mockServer.verify();

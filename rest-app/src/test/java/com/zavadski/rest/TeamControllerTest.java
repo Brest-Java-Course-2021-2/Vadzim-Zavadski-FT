@@ -11,13 +11,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.ArgumentMatchers.anyInt;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.*;
 
 @ExtendWith(MockitoExtension.class)
 class TeamControllerTest {
@@ -42,26 +46,45 @@ class TeamControllerTest {
     }
 
     @Test
+    public void getAllTeams() throws Exception {
+
+        Team team = new Team(1, "team");
+        Team team2 = new Team(2, "team2");
+        List<Team> teams = List.of(team, team2);
+
+        Mockito.when(teamService.getAllTeams()).thenReturn(teams);
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.get("/teams"))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].teamId", Matchers.is(teams.get(0).getTeamId())))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].teamName", Matchers.is(teams.get(0).getTeamName())));
+        Mockito.verify(teamService, Mockito.times(1)).getAllTeams();
+
+    }
+
+
+    @Test
     public void getTeamById() throws Exception {
-        Team team = new Team();
-        team.setTeamId(7);
-        team.setTeamName("name");
+
+        Team team = new Team(1, "team");
 
         Mockito.when(teamService.getTeamById(anyInt())).thenReturn(team);
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.get("/teams/8")
-                ).andDo(MockMvcResultHandlers.print())
+                        MockMvcRequestBuilders.get("/teams/1"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().contentType("application/json"))
+                .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.teamId", Matchers.is(team.getTeamId())))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.teamName", Matchers.is(team.getTeamName())))
-        ;
+                .andExpect(MockMvcResultMatchers.jsonPath("$.teamName", Matchers.is(team.getTeamName())));
 
-        Mockito.verify(teamService).getTeamById(captorId.capture());
+        Mockito.verify(teamService, Mockito.times(1)).getTeamById(captorId.capture());
 
         Integer id = captorId.getValue();
-        Assertions.assertEquals(8, id);
+        Assertions.assertEquals(1, id);
     }
 
     @Test
@@ -71,11 +94,32 @@ class TeamControllerTest {
                 .thenThrow(new UnacceptableName("test message"));
 
         mockMvc.perform(
-                        MockMvcRequestBuilders.get("/teams/8")
-                ).andDo(MockMvcResultHandlers.print())
+                        MockMvcRequestBuilders.get("/teams/1"))
+                .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isUnprocessableEntity())
                 .andExpect(MockMvcResultMatchers.content().contentType("text/plain;charset=ISO-8859-1"))
-                .andExpect(MockMvcResultMatchers.content().string("Handle: test message"))
-        ;
+                .andExpect(MockMvcResultMatchers.content().string("Handle: test message"));
     }
+
+    @Test
+    public void createTeam() throws Exception {
+
+        Team team = new Team(1, "team");
+
+        Mockito.when(teamService.create(team)).thenReturn(team.getTeamId());
+
+        mockMvc.perform(
+                        MockMvcRequestBuilders.post("/teams"));
+//                .andDo(MockMvcResultHandlers.print())
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//                .andExpect(MockMvcResultMatchers.content().contentType("application/json"));
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.teamId", Matchers.is(team.getTeamId())))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$.teamName", Matchers.is(team.getTeamName())));
+
+//        Mockito.verify(teamService, Mockito.times(1)).getTeamById(captorId.capture());
+
+//        Integer id = captorId.getValue();
+//        Assertions.assertEquals(1, id);
+    }
+
 }

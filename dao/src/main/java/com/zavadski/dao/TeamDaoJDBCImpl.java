@@ -58,13 +58,17 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public List<Team> findAll() {
+
         logger.debug("Start: findAll()");
+
         return namedParameterJdbcTemplate.query(sqlGetAllTeams, new TeamRowMapper());
     }
 
     @Override
     public Team getTeamById(Integer teamId) {
+
         logger.debug("Get team by id = {}", teamId);
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamId", teamId);
         return namedParameterJdbcTemplate.queryForObject(sqlGetTeamById, sqlParameterSource, new TeamRowMapper());
@@ -129,7 +133,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer delete(Integer teamId) {
+
         logger.debug("Delete team by id = {}", teamId);
+
         if (isTeamWithPlayers(teamId)) {
             logger.error("Can't delete team id: " + teamId + ". This team have a players");
             throw new TeamWithPlayerException("Can't delete team id: " + teamId + ". This team have a players");
@@ -153,7 +159,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer count() {
+
         logger.debug("count()");
+
         return (namedParameterJdbcTemplate
                 .queryForObject(sqlTeamCount, new MapSqlParameterSource(), Integer.class));
     }

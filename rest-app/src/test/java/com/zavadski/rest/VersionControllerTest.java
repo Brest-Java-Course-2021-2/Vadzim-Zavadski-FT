@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 @ExtendWith(MockitoExtension.class)
 class VersionControllerTest {
 
+
     private VersionController controller = new VersionController();
 
     private MockMvc mockMvc;
