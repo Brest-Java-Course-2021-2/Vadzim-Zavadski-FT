@@ -76,6 +76,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer create(Team team) {
+
         logger.debug("Create team: create({})", team);
 
         if (!isTeamUnique(team.getTeamName(), 0)) {
@@ -96,8 +97,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
-        return (Integer) keyHolder.getKey();
+        return namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
     }
 
     private boolean isTeamUnique(String teamName, Integer count) {
@@ -108,6 +108,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     @Override
     public Integer update(Team team) {
+
         logger.debug("Update team: update({})", team);
 
         if (!isTeamUnique(team.getTeamName(), 1)) {

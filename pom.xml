@@ -42,6 +42,8 @@
         </jacoco.it.execution.data.file>
         <jacoco.ut.execution.data.file>${project.build.directory}/coverage-reports/jacoco-ut.exec
         </jacoco.ut.execution.data.file>
+        <postgresql.version>42.3.3</postgresql.version>
+        <mysql-connector-java.version>8.0.28</mysql-connector-java.version>
     </properties>
 
     <dependencyManagement>
@@ -158,6 +160,19 @@
                 <version>${hamcrest.version}</version>
                 <scope>test</scope>
             </dependency>
+
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>postgresql</artifactId>
+                <version>${postgresql.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql-connector-java.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

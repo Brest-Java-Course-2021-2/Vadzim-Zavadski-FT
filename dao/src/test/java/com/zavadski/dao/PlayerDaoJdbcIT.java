@@ -54,6 +54,7 @@ class PlayerDaoJdbcIT {
         int teamSizeBefore = playerDaoJDBC.findAllPlayers().size();
         Player player = new Player("Tim", "Tom", LocalDate.parse("2000-01-01"), 1);
         Integer newPlayerId = playerDaoJDBC.create(player);
+        System.out.println(newPlayerId);
         assertNotNull(newPlayerId);
         assertEquals(teamSizeBefore, playerDaoJDBC.findAllPlayers().size() - 1);
     }

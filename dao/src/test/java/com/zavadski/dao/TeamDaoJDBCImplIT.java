@@ -118,6 +118,7 @@ class TeamDaoJDBCImplIT {
                 teamDaoJDBC.delete(teamsBeforeDelete.get(0).getTeamId()));
     }
 
+    //todo зависит от начальных данных
     @Test
     void shouldCount() {
         assertNotNull(teamDaoJDBC);

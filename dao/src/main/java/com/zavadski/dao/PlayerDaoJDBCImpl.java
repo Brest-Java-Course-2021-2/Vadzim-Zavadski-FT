@@ -90,8 +90,8 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
                         addValue("birthday", player.getBirthday()).
                         addValue("teamId", player.getTeamId());
         KeyHolder keyHolder = new GeneratedKeyHolder();
-        namedParameterJdbcTemplate.update(sqlCreatePlayer, sqlParameterSource, keyHolder);
-        return (Integer) keyHolder.getKey();
+        return namedParameterJdbcTemplate.update(sqlCreatePlayer, sqlParameterSource, keyHolder);
+//        return (Integer) keyHolder.getKey();
     }
 
     private boolean isPlayerUnique(String firstName, String surname, LocalDate birthday, Integer count) {
