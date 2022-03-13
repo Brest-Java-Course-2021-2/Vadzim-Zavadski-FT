@@ -1,4 +1,4 @@
-package com.zavadski.service.impl;
+package com.zavadski.service.impl.train;
 
 import com.zavadski.model.dto.TeamDto;
 import com.zavadski.service.TeamDtoService;

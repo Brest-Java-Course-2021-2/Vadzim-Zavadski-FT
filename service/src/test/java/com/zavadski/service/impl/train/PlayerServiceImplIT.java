@@ -1,4 +1,4 @@
-package com.zavadski.service.impl;
+package com.zavadski.service.impl.train;
 
 import com.zavadski.model.Player;
 import com.zavadski.service.PlayerService;

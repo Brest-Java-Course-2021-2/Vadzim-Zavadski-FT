@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.time.LocalDate;
@@ -98,7 +99,7 @@ public class PlayerDaoJDBCImplTest {
     public void createNewPlayer() {
 
         String sql = "create";
-//        ReflectionTestUtils.setField(playerDaoJDBC, "sqlCreatePlayer", sql);
+        ReflectionTestUtils.setField(playerDaoJDBC, "sqlCreatePlayer", sql);
         Player player = new Player("gjv", "df", LocalDate.parse("2018-01-01"),1);
         int id = 0;
         Integer count = 0;
@@ -111,14 +112,14 @@ public class PlayerDaoJDBCImplTest {
 
         Integer result = playerDaoJDBC.create(player);
 
-//        Mockito.verify(namedParameterJdbcTemplate)
-//                .update(eq(sql), captorSource.capture(), captorKeyHolder.capture());
-//
-//        SqlParameterSource source = captorSource.getValue();
-//        KeyHolder keyHolder = captorKeyHolder.getValue();
-//
-//        Assertions.assertNotNull(source);
-//        Assertions.assertNotNull(keyHolder);
+        Mockito.verify(namedParameterJdbcTemplate)
+                .update(eq(sql), captorSource.capture(), captorKeyHolder.capture());
+
+        SqlParameterSource source = captorSource.getValue();
+        KeyHolder keyHolder = captorKeyHolder.getValue();
+
+        Assertions.assertNotNull(source);
+        Assertions.assertNotNull(keyHolder);
     }
 
 

@@ -1,7 +1,8 @@
-package com.zavadski.service.impl;
+package com.zavadski.service.impl.train;
 
 import com.zavadski.dao.PlayerDao;
 import com.zavadski.model.Player;
+import com.zavadski.service.impl.PlayerServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

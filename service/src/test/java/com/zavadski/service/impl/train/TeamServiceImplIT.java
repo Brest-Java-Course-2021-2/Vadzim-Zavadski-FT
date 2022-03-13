@@ -1,4 +1,4 @@
-package com.zavadski.service.impl;
+package com.zavadski.service.impl.train;
 
 import com.zavadski.dao.exception.TeamWithPlayerException;
 import com.zavadski.model.Team;
