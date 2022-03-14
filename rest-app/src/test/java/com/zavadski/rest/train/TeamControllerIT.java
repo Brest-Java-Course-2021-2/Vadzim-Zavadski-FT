@@ -1,9 +1,10 @@
-package com.zavadski.rest;
+package com.zavadski.rest.train;
 
-import com.zavadski.model.Team;
-import com.zavadski.rest.exception.CustomExceptionHandler;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zavadski.model.Team;
+import com.zavadski.rest.TeamController;
+import com.zavadski.rest.exception.CustomExceptionHandler;
 import com.zavadski.rest.exception.ErrorResponse;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;

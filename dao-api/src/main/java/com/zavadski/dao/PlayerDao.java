@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface PlayerDao {
 
-    List<Player> findAllPlayers();
+    List<Player> getAllPlayers();
 
     Player getPlayerById(Integer playerId);
 

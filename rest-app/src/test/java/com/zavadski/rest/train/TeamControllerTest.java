@@ -1,7 +1,8 @@
-package com.zavadski.rest;
+package com.zavadski.rest.train;
 
 import com.zavadski.dao.exception.UnacceptableName;
 import com.zavadski.model.Team;
+import com.zavadski.rest.TeamController;
 import com.zavadski.rest.exception.CustomExceptionHandler;
 import com.zavadski.service.TeamService;
 import org.hamcrest.Matchers;
@@ -11,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
 
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyInt;
 
 @ExtendWith(MockitoExtension.class)
 class TeamControllerTest {
