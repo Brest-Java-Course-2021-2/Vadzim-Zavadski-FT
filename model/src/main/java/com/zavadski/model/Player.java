@@ -37,6 +37,14 @@ public class Player {
         this.firstName = firstName;
     }
 
+    public Player(Integer playerId, String firstName, String surname, LocalDate birthday, Integer teamId) {
+        this.playerId = playerId;
+        this.firstName = firstName;
+        this.surname = surname;
+        this.birthday = birthday;
+        this.teamId = teamId;
+    }
+
     public Player(String firstName, String surname, LocalDate birthday, int teamId) {
         this.firstName = firstName;
         this.surname = surname;

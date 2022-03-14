@@ -1,5 +1,6 @@
-package com.zavadski.rest;
+package com.zavadski.rest.train;
 
+import com.zavadski.rest.VersionController;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

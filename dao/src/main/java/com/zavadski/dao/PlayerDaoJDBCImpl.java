@@ -51,7 +51,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
-    public List<Player> findAllPlayers() {
+    public List<Player> getAllPlayers() {
         logger.debug("Start: findAll()");
         return namedParameterJdbcTemplate.query(sqlGetAllPlayers, new PlayerRowMapper());
     }
