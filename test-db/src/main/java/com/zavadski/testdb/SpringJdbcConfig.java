@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
-@PropertySource({"config_db.properties"})
+@PropertySource({"classpath:application.properties"})
 public class SpringJdbcConfig {
 
     @Value("${db.url}")

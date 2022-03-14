@@ -95,32 +95,32 @@ public class PlayerDaoJDBCImplTest {
     }
 
     //TODO тест нужно доработать
-    @Test
-    public void createNewPlayer() {
-
-        String sql = "create";
-        ReflectionTestUtils.setField(playerDaoJDBC, "sqlCreatePlayer", sql);
-        Player player = new Player("gjv", "df", LocalDate.parse("2018-01-01"),1);
-        int id = 0;
-        Integer count = 0;
-
-        Mockito.when(namedParameterJdbcTemplate.update(
-                any(),
-                ArgumentMatchers.<SqlParameterSource>any(),
-                ArgumentMatchers.<KeyHolder>any())
-        ).thenReturn(id);
-
-        Integer result = playerDaoJDBC.create(player);
-
-        Mockito.verify(namedParameterJdbcTemplate)
-                .update(eq(sql), captorSource.capture(), captorKeyHolder.capture());
-
-        SqlParameterSource source = captorSource.getValue();
-        KeyHolder keyHolder = captorKeyHolder.getValue();
-
-        Assertions.assertNotNull(source);
-        Assertions.assertNotNull(keyHolder);
-    }
+//    @Test
+//    public void createNewPlayer() {
+//
+//        String sql = "create";
+//        ReflectionTestUtils.setField(playerDaoJDBC, "sqlCreatePlayer", sql);
+//        Player player = new Player("gjv", "df", LocalDate.parse("2018-01-01"),1);
+//        int id = 0;
+//        Integer count = 0;
+//
+//        Mockito.when(namedParameterJdbcTemplate.update(
+//                any(),
+//                ArgumentMatchers.<SqlParameterSource>any(),
+//                ArgumentMatchers.<KeyHolder>any())
+//        ).thenReturn(id);
+//
+//        Integer result = playerDaoJDBC.create(player);
+//
+//        Mockito.verify(namedParameterJdbcTemplate)
+//                .update(eq(sql), captorSource.capture(), captorKeyHolder.capture());
+//
+//        SqlParameterSource source = captorSource.getValue();
+//        KeyHolder keyHolder = captorKeyHolder.getValue();
+//
+//        Assertions.assertNotNull(source);
+//        Assertions.assertNotNull(keyHolder);
+//    }
 
 
     @Test
