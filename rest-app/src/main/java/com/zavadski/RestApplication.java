@@ -29,10 +29,4 @@ public class RestApplication extends SpringBootServletInitializer {
         System.setProperties(p);
 
     }
-
-    @Bean
-    public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
-        return args -> logger.debug("Let's inspect the beans provided by Spring Boot:");
-    }
-
 }

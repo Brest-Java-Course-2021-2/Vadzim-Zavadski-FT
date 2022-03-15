@@ -194,41 +194,41 @@
                     <version>${spring-boot.version}</version>
                 </plugin>
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-surefire-plugin</artifactId>
-                    <version>${maven-surefire-plugin.version}</version>
-                    <configuration>
-                        <reportsDirectory>${junit.utReportFolder}</reportsDirectory>
-                        <excludes>
-                            <exclude>**/*IT*</exclude>
-                        </excludes>
-                    </configuration>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-surefire-plugin</artifactId>-->
+<!--                    <version>${maven-surefire-plugin.version}</version>-->
+<!--                    <configuration>-->
+<!--                        <reportsDirectory>${junit.utReportFolder}</reportsDirectory>-->
+<!--                        <excludes>-->
+<!--                            <exclude>**/*IT*</exclude>-->
+<!--                        </excludes>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
 
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-failsafe-plugin</artifactId>
-                    <version>${maven-failsafe-plugin.version}</version>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>integration-test</goal>
-                                <goal>verify</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                    <configuration>
-                        <classesDirectory>${project.build.outputDirectory}</classesDirectory>
-                        <reportsDirectory>${junit.itReportFolder}</reportsDirectory>
-                        <argLine>
-                            --illegal-access=permit
-                        </argLine>
-                        <includes>
-                            <include>**/*IT*</include>
-                        </includes>
-                    </configuration>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>org.apache.maven.plugins</groupId>-->
+<!--                    <artifactId>maven-failsafe-plugin</artifactId>-->
+<!--                    <version>${maven-failsafe-plugin.version}</version>-->
+<!--                    <executions>-->
+<!--                        <execution>-->
+<!--                            <goals>-->
+<!--                                <goal>integration-test</goal>-->
+<!--                                <goal>verify</goal>-->
+<!--                            </goals>-->
+<!--                        </execution>-->
+<!--                    </executions>-->
+<!--                    <configuration>-->
+<!--                        <classesDirectory>${project.build.outputDirectory}</classesDirectory>-->
+<!--                        <reportsDirectory>${junit.itReportFolder}</reportsDirectory>-->
+<!--                        <argLine>-->
+<!--                            &#45;&#45;illegal-access=permit-->
+<!--                        </argLine>-->
+<!--                        <includes>-->
+<!--                            <include>**/*IT*</include>-->
+<!--                        </includes>-->
+<!--                    </configuration>-->
+<!--                </plugin>-->
 
             </plugins>
         </pluginManagement>

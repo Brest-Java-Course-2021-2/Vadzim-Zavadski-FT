@@ -24,7 +24,6 @@ public class SpringJdbcConfig {
     private String database;
 
     @Profile("postgresql")
-    @Bean
     public DataSource dataSourcePostgresql() {
         return new DriverManagerDataSource(
                 "jdbc:postgresql://localhost:5432/Vadzim-Zavadski-FT"
@@ -33,7 +32,6 @@ public class SpringJdbcConfig {
     }
 
     @Profile("h2")
-    @Bean
     public DataSource dataSourceH2() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
