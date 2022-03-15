@@ -13,25 +13,25 @@ import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@DataJdbcTest
-@Import({PlayerDaoJDBCImpl.class})
-@PropertySource({"classpath:dao.properties"})
-@ContextConfiguration(classes = SpringJdbcConfig.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
-@Transactional
-@Rollback
+//@DataJdbcTest
+//@Import({PlayerDaoJDBCImpl.class})
+//@PropertySource({"classpath:dao.properties"})
+//@ContextConfiguration(classes = SpringJdbcConfig.class)
+//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+//@Transactional
+//@Rollback
 class PlayerDaoJdbcIT {
-
-    private PlayerDaoJDBCImpl playerDaoJDBC;
-
-    public PlayerDaoJdbcIT(@Autowired PlayerDao playerDaoJdbc) {
-        this.playerDaoJDBC = (PlayerDaoJDBCImpl) playerDaoJdbc;
-    }
-
-    @Test
-    void findAllPlayers() {
-
-        assertNotNull(playerDaoJDBC);
-        assertNotNull(playerDaoJDBC.getAllPlayers());
-    }
+//
+//    private PlayerDaoJDBCImpl playerDaoJDBC;
+//
+//    public PlayerDaoJdbcIT(@Autowired PlayerDao playerDaoJdbc) {
+//        this.playerDaoJDBC = (PlayerDaoJDBCImpl) playerDaoJdbc;
+//    }
+//
+//    @Test
+//    void findAllPlayers() {
+//
+//        assertNotNull(playerDaoJDBC);
+//        assertNotNull(playerDaoJDBC.getAllPlayers());
+//    }
 }

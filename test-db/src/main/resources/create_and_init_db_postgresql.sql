@@ -16,7 +16,7 @@ team_id integer NOT NULL,
 CONSTRAINT player_team_fk FOREIGN KEY (team_id) REFERENCES team(team_id)
 );
 
-insert into TEAM (team_name) values ('Liverpool');
+insert into TEAM (team_name) values ('Liverpool1');
 insert into TEAM (team_name) values ('Arsenal');
 insert into TEAM (team_name) values ('Lester');
 
