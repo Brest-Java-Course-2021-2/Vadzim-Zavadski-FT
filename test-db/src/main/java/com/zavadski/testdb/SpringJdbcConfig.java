@@ -1,8 +1,8 @@
 package com.zavadski.testdb;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -17,26 +17,31 @@ import java.util.Objects;
 @PropertySource({"classpath:application.properties"})
 public class SpringJdbcConfig {
 
-    @Value("${db.url}")
-    private String url;
+    private String datadase;
 
-    @Value("${db.user}")
-    private String user;
+    @Profile("h2")
+    public DataSource dataSourceH2() {
+        datadase = "h2";
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("create_and_init_db.sql")
+                .build();
+    }
 
-    @Value("${db.password}")
-    private String password;
+    @Profile("postgresql")
+    public DataSource dataSourcePostgresql() {
+        datadase = "postgresql";
+        return new DriverManagerDataSource(
+                "jdbc:postgresql://localhost:5432/Vadzim-Zavadski-FT"
+                , "epam"
+                , "epam");
+    }
 
     @Bean
     public DataSource dataSource() {
-        if (!Objects.equals(url, "no")) {
-            return new DriverManagerDataSource(
-                    url, user, password);
-        } else {
-            return new EmbeddedDatabaseBuilder()
-                    .setType(EmbeddedDatabaseType.H2)
-                    .addScript("create_and_init_db.sql")
-                    .build();
-        }
+        if (Objects.equals(datadase, "h2")) {
+            return dataSourceH2();
+        } else return dataSourcePostgresql();
     }
 
     @Bean
@@ -48,5 +53,4 @@ public class SpringJdbcConfig {
     public DataSourceTransactionManager transactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
-
 }
