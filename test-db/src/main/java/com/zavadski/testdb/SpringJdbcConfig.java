@@ -1,5 +1,6 @@
 package com.zavadski.testdb;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,29 +18,32 @@ import java.util.Objects;
 @PropertySource({"classpath:application.properties"})
 public class SpringJdbcConfig {
 
-    private String datadase;
+    @Value("${spring.profiles.active}")
+    private String activeProfile;
 
-    @Profile("h2")
-    public DataSource dataSourceH2() {
-        datadase = "h2";
-        return new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .addScript("create_and_init_db.sql")
-                .build();
-    }
+    private String database;
 
     @Profile("postgresql")
+    @Bean
     public DataSource dataSourcePostgresql() {
-        datadase = "postgresql";
         return new DriverManagerDataSource(
                 "jdbc:postgresql://localhost:5432/Vadzim-Zavadski-FT"
                 , "epam"
                 , "epam");
     }
 
+    @Profile("h2")
+    @Bean
+    public DataSource dataSourceH2() {
+        return new EmbeddedDatabaseBuilder()
+                .setType(EmbeddedDatabaseType.H2)
+                .addScript("create_and_init_db.sql")
+                .build();
+    }
+
     @Bean
     public DataSource dataSource() {
-        if (Objects.equals(datadase, "h2")) {
+        if (Objects.equals(activeProfile, "h2")) {
             return dataSourceH2();
         } else return dataSourcePostgresql();
     }
