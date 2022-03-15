@@ -21,8 +21,6 @@ public class SpringJdbcConfig {
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
-    private String database;
-
     @Profile("postgresql")
     public DataSource dataSourcePostgresql() {
         return new DriverManagerDataSource(

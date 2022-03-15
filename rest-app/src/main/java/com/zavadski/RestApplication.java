@@ -14,7 +14,6 @@ import java.util.Properties;
 public class RestApplication extends SpringBootServletInitializer {
 
     public static void main(String[] args) throws IOException {
-        SpringApplication.run(RestApplication.class, args);
 
         // creates a FileInputStream from file newProp.txt to load it into the new properties object
         FileInputStream propFile = new FileInputStream("newProp.txt");
@@ -28,5 +27,8 @@ public class RestApplication extends SpringBootServletInitializer {
         // set the new system properties
         System.setProperties(p);
 
+        System.out.println(System.getProperty("db"));
+
+        SpringApplication.run(RestApplication.class, args);
     }
 }
