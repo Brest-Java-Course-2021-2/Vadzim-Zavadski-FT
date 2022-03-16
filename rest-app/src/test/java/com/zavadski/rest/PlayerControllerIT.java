@@ -1,10 +1,11 @@
-package com.zavadski.rest.train;
+package com.zavadski.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zavadski.model.Player;
 import com.zavadski.rest.PlayerController;
 import com.zavadski.rest.exception.CustomExceptionHandler;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -66,7 +67,6 @@ public class PlayerControllerIT {
         List<Player> players = playerService.getAllPlayers();
 
         assertNotNull(players);
-        System.out.println(players);
         assertTrue(players.size() > 0);
     }
 

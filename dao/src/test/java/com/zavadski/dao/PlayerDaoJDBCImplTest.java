@@ -56,8 +56,6 @@ public class PlayerDaoJDBCImplTest {
 
         assertNotNull(mapper);
 
-        System.out.println(mapper);
-
         assertNotNull(result);
         assertFalse(result.isEmpty());
         assertSame(testPlayer, result.get(0));
