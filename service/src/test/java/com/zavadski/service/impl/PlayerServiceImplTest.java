@@ -28,9 +28,8 @@ class PlayerServiceImplTest {
     @Test
     void getAllPlayers() {
 
-        Player testPlayer = new Player(1, "Edvin", "Win", LocalDate.of(1992, 01, 21), 1);
         List<Player> players = new ArrayList<>();
-        players.add(testPlayer);
+        players.add(new Player(1, "Edvin", "Win", LocalDate.of(1992, 01, 21), 1));
 
         Mockito.when(playerDao.getAllPlayers()).thenReturn(players);
 
@@ -38,6 +37,22 @@ class PlayerServiceImplTest {
 
         assertNotNull(allPlayers);
         assertEquals(1, allPlayers.size());
+
+        System.out.println(allPlayers);
+
+        Mockito.verify(playerDao, Mockito.times(1)).getAllPlayers();
+    }
+
+    @Test
+    void getAllPlayersIfEmpty() {
+
+        List<Player> players = new ArrayList<>();
+
+        Mockito.when(playerDao.getAllPlayers()).thenReturn(players);
+
+        List<Player> allPlayers = playerService.getAllPlayers();
+
+        assert(allPlayers.isEmpty());
 
         System.out.println(allPlayers);
 
