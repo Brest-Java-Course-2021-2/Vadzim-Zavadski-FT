@@ -2,7 +2,6 @@ package com.zavadski.dao;
 
 import com.zavadski.model.Player;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
@@ -11,11 +10,14 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class PlayerDaoJDBCImplTest {
@@ -35,24 +37,29 @@ public class PlayerDaoJDBCImplTest {
     }
 
     @Test
-    public void findAllPlayers() {
+    public void getAllPlayers() {
+
         String sql = "select";
         ReflectionTestUtils.setField(playerDaoJDBC, "sqlGetAllPlayers", sql);
-        Player player = new Player();
-        List<Player> list = Collections.singletonList(player);
 
-        Mockito.when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Player>>any())).thenReturn(list);
+        List<Player> players = new ArrayList<>();
+        Player testPlayer = new Player();
+        players.add(testPlayer);
+
+        when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Player>>any())).thenReturn(players);
 
         List<Player> result = playerDaoJDBC.getAllPlayers();
 
-        Mockito.verify(namedParameterJdbcTemplate).query(eq(sql), captorMapper.capture());
+        verify(namedParameterJdbcTemplate).query(eq(sql), captorMapper.capture());
 
         RowMapper<Player> mapper = captorMapper.getValue();
 
-        Assertions.assertNotNull(mapper);
+        assertNotNull(mapper);
 
-        Assertions.assertNotNull(result);
-        Assertions.assertFalse(result.isEmpty());
-        Assertions.assertSame(player, result.get(0));
+        System.out.println(mapper);
+
+        assertNotNull(result);
+        assertFalse(result.isEmpty());
+        assertSame(testPlayer, result.get(0));
     }
 }

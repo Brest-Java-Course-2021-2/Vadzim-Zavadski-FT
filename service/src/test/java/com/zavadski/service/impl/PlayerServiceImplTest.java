@@ -14,7 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PlayerServiceImplTest {
@@ -31,7 +32,7 @@ class PlayerServiceImplTest {
         List<Player> players = new ArrayList<>();
         players.add(new Player(1, "Edvin", "Win", LocalDate.of(1992, 01, 21), 1));
 
-        Mockito.when(playerDao.getAllPlayers()).thenReturn(players);
+        when(playerDao.getAllPlayers()).thenReturn(players);
 
         List<Player> allPlayers = playerService.getAllPlayers();
 
@@ -40,39 +41,6 @@ class PlayerServiceImplTest {
 
         System.out.println(allPlayers);
 
-        Mockito.verify(playerDao, Mockito.times(1)).getAllPlayers();
+        verify(playerDao, Mockito.times(1)).getAllPlayers();
     }
-
-    @Test
-    void getAllPlayersIfEmpty() {
-
-        List<Player> players = new ArrayList<>();
-
-        Mockito.when(playerDao.getAllPlayers()).thenReturn(players);
-
-        List<Player> allPlayers = playerService.getAllPlayers();
-
-        assert(allPlayers.isEmpty());
-
-        System.out.println(allPlayers);
-
-        Mockito.verify(playerDao, Mockito.times(1)).getAllPlayers();
-    }
-
-//    @Test
-//    void createNewPlayer() {
-//
-//        Player player = new Player();
-//        Integer id = 1;
-//
-//        Mockito.when(playerDao.create(any(Player.class))).thenReturn(id);
-//
-//        Integer result = playerService.create(player);
-//
-//        assertNotNull(result);
-//        assertEquals(1, result);
-//
-//        Mockito.verify(playerDao, Mockito.times(1)).create(any(Player.class));
-//    }
-
 }
