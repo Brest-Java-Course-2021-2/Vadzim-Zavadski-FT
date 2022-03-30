@@ -30,11 +30,11 @@ Application consists 2 particular modules (web-application & rest-app) that are 
 ### Start Rest application
 To start Rest server (rest-app module) with H2 Database:
 ```
+java -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar
 java -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar --spring.profiles.active=h2
 ```
 To start Rest server (rest-app module) with PostgreSQL Database you should enter your ***username*** and ***password*** for database:
 ```
-java -Ddb.user=`username` -Ddb.pass=`password` -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar
 java -Ddb.user=`username` -Ddb.pass=`password` -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar --spring.profiles.active=postgresql
 ```
 rest-app is set up on http://localhost:8088 (no default redirect provided)
