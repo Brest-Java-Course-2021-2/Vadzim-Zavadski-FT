@@ -13,8 +13,6 @@ public class TeamDto {
     @ApiModelProperty(notes = "Number of players in team")
     private Integer numberOfPlayers;
 
-    @ApiModelProperty(notes = "Average age all players in team")
-    private Double avgAge;
 
     public TeamDto() {
     }
@@ -47,13 +45,6 @@ public class TeamDto {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public Double getAvgAge() {
-        return avgAge;
-    }
-
-    public void setAvgAge(final Double avgAge) {
-        this.avgAge = avgAge;
-    }
 
     @Override
     public String toString() {
@@ -61,7 +52,6 @@ public class TeamDto {
                 "teamId=" + teamId +
                 ", teamName='" + teamName + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
-                ", avgAge=" + avgAge +
                 '}';
     }
 }

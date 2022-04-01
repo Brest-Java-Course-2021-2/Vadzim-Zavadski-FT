@@ -35,7 +35,7 @@ java -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar --spring.profiles.active=h
 ```
 To start Rest server (rest-app module) with PostgreSQL Database you should enter your ***username*** and ***password*** for database:
 ```
-java -Ddb.user=`username` -Ddb.pass=`password` -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar --spring.profiles.active=postgresql
+java -Ddb_user=epam -Ddb_pass=epam -jar ./rest-app/target/rest-app-1.0-SNAPSHOT.jar --spring.profiles.active=postgresql
 ```
 rest-app is set up on http://localhost:8088 (no default redirect provided)
 ### Start Web application

@@ -25,8 +25,8 @@ public class SpringJdbcConfig {
     public DataSource dataSourcePostgresql() {
         return new DriverManagerDataSource(
                 "jdbc:postgresql://localhost:5432/Vadzim-Zavadski-FT"
-                , System.getProperty("db.user")
-                , System.getProperty("db.pass"));
+                , System.getProperty("db_user")
+                , System.getProperty("db_pass"));
     }
 
     @Profile("h2")

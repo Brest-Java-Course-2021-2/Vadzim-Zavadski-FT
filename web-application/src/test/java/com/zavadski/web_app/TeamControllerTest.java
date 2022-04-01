@@ -66,9 +66,9 @@ class TeamControllerTest {
     @Test
     void shouldReturnTeamsPage() throws Exception {
 
-        TeamDto d1 = createTeamDto(1, "Lester", Double.valueOf(20.2), 4);
-        TeamDto d2 = createTeamDto(2, "Lester2", Double.valueOf(23.0), 3);
-        TeamDto d3 = createTeamDto(3, "Lester3", Double.valueOf(0), null);
+        TeamDto d1 = createTeamDto(1, "Lester", 4);
+        TeamDto d2 = createTeamDto(2, "Lester2", 3);
+        TeamDto d3 = createTeamDto(3, "Lester3", null);
 
         mockServer.expect(ExpectedCount.once(), requestTo(new URI(TEAM_DTOS_URL)))
                 .andExpect(method(HttpMethod.GET))
@@ -87,24 +87,9 @@ class TeamControllerTest {
                         allOf(
                                 hasProperty("teamId", is(d1.getTeamId())),
                                 hasProperty("teamName", is(d1.getTeamName())),
-                                hasProperty("avgAge", is(d1.getAvgAge())),
                                 hasProperty("numberOfPlayers", is(d1.getNumberOfPlayers()))
                         )
                 )))
-//                .andExpect(model().attribute("teams", hasItem(
-//                        allOf(
-//                                hasProperty("teamId", is(d2.getTeamId())),
-//                                hasProperty("teamName", is(d2.getTeamName())),
-//                                hasProperty("avgSalary", is(d2.getAvgSalary()))
-//                        )
-//                )))
-//                .andExpect(model().attribute("teams", hasItem(
-//                        allOf(
-//                                hasProperty("teamId", is(d3.getTeamId())),
-//                                hasProperty("teamName", is(d3.getTeamName())),
-//                                hasProperty("avgSalary", isEmptyOrNullString())
-//                        )
-//                )))
         ;
 
         mockServer.verify();
@@ -202,11 +187,10 @@ class TeamControllerTest {
         mockServer.verify();
     }
 
-    private TeamDto createTeamDto(int id, String name, Double avgAge, Integer numberOfPlayers) {
+    private TeamDto createTeamDto(int id, String name, Integer numberOfPlayers) {
         TeamDto teamDto = new TeamDto();
         teamDto.setTeamId(id);
         teamDto.setTeamName(name);
-        teamDto.setAvgAge(avgAge);
         teamDto.setNumberOfPlayers(numberOfPlayers);
         return teamDto;
     }
