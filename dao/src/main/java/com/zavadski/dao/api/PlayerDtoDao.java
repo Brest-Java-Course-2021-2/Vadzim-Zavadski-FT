@@ -1,4 +1,4 @@
-package com.zavadski.dao;
+package com.zavadski.dao.api;
 
 import com.zavadski.model.dto.PlayerDto;
 

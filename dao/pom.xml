@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>com.zavadski</groupId>
-            <artifactId>dao-api</artifactId>
+            <artifactId>model</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zavadski</groupId>

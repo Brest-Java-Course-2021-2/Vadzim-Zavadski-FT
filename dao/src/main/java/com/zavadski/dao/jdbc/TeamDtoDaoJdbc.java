@@ -1,5 +1,6 @@
-package com.zavadski.dao;
+package com.zavadski.dao.jdbc;
 
+import com.zavadski.dao.api.TeamDtoDao;
 import com.zavadski.model.dto.TeamDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

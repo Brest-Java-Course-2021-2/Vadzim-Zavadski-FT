@@ -4,14 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
-import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Player {
 
     @ApiModelProperty(notes = "Players id")
@@ -33,82 +37,4 @@ public class Player {
     @ApiModelProperty(notes = "Players team id")
     private Integer teamId;
 
-    public Player() {
-    }
-
-    public Player(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public Player(Integer playerId, String firstName) {
-        this.playerId = playerId;
-        this.firstName = firstName;
-    }
-
-    public Player(Integer playerId, String firstName, String surname, LocalDate birthday, Integer teamId) {
-        this.playerId = playerId;
-        this.firstName = firstName;
-        this.surname = surname;
-        this.birthday = birthday;
-        this.teamId = teamId;
-    }
-
-    public Player(String firstName, String surname, LocalDate birthday, int teamId) {
-        this.firstName = firstName;
-        this.surname = surname;
-        this.birthday = birthday;
-        this.teamId = teamId;
-    }
-
-    public Integer getPlayerId() {
-        return playerId;
-    }
-
-    public void setPlayerId(Integer playerId) {
-        this.playerId = playerId;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public LocalDate getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(LocalDate birthday) {
-        this.birthday = birthday;
-    }
-
-    public Integer getTeamId() {
-        return teamId;
-    }
-
-    public Player setTeamId(Integer teamId) {
-        this.teamId = teamId;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Player{" +
-                "playerId=" + playerId +
-                ", firstName='" + firstName + '\'' +
-                ", surname='" + surname + '\'' +
-                ", birthday=" + birthday +
-                ", teamId=" + teamId +
-                '}';
-    }
 }

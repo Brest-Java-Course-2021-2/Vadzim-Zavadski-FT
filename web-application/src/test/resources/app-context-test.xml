@@ -25,15 +25,15 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="teamDtoDao" class="com.zavadski.dao.TeamDtoDaoJdbc">
+    <bean id="teamWithCountOfPlayers" class="com.zavadski.dao.jdbc.TeamWithCountOfPlayersJdbc">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 
     <bean id="teamDtoService" class="com.zavadski.service.impl.TeamDtoServiceImpl">
-        <constructor-arg name="teamDtoDao" ref="teamDtoDao"/>
+        <constructor-arg name="teamWithCountOfPlayers" ref="teamWithCountOfPlayers"/>
     </bean>
 
-    <bean id="teamDao" class="com.zavadski.dao.TeamDaoJDBCImpl">
+    <bean id="teamDao" class="com.zavadski.dao.jdbc.TeamDaoJDBCImpl">
         <constructor-arg ref="namedParameterJdbcTemplate"/>
     </bean>
 

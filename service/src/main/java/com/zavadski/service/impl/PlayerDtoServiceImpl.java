@@ -1,6 +1,6 @@
 package com.zavadski.service.impl;
 
-import com.zavadski.dao.PlayerDtoDao;
+import com.zavadski.dao.api.PlayerDtoDao;
 import com.zavadski.model.dto.PlayerDto;
 import com.zavadski.service.PlayerDtoService;
 import org.apache.logging.log4j.LogManager;

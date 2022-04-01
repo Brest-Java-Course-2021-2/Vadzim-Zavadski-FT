@@ -18,10 +18,6 @@
         </dependency>
         <dependency>
             <groupId>com.zavadski</groupId>
-            <artifactId>dao-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.zavadski</groupId>
             <artifactId>dao</artifactId>
         </dependency>
         <dependency>

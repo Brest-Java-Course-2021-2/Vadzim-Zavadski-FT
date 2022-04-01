@@ -1,6 +1,6 @@
 package com.zavadski.service.impl;
 
-import com.zavadski.dao.PlayerDaoJDBCImpl;
+import com.zavadski.dao.jdbc.PlayerDaoJDBCImpl;
 import com.zavadski.model.Player;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

@@ -1,6 +1,7 @@
-package com.zavadski.dao;
+package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.exception.PlayerWrongFilterDate;
+import com.zavadski.dao.api.PlayerDtoDao;
+import com.zavadski.dao.jdbc.exception.PlayerWrongFilterDate;
 import com.zavadski.model.dto.PlayerDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,7 +39,9 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
 
     @Override
     public List<PlayerDto> filterByBirthday(LocalDate startDate, LocalDate endDate) {
-        logger.debug("filterByBirthday()Start date: " + startDate + " end date: " + endDate);
+
+        logger.debug("filterByBirthday()Start date: {} end date: {}", startDate, endDate);
+
         MapSqlParameterSource parameterSource = new MapSqlParameterSource();
         parameterSource.addValue("START_DATE", startDate);
         parameterSource.addValue("END_DATE", endDate);

@@ -2,10 +2,10 @@ package com.zavadski.service;
 
 import com.zavadski.model.dto.TeamDto;
 
-import java.util.List;
+import java.util.Collection;
 
 public interface TeamDtoService {
 
-    List<TeamDto> findAllWithNumberOfPlayers();
+    Collection<TeamDto> findAllWithNumberOfPlayers();
 
 }

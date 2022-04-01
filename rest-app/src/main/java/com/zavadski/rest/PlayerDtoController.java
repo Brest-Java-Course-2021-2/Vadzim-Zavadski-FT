@@ -18,18 +18,22 @@ import java.util.Collection;
 public class PlayerDtoController {
 
     private static final Logger logger = LogManager.getLogger(PlayerDtoController.class);
+
     private final PlayerDtoService playerDtoService;
+
     public PlayerDtoController(PlayerDtoService playerDtoService) {
         this.playerDtoService = playerDtoService;
     }
 
     @ApiOperation(value = "Filter players by birthday")
     @GetMapping(value = "player_dtos")
-    public final Collection<PlayerDto> playerDtos(@RequestParam(value = "startDate", required = false)
+    public final Collection<PlayerDto> filterByBirthday(@RequestParam(value = "startDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
                                                   @RequestParam(value = "endDate", required = false)
                                                       @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) {
+
         logger.debug("rest-app: playerDtos()");
+
         return playerDtoService.filterByBirthday(startDate, endDate);
     }
 }

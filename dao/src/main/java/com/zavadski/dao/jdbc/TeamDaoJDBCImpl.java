@@ -1,8 +1,9 @@
-package com.zavadski.dao;
+package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.exception.FieldNullPointerException;
-import com.zavadski.dao.exception.TeamWithPlayerException;
-import com.zavadski.dao.exception.UnacceptableName;
+import com.zavadski.dao.api.TeamDao;
+import com.zavadski.dao.jdbc.exception.FieldNullPointerException;
+import com.zavadski.dao.jdbc.exception.TeamWithPlayerException;
+import com.zavadski.dao.jdbc.exception.UnacceptableName;
 import com.zavadski.model.Team;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -85,7 +86,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
         }
 
         if (team.getTeamName().length() > TEAM_NAME_SIZE) {
-            logger.warn("Team name is too long", team.getTeamName());
+            logger.warn("Team name {} is too long", team.getTeamName());
             throw new UnacceptableName("Team name length should be <=" + TEAM_NAME_SIZE);
         }
 
@@ -117,7 +118,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
         }
 
         if (team.getTeamName().length() > TEAM_NAME_SIZE) {
-            logger.warn("Team name is too long", team.getTeamName());
+            logger.warn("Team name {} is too long", team.getTeamName());
             throw new UnacceptableName("Team name length should be <=" + TEAM_NAME_SIZE);
         }
 

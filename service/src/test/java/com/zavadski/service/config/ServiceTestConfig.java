@@ -1,6 +1,13 @@
 package com.zavadski.service.config;
 
-import com.zavadski.dao.*;
+import com.zavadski.dao.api.PlayerDao;
+import com.zavadski.dao.api.PlayerDtoDao;
+import com.zavadski.dao.api.TeamDao;
+import com.zavadski.dao.api.TeamDtoDao;
+import com.zavadski.dao.jdbc.PlayerDaoJDBCImpl;
+import com.zavadski.dao.jdbc.PlayerDtoDaoJdbc;
+import com.zavadski.dao.jdbc.TeamDaoJDBCImpl;
+import com.zavadski.dao.jdbc.TeamDtoDaoJdbc;
 import com.zavadski.service.PlayerDtoService;
 import com.zavadski.service.PlayerService;
 import com.zavadski.service.TeamDtoService;

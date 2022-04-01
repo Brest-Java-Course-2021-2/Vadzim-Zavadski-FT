@@ -1,7 +1,8 @@
-package com.zavadski.dao;
+package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.exception.FieldNullPointerException;
-import com.zavadski.dao.exception.UnacceptableName;
+import com.zavadski.dao.api.PlayerDao;
+import com.zavadski.dao.jdbc.exception.FieldNullPointerException;
+import com.zavadski.dao.jdbc.exception.UnacceptableName;
 import com.zavadski.model.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,7 +27,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     private final Logger logger = LogManager.getLogger(PlayerDaoJDBCImpl.class);
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${SQL_ALL_PLAYERS}")
     private String sqlGetAllPlayers;
@@ -52,13 +53,17 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public List<Player> getAllPlayers() {
+
         logger.debug("Start: findAll()");
+
         return namedParameterJdbcTemplate.query(sqlGetAllPlayers, new PlayerRowMapper());
     }
 
     @Override
     public Player getPlayerById(Integer playerId) {
+
         logger.debug("Get player by id = {}", playerId);
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", playerId);
         return namedParameterJdbcTemplate.queryForObject(sqlGetPlayerById, sqlParameterSource, new PlayerRowMapper());
@@ -70,12 +75,12 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         logger.debug("Create player: create({})", player);
 
         if (player.getFirstName().length() > PLAYER_NAME_SIZE) {
-            logger.warn("Player name is too long", player.getFirstName());
+            logger.warn("Player name is too long {}", player.getFirstName());
             throw new UnacceptableName("Player name length should be <=" + PLAYER_NAME_SIZE);
         }
 
         if (!isPlayerUnique(player.getFirstName(), player.getSurname(), player.getBirthday(), 0)) {
-            logger.warn("Player with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
+            logger.warn("Player {} {} {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
             throw new UnacceptableName("Player with the same name and surname already exists in DB.");
         }
 
@@ -95,7 +100,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     private boolean isPlayerUnique(String firstName, String surname, LocalDate birthday, Integer count) {
 
-        logger.debug("Check Player: {} on unique", firstName, surname, birthday);
+        logger.debug("Check Player: {} {} {} on unique", firstName, surname, birthday);
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("firstName", firstName).
@@ -110,12 +115,12 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         logger.debug("Update player: update({})", player);
 
         if (player.getFirstName().length() > PLAYER_NAME_SIZE) {
-            logger.warn("Player name is too long", player.getFirstName());
+            logger.warn("Player name {} is too long", player.getFirstName());
             throw new UnacceptableName("Player name length should be <=" + PLAYER_NAME_SIZE);
         }
 
         if (!isPlayerUnique(player.getFirstName(), player.getSurname(), player.getBirthday(), 1)) {
-            logger.warn("Player with the same name {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
+            logger.warn("Player {} {} {} already exists.", player.getFirstName(), player.getSurname(), player.getBirthday());
             throw new UnacceptableName("Player with the same name and surname already exists in DB.");
         }
 
@@ -135,6 +140,9 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
 
     @Override
     public Integer delete(Integer playerId) {
+
+        logger.debug("Delete player by id = {})", playerId);
+
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", playerId);
         return namedParameterJdbcTemplate.update(sqlDeletePlayerById, sqlParameterSource);

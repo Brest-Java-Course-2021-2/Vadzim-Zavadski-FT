@@ -1,7 +1,15 @@
 package com.zavadski.model;
 
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import javax.management.ConstructorParameters;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Team {
 
     @ApiModelProperty(notes = "Teams id")
@@ -9,41 +17,7 @@ public class Team {
     @ApiModelProperty(notes = "Teams name")
     private String teamName;
 
-    public Team() {
-    }
-
     public Team(String teamName) {
         this.teamName = teamName;
-    }
-
-    public Team(Integer teamId, String teamName) {
-        this.teamId = teamId;
-        this.teamName = teamName;
-    }
-
-    public Integer getTeamId() {
-        return teamId;
-    }
-
-    public Team setTeamId(Integer teamId) {
-        this.teamId = teamId;
-        return this;
-    }
-
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public Team setTeamName(String teamName) {
-        this.teamName = teamName;
-        return this;
-    }
-
-    @Override
-    public String toString() {
-        return "Team{" +
-                "teamId=" + teamId +
-                ", teamName='" + teamName + '\'' +
-                '}';
     }
 }

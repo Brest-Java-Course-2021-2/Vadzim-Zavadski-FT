@@ -1,9 +1,9 @@
 package com.zavadski.rest.exception;
 
-import com.zavadski.dao.exception.FieldNullPointerException;
-import com.zavadski.dao.exception.PlayerWrongFilterDate;
-import com.zavadski.dao.exception.TeamWithPlayerException;
-import com.zavadski.dao.exception.UnacceptableName;
+import com.zavadski.dao.jdbc.exception.FieldNullPointerException;
+import com.zavadski.dao.jdbc.exception.PlayerWrongFilterDate;
+import com.zavadski.dao.jdbc.exception.TeamWithPlayerException;
+import com.zavadski.dao.jdbc.exception.UnacceptableName;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
