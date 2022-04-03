@@ -38,8 +38,7 @@ class PlayerServiceImplTest {
 
         assertNotNull(allPlayers);
         assertEquals(1, allPlayers.size());
-
-        System.out.println(allPlayers);
+        assertSame(players, allPlayers);
 
         verify(playerDao, Mockito.times(1)).getAllPlayers();
     }

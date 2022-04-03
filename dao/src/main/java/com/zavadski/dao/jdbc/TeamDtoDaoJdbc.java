@@ -27,7 +27,9 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
 
     @Override
     public List<TeamDto> findAllWithNumberOfPlayers() {
+
         logger.debug("Start: findAllWithNumberOfPlayers");
+
         List<TeamDto> teams = namedParameterJdbcTemplate.query(findAllWithNumberOfPlayersSql,
                 BeanPropertyRowMapper.newInstance(TeamDto.class));
         return teams;

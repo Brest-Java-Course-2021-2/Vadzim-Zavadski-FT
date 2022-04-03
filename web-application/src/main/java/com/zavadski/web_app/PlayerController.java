@@ -5,8 +5,6 @@ import com.zavadski.service.PlayerService;
 import com.zavadski.service.PlayerDtoService;
 import com.zavadski.service.TeamService;
 import com.zavadski.web_app.validators.PlayerValidator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,8 +19,6 @@ import java.time.LocalDate;
 
 @Controller
 public class PlayerController {
-
-    private static final Logger logger = LoggerFactory.getLogger(PlayerController.class);
 
     private final PlayerService playerService;
     private final TeamService teamService;
@@ -46,6 +42,7 @@ public class PlayerController {
      */
     @GetMapping(value = "/players")
     public final String players(Model model) {
+
         model.addAttribute("players", playerService.getAllPlayers());
         return "players";
     }
@@ -57,7 +54,6 @@ public class PlayerController {
      */
     @GetMapping(value = "/player/{id}")
     public final String gotoEditPlayerPage(@PathVariable Integer id, Model model) {
-        logger.debug("gotoEditPlayerPage(id:{},model:{})", id, model);
 
         model.addAttribute("isNew", false);
         model.addAttribute("player", playerService.getPlayerById(id));
@@ -72,7 +68,7 @@ public class PlayerController {
      */
     @GetMapping(value = "/player")
     public final String gotoAddPlayerPage(Model model) {
-        logger.debug("gotoAddPlayerPage({})", model);
+
         model.addAttribute("isNew", true);
         model.addAttribute("player", new Player());
         model.addAttribute("teams", teamService.getAllTeams());
@@ -88,7 +84,7 @@ public class PlayerController {
     @PostMapping(value = "/player")
     public String addPlayer(Player player, BindingResult result,
                             RedirectAttributes redirectAttributes) {
-        logger.debug("addPlayer({}, {})", player);
+
         playerValidator.validate(player, result);
 
         if (result.hasErrors()) {
@@ -110,7 +106,7 @@ public class PlayerController {
     @PostMapping(value = "/player/{id}")
     public String updatePlayer(Player player, BindingResult result,
                                RedirectAttributes redirectAttributes) {
-        logger.debug("updatePlayer({}, {})", player);
+
         playerValidator.validate(player, result);
 
         if (result.hasErrors()) {
@@ -130,7 +126,7 @@ public class PlayerController {
      */
     @GetMapping(value = "/player/{id}/delete")
     public final String deletePlayerById(@PathVariable Integer id, Model model) {
-        logger.debug("delete({},{})", id, model);
+
         playerService.delete(id);
         return "redirect:/players";
     }
@@ -143,14 +139,11 @@ public class PlayerController {
                                          Model model,
                                          RedirectAttributes redirectAttributes) {
 
-        logger.debug("players list from: {} to: {}", startDate, endDate);
         if (!(startDate == null) && !(endDate == null) && endDate.isBefore(startDate)) {
-            logger.error("Error filter");
             redirectAttributes.addAttribute("errorMessage",
                     "We're sorry, but we use wrong search parameters.");
             return "redirect:/errors";
         } else {
-            logger.debug("return result of search");
             model.addAttribute("players", playerDtoService.filterByBirthday(startDate, endDate));
             model.addAttribute("startDate", startDate);
             model.addAttribute("endDate", endDate);
