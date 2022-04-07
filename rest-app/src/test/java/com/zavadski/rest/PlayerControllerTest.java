@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -35,8 +36,7 @@ class PlayerControllerTest {
 
     @BeforeEach
     public void before() {
-        mockMvc = MockMvcBuilders.standaloneSetup(playerController)
-                .build();
+        mockMvc = MockMvcBuilders.standaloneSetup(playerController).build();
     }
 
     @Test
@@ -46,11 +46,9 @@ class PlayerControllerTest {
         players.add(new Player(1, "qqq", "www", LocalDate.parse("1992-01-01"), 2));
         players.add(new Player(2, "aaa", "sss", LocalDate.parse("2001-01-01"), 2));
 
-        Mockito.when(playerService.getAllPlayers()).thenReturn(players);
+        when(playerService.getAllPlayers()).thenReturn(players);
 
-        String url = "/players";
-
-        MvcResult mvcResult = mockMvc.perform(get(url))
+        MvcResult mvcResult = mockMvc.perform(get("/players"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -58,8 +56,21 @@ class PlayerControllerTest {
 
         String expectedJsonResponse = objectMapper.writeValueAsString(players);
 
-        assert(actualJsonResponse).contentEquals(expectedJsonResponse);
+        assert (actualJsonResponse).contentEquals(expectedJsonResponse);
 
-        Mockito.verify(playerService, Mockito.times(1)).getAllPlayers();
+        verify(playerService, times(1)).getAllPlayers();
+    }
+
+    @Test
+    public void getAllPlayers2() throws Exception {
+
+        List<Player> players = new ArrayList<>();
+        players.add(new Player(1, "qqq", "www", LocalDate.parse("1992-01-01"), 2));
+        players.add(new Player(2, "aaa", "sss", LocalDate.parse("2001-01-01"), 2));
+
+        MvcResult mvcResult = mockMvc.perform(get("/player"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+
     }
 }

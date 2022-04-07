@@ -1,8 +1,9 @@
-package com.zavadski.rest;
+package com.zavadski.rest.IT;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zavadski.model.Player;
+import com.zavadski.rest.PlayerController;
 import com.zavadski.rest.exception.CustomExceptionHandler;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

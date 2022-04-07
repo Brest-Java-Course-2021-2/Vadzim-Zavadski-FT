@@ -47,7 +47,8 @@ public class PlayerDaoJDBCImplTest {
         Player testPlayer = new Player();
         players.add(testPlayer);
 
-        when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Player>>any())).thenReturn(players);
+        when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Player>>any()))
+                .thenReturn(players);
 
         List<Player> result = playerDaoJDBC.getAllPlayers();
 
@@ -61,4 +62,15 @@ public class PlayerDaoJDBCImplTest {
         assertFalse(result.isEmpty());
         assertSame(testPlayer, result.get(0));
     }
+
+    @Test
+    public void getAllPlayers_Exception() {
+
+        when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Player>>any()))
+                .thenThrow(new RuntimeException());
+
+        assertThrows(RuntimeException.class,
+                () -> playerDaoJDBC.getAllPlayers());
+    }
+
 }

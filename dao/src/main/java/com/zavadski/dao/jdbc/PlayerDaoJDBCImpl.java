@@ -148,7 +148,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
         return namedParameterJdbcTemplate.update(sqlDeletePlayerById, sqlParameterSource);
     }
 
-    private class PlayerRowMapper implements RowMapper<Player> {
+    public static class PlayerRowMapper implements RowMapper<Player> {
 
         @Override
         public Player mapRow(ResultSet resultSet, int i) throws SQLException {
