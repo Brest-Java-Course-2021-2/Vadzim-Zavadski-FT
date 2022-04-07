@@ -48,7 +48,7 @@ class PlayerControllerTest {
 
         when(playerService.getAllPlayers()).thenReturn(players);
 
-        MvcResult mvcResult = mockMvc.perform(get("/players"))
+        MvcResult mvcResult = mockMvc.perform(get("/playes"))
                 .andExpect(status().isOk())
                 .andReturn();
 
@@ -62,13 +62,10 @@ class PlayerControllerTest {
     }
 
     @Test
-    public void getAllPlayers2() throws Exception {
+    public void getAllPlayersClientError() throws Exception {
 
-        List<Player> players = new ArrayList<>();
-        players.add(new Player(1, "qqq", "www", LocalDate.parse("1992-01-01"), 2));
-        players.add(new Player(2, "aaa", "sss", LocalDate.parse("2001-01-01"), 2));
-
-        MvcResult mvcResult = mockMvc.perform(get("/player"))
+        String url = "/player";
+        MvcResult mvcResult = mockMvc.perform(get(url))
                 .andExpect(status().is4xxClientError())
                 .andReturn();
 
