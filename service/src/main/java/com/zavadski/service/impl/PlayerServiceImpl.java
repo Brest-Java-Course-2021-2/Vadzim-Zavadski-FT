@@ -20,17 +20,17 @@ public class PlayerServiceImpl implements PlayerService {
     @Override
     @Transactional(readOnly = true)
     public List<Player> getAllPlayers() {
-        return playerDao.getAllPlayers();
+        return playerDao.findAll();
     }
 
     @Override
     public Player getPlayerById(Integer playerId) {
-        return playerDao.getPlayerById(playerId);
+        return playerDao.findById(playerId);
     }
 
     @Override
     public Integer create(Player player) {
-        return playerDao.create(player);
+        return playerDao.save(player);
     }
 
     @Override
@@ -39,7 +39,7 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Integer delete(Integer playerId) {
-        return playerDao.delete(playerId);
+    public void delete(Integer playerId) {
+        playerDao.delete(playerId);
     }
 }

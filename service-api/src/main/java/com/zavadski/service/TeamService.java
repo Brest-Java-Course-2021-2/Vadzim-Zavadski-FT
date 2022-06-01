@@ -14,7 +14,7 @@ public interface TeamService {
 
     Integer update(Team team);
 
-    Integer delete(Integer teamId);
+    void delete(Integer teamId);
 
     Integer count();
 

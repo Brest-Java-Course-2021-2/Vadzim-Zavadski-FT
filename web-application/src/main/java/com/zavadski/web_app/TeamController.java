@@ -79,13 +79,11 @@ public class TeamController {
      */
     @PostMapping(value = "/team")
     public String addTeam(Team team, BindingResult result, RedirectAttributes redirectAttributes) {
-        logger.debug("addTeam({}, {})", team);
+        logger.debug("addTeam({})", team);
         teamValidator.validate(team, result);
 
         if (result.hasErrors()) {
-            redirectAttributes.addAttribute("errorMessage",
-                    "Incorrect data entered");
-            return "redirect:/errors";
+            return "team";
         } else {
             this.teamService.create(team);
             return "redirect:/teams";
@@ -100,7 +98,7 @@ public class TeamController {
      */
     @PostMapping(value = "/team/{id}")
     public String updateTeam(Team team, BindingResult result, RedirectAttributes redirectAttributes) {
-        logger.debug("updateTeam({}, {})", team);
+        logger.debug("updateTeam({})", team);
         teamValidator.validate(team, result);
 
         if (result.hasErrors()) {

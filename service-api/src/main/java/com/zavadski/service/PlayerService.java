@@ -14,6 +14,6 @@ public interface PlayerService {
 
     Integer update(Player player);
 
-    Integer delete(Integer playerId);
+    void delete(Integer playerId);
 
 }

@@ -41,7 +41,7 @@ class PlayerServiceTest {
         List<Player> players = new ArrayList<>();
         players.add(player);
 
-        when(playerDao.getAllPlayers()).thenReturn(players);
+        when(playerDao.findAll()).thenReturn(players);
 
         List<Player> playerList = playerService.getAllPlayers();
 
@@ -49,31 +49,31 @@ class PlayerServiceTest {
         assertEquals(1, playerList.size());
         assertSame(players, playerList);
 
-        verify(playerDao, times(1)).getAllPlayers();
+        verify(playerDao, times(1)).findAll();
     }
 
     @Test
     void testGetAllPlayers_thenReturnEmptyPlayersList() {
 
-        when(playerDao.getAllPlayers()).thenReturn(Collections.emptyList());
+        when(playerDao.findAll()).thenReturn(Collections.emptyList());
 
         List<Player> playerList = playerService.getAllPlayers();
 
         assert (playerList).isEmpty();
 
-        verify(playerDao, times(1)).getAllPlayers();
+        verify(playerDao, times(1)).findAll();
 
     }
 
     @Test
     void testGetAllPlayers_thenReturnException() {
 
-        when(playerDao.getAllPlayers()).thenThrow(new RuntimeException("Some expected message"));
+        when(playerDao.findAll()).thenThrow(new RuntimeException("Some expected message"));
 
         RuntimeException thrown = assertThrows(RuntimeException.class,
                 () -> playerService.getAllPlayers());
 
-        verify(playerDao, times(1)).getAllPlayers();
+        verify(playerDao, times(1)).findAll();
 
         assertEquals("Some expected message", thrown.getMessage());
     }

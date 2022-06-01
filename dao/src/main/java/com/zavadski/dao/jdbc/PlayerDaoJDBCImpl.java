@@ -52,7 +52,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
-    public List<Player> getAllPlayers() {
+    public List<Player> findAll() {
 
         logger.debug("Start: findAll()");
 
@@ -60,7 +60,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
-    public Player getPlayerById(Integer playerId) {
+    public Player findById(Integer playerId) {
 
         logger.debug("Get player by id = {}", playerId);
 
@@ -70,7 +70,7 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
-    public Integer create(Player player) {
+    public Integer save(Player player) {
 
         logger.debug("Create player: create({})", player);
 
@@ -139,13 +139,13 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     }
 
     @Override
-    public Integer delete(Integer playerId) {
+    public void delete(Integer playerId) {
 
         logger.debug("Delete player by id = {})", playerId);
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("playerId", playerId);
-        return namedParameterJdbcTemplate.update(sqlDeletePlayerById, sqlParameterSource);
+        namedParameterJdbcTemplate.update(sqlDeletePlayerById, sqlParameterSource);
     }
 
     public static class PlayerRowMapper implements RowMapper<Player> {

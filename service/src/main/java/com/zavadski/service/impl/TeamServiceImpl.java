@@ -40,8 +40,8 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Integer delete(Integer teamId) {
-        return this.teamDao.delete(teamId);
+    public void delete(Integer teamId) {
+        teamDao.delete(teamId);
     }
 
     @Override

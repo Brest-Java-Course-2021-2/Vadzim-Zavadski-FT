@@ -6,14 +6,14 @@ import java.util.List;
 
 public interface PlayerDao {
 
-    List<Player> getAllPlayers();
+    List<Player> findAll();
 
-    Player getPlayerById(Integer playerId);
+    Player findById(Integer playerId);
 
-    Integer create(Player player);
+    Integer save(Player player);
 
     Integer update(Player player);
 
-    Integer delete(Integer playerId);
+    void delete(Integer playerId);
 
 }
