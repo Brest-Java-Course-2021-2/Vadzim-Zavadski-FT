@@ -17,7 +17,6 @@
         <module>service</module>
         <module>service-rest</module>
         <module>rest-app</module>
-        <module>test-db</module>
         <module>web-application</module>
     </modules>
 
@@ -90,12 +89,6 @@
             <dependency>
                 <groupId>com.zavadski</groupId>
                 <artifactId>service-rest</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>com.zavadski</groupId>
-                <artifactId>test-db</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

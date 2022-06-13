@@ -20,9 +20,7 @@ public class TeamController {
     private static final Logger logger = LoggerFactory.getLogger(TeamController.class);
 
     private final TeamDtoService teamDtoService;
-
     private final TeamService teamService;
-
     private final TeamValidator teamValidator;
 
     public TeamController(TeamDtoService teamDtoService,
@@ -52,7 +50,9 @@ public class TeamController {
      */
     @GetMapping(value = "/team/{id}")
     public final String gotoEditTeamPage(@PathVariable Integer id, Model model) {
+
         logger.debug("gotoEditTeamPage(id:{},model:{})", id, model);
+
         model.addAttribute("isNew", false);
         model.addAttribute("team", teamService.getTeamById(id));
         return "team";
@@ -65,7 +65,9 @@ public class TeamController {
      */
     @GetMapping(value = "/team")
     public final String gotoAddTeamPage(Model model) {
+
         logger.debug("gotoAddTeamPage({})", model);
+
         model.addAttribute("isNew", true);
         model.addAttribute("team", new Team());
         return "team";
@@ -78,14 +80,19 @@ public class TeamController {
      * @return view name
      */
     @PostMapping(value = "/team")
-    public String addTeam(Team team, BindingResult result, RedirectAttributes redirectAttributes) {
-        logger.debug("addTeam({}, {})", team);
+    public String addTeam(Team team,
+                          BindingResult result,
+                          RedirectAttributes redirectAttributes) {
+
+        logger.debug("addTeam({})", team);
+
         teamValidator.validate(team, result);
 
         if (result.hasErrors()) {
+            //fixme
             redirectAttributes.addAttribute("errorMessage",
                     "Incorrect data entered");
-            return "redirect:/errors";
+            return "team";
         } else {
             this.teamService.create(team);
             return "redirect:/teams";

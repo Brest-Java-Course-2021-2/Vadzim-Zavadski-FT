@@ -1,4 +1,4 @@
-package com.zavadski.testdb;
+package com.zavadski.dao.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 import java.util.Objects;
 
 @Configuration
-@PropertySource({"classpath:application.properties"})
+@PropertySource("congig.properties")
 public class SpringJdbcConfig {
 
     @Value("${spring.profiles.active}")
@@ -24,7 +24,7 @@ public class SpringJdbcConfig {
     @Profile("postgresql")
     public DataSource dataSourcePostgresql() {
         return new DriverManagerDataSource(
-                "jdbc:postgresql://localhost:5432/Vadzim-Zavadski-FT"
+                "jdbc:postgresql://localhost:5432/football_teams"
                 , System.getProperty("db_user")
                 , System.getProperty("db_pass"));
     }

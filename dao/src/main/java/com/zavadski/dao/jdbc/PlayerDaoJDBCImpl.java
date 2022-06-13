@@ -6,14 +6,16 @@ import com.zavadski.dao.jdbc.exception.UnacceptableName;
 import com.zavadski.model.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +24,8 @@ import java.util.List;
 
 import static com.zavadski.model.constants.PlayerConstants.PLAYER_NAME_SIZE;
 
-@Component
+@Repository
+@PropertySource("sql_query.properties")
 public class PlayerDaoJDBCImpl implements PlayerDao {
 
     private final Logger logger = LogManager.getLogger(PlayerDaoJDBCImpl.class);
@@ -47,25 +50,26 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
     @Value("${SQL_DELETE_PLAYER_BY_ID}")
     private String sqlDeletePlayerById;
 
+    @Autowired
     public PlayerDaoJDBCImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 
     @Override
-    public List<Player> getAllPlayers() {
+    public List<Player> findAll() {
 
-        logger.debug("Start: findAll()");
+        logger.debug("find All Players");
 
         return namedParameterJdbcTemplate.query(sqlGetAllPlayers, new PlayerRowMapper());
     }
 
     @Override
-    public Player getPlayerById(Integer playerId) {
+    public Player findById(Integer id) {
 
-        logger.debug("Get player by id = {}", playerId);
+        logger.debug("Find Player by id={}", id);
 
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("playerId", playerId);
+                new MapSqlParameterSource("playerId", id);
         return namedParameterJdbcTemplate.queryForObject(sqlGetPlayerById, sqlParameterSource, new PlayerRowMapper());
     }
 

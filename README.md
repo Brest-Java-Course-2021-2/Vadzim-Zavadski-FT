@@ -21,10 +21,9 @@ Choose directory for project, download project from github:
 
 #### Build project
 Run terminal command in project directory:
-
-        mvn clean install
-
-
+``
+mvn clean install
+``
 ### Run application
 Application consists 2 particular modules (web-application & rest-app) that are dependent on each other.
 ### Start Rest application

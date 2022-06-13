@@ -3,8 +3,8 @@ package com.zavadski.service.impl;
 import com.zavadski.dao.api.PlayerDao;
 import com.zavadski.model.Player;
 import com.zavadski.service.PlayerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -13,19 +13,19 @@ public class PlayerServiceImpl implements PlayerService {
 
     private final PlayerDao playerDao;
 
+    @Autowired
     public PlayerServiceImpl(PlayerDao playerDao) {
         this.playerDao = playerDao;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Player> getAllPlayers() {
-        return playerDao.getAllPlayers();
+        return playerDao.findAll();
     }
 
     @Override
     public Player getPlayerById(Integer playerId) {
-        return playerDao.getPlayerById(playerId);
+        return playerDao.findById(playerId);
     }
 
     @Override

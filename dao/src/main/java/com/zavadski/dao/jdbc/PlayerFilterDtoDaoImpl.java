@@ -15,9 +15,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-public class PlayerDtoDaoJdbc implements PlayerDtoDao {
+public class PlayerFilterDtoDaoImpl implements PlayerDtoDao {
 
-    private final Logger logger = LogManager.getLogger(PlayerDtoDaoJdbc.class);
+    private final Logger logger = LogManager.getLogger(PlayerFilterDtoDaoImpl.class);
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -33,7 +33,7 @@ public class PlayerDtoDaoJdbc implements PlayerDtoDao {
     @Value("${SQL_FILTER_BY_START_DATE}")
     private String sqlFilterByStartDate;
 
-    public PlayerDtoDaoJdbc(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
+    public PlayerFilterDtoDaoImpl(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
     }
 

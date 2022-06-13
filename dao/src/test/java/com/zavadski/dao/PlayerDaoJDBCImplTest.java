@@ -50,7 +50,7 @@ public class PlayerDaoJDBCImplTest {
         when(namedParameterJdbcTemplate.query(any(), ArgumentMatchers.<RowMapper<Player>>any()))
                 .thenReturn(players);
 
-        List<Player> result = playerDaoJDBC.getAllPlayers();
+        List<Player> result = playerDaoJDBC.findAll();
 
         verify(namedParameterJdbcTemplate).query(eq(sql), captorMapper.capture());
 
@@ -70,7 +70,7 @@ public class PlayerDaoJDBCImplTest {
                 .thenThrow(new RuntimeException());
 
         assertThrows(RuntimeException.class,
-                () -> playerDaoJDBC.getAllPlayers());
+                () -> playerDaoJDBC.findAll());
     }
 
 }

@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface PlayerDao {
 
-    List<Player> getAllPlayers();
+    List<Player> findAll();
 
-    Player getPlayerById(Integer playerId);
+    Player findById(Integer playerId);
 
     Integer create(Player player);
 
