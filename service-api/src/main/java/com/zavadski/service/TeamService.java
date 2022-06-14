@@ -8,17 +8,17 @@ public interface TeamService {
 
     List<Team> getAllTeams();
 
-    Team getTeamById(Integer teamId);
+    Team findTeamById(Integer teamId);
 
     Integer create(Team team);
 
-    Integer update(Team team);
+    Integer updateTeam(Team team);
 
     Integer delete(Integer teamId);
 
     Integer count();
 
-    boolean isTeamWithPlayers(Integer teamId);
+    boolean checkOnTeamWithPlayers(Integer teamId);
 
     boolean checkTeamOnUnique(String teamName);
 

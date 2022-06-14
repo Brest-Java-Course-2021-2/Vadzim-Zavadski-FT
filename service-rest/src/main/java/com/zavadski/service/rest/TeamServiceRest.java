@@ -36,7 +36,7 @@ public class TeamServiceRest implements TeamService {
     }
 
     @Override
-    public Team getTeamById(Integer teamId) {
+    public Team findTeamById(Integer teamId) {
 
         ResponseEntity<Team> responseEntity =
                 restTemplate.getForEntity(url + "/" + teamId, Team.class);
@@ -51,7 +51,7 @@ public class TeamServiceRest implements TeamService {
     }
 
     @Override
-    public Integer update(Team team) {
+    public Integer updateTeam(Team team) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -80,7 +80,7 @@ public class TeamServiceRest implements TeamService {
     }
 
     @Override
-    public boolean isTeamWithPlayers(Integer teamId) {
+    public boolean checkOnTeamWithPlayers(Integer teamId) {
         Boolean result = restTemplate.getForObject(url + "/check/" + teamId, Boolean.class);
         return result;
     }

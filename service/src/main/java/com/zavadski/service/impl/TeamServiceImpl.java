@@ -23,7 +23,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Team getTeamById(Integer teamId) {
+    public Team findTeamById(Integer teamId) {
         return this.teamDao.getTeamById(teamId);
     }
 
@@ -33,7 +33,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Integer update(Team team) {
+    public Integer updateTeam(Team team) {
         return this.teamDao.update(team);
     }
 
@@ -48,7 +48,7 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public boolean isTeamWithPlayers(Integer teamId) {
+    public boolean checkOnTeamWithPlayers(Integer teamId) {
         return teamDao.isTeamWithPlayers(teamId);
     }
 

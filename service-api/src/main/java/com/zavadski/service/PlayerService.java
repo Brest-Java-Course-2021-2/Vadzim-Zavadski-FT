@@ -8,12 +8,12 @@ public interface PlayerService {
 
     List<Player> getAllPlayers();
 
-    Player getPlayerById(Integer playerId);
+    Player findPlayerById(Integer playerId);
 
-    Integer create(Player player);
+    Integer createPlayer(Player player);
 
-    Integer update(Player player);
+    Integer updatePlayer(Player player);
 
-    Integer delete(Integer playerId);
+    Integer deletePlayer(Integer playerId);
 
 }

@@ -37,7 +37,7 @@ public class TeamController {
     public final Team getTeamById(@PathVariable Integer id) {
 
         logger.debug("rest-app: getTeamById()");
-        return teamService.getTeamById(id);
+        return teamService.findTeamById(id);
     }
 
     @ApiOperation(value = "Creates team instance")
@@ -54,7 +54,7 @@ public class TeamController {
     public ResponseEntity<Integer> updateTeam(@RequestBody Team team) {
 
         logger.debug("rest-app: updateTeam({})", team);
-        int result = teamService.update(team);
+        int result = teamService.updateTeam(team);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
@@ -76,7 +76,7 @@ public class TeamController {
 
     @GetMapping("/teams/check/{teamId}")
     public boolean isTeamWithPlayers(@PathVariable int teamId) {
-        return teamService.isTeamWithPlayers(teamId);
+        return teamService.checkOnTeamWithPlayers(teamId);
     }
 
     @GetMapping("/teams/unique/{teamName}")

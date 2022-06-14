@@ -28,7 +28,8 @@ public class PlayerController {
 
     public PlayerController(TeamService teamService,
                             PlayerService playerService,
-                            PlayerDtoService playerDtoService, PlayerValidator playerValidator) {
+                            PlayerDtoService playerDtoService,
+                            PlayerValidator playerValidator) {
         this.teamService = teamService;
         this.playerService = playerService;
         this.playerDtoService = playerDtoService;
@@ -56,7 +57,7 @@ public class PlayerController {
     public final String gotoEditPlayerPage(@PathVariable Integer id, Model model) {
 
         model.addAttribute("isNew", false);
-        model.addAttribute("player", playerService.getPlayerById(id));
+        model.addAttribute("player", playerService.findPlayerById(id));
         model.addAttribute("teams", teamService.getAllTeams());
         return "player";
     }
@@ -82,17 +83,17 @@ public class PlayerController {
      * @return view name
      */
     @PostMapping(value = "/player")
-    public String addPlayer(Player player, BindingResult result,
-                            RedirectAttributes redirectAttributes) {
+    public String addPlayer(Player player,
+                            BindingResult result,
+                            Model model) {
 
         playerValidator.validate(player, result);
 
         if (result.hasErrors()) {
-            redirectAttributes.addAttribute("errorMessage",
-                    "Incorrect data entered");
-            return "redirect:/errors";
+            model.addAttribute("teams", teamService.getAllTeams());
+            return "player";
         } else {
-            this.playerService.create(player);
+            this.playerService.createPlayer(player);
             return "redirect:/players";
         }
     }
@@ -104,17 +105,17 @@ public class PlayerController {
      * @return view name
      */
     @PostMapping(value = "/player/{id}")
-    public String updatePlayer(Player player, BindingResult result,
-                               RedirectAttributes redirectAttributes) {
+    public String updatePlayer(Player player,
+                               BindingResult result,
+                               Model model) {
 
         playerValidator.validate(player, result);
 
         if (result.hasErrors()) {
-            redirectAttributes.addAttribute("errorMessage",
-                    "Incorrect data entered");
-            return "redirect:/errors";
+            model.addAttribute("teams", teamService.getAllTeams());
+            return "player";
         } else {
-            this.playerService.update(player);
+            this.playerService.updatePlayer(player);
             return "redirect:/players";
         }
     }
@@ -125,9 +126,9 @@ public class PlayerController {
      * @return view name
      */
     @GetMapping(value = "/player/{id}/delete")
-    public final String deletePlayerById(@PathVariable Integer id, Model model) {
+    public final String deletePlayerById(@PathVariable Integer id) {
 
-        playerService.delete(id);
+        playerService.deletePlayer(id);
         return "redirect:/players";
     }
 

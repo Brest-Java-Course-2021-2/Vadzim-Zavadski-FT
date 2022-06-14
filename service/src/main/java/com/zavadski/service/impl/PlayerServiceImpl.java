@@ -24,22 +24,22 @@ public class PlayerServiceImpl implements PlayerService {
     }
 
     @Override
-    public Player getPlayerById(Integer playerId) {
-        return playerDao.findById(playerId);
+    public Player findPlayerById(Integer id) {
+        return playerDao.findById(id);
     }
 
     @Override
-    public Integer create(Player player) {
+    public Integer createPlayer(Player player) {
         return playerDao.create(player);
     }
 
     @Override
-    public Integer update(Player player) {
+    public Integer updatePlayer(Player player) {
         return playerDao.update(player);
     }
 
     @Override
-    public Integer delete(Integer playerId) {
+    public Integer deletePlayer(Integer playerId) {
         return playerDao.delete(playerId);
     }
 }

@@ -38,7 +38,7 @@ public class PlayerController {
     public final Player getPlayerById(@PathVariable Integer id) {
 
         logger.debug("rest-app: getPlayerById()");
-        return playerService.getPlayerById(id);
+        return playerService.findPlayerById(id);
     }
 
     @ApiOperation(value = "Creates player instance")
@@ -46,7 +46,7 @@ public class PlayerController {
     public final ResponseEntity<Integer> createPlayer(@RequestBody Player player) {
 
         logger.debug("rest-app: createPlayer({})", player);
-        Integer id = playerService.create(player);
+        Integer id = playerService.createPlayer(player);
         return new ResponseEntity(id, HttpStatus.OK);
     }
 
@@ -55,14 +55,14 @@ public class PlayerController {
     public final ResponseEntity<Integer> updatePlayer(@RequestBody Player player) {
 
         logger.debug("rest-app: updatePlayer({})", player);
-        int result = playerService.update(player);
+        int result = playerService.updatePlayer(player);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Deletes particular player instance")
     @DeleteMapping(value = "/players/{id}", produces = {"application/json"})
     public ResponseEntity<Integer> deletePlayer(@PathVariable Integer id) {
-        int result = playerService.delete(id);
+        int result = playerService.deletePlayer(id);
         return new ResponseEntity(result, HttpStatus.OK);
     }
 }

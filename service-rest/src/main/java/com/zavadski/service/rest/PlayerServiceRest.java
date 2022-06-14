@@ -32,7 +32,7 @@ public class PlayerServiceRest implements PlayerService {
     }
 
     @Override
-    public Player getPlayerById(Integer playerId) {
+    public Player findPlayerById(Integer playerId) {
 
         ResponseEntity<Player> responseEntity = restTemplate.getForEntity(
                         url + "/" + playerId, Player.class);
@@ -40,7 +40,7 @@ public class PlayerServiceRest implements PlayerService {
     }
 
     @Override
-    public Integer create(Player player) {
+    public Integer createPlayer(Player player) {
 
         ResponseEntity<Integer> responseEntity = restTemplate.postForEntity(
                 url, player, Integer.class);
@@ -48,7 +48,7 @@ public class PlayerServiceRest implements PlayerService {
     }
 
     @Override
-    public Integer update(Player player) {
+    public Integer updatePlayer(Player player) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -59,7 +59,7 @@ public class PlayerServiceRest implements PlayerService {
     }
 
     @Override
-    public Integer delete(Integer playerId) {
+    public Integer deletePlayer(Integer playerId) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));

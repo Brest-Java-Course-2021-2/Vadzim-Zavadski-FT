@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Objects;
+
 @Controller
 public class TeamController {
 
@@ -54,7 +56,7 @@ public class TeamController {
         logger.debug("gotoEditTeamPage(id:{},model:{})", id, model);
 
         model.addAttribute("isNew", false);
-        model.addAttribute("team", teamService.getTeamById(id));
+        model.addAttribute("team", teamService.findTeamById(id));
         return "team";
     }
 
@@ -110,16 +112,25 @@ public class TeamController {
      */
     @PostMapping(value = "/team/{id}")
     public String updateTeam(Team team, BindingResult result, RedirectAttributes redirectAttributes) {
+
         logger.debug("updateTeam({})", team);
+
         teamValidator.validate(team, result);
 
         if (result.hasErrors()) {
-            redirectAttributes.addAttribute("errorMessage",
-                    "Incorrect data entered");
-            return "redirect:/errors";
+            return "team";
         } else {
-            this.teamService.update(team);
-            return "redirect:/teams";
+            Team newTeam = new Team();
+            newTeam.setTeamName(team.getTeamName());
+            if (this.teamService.checkTeamOnUnique(newTeam.getTeamName())
+                    || (Objects.equals(this.teamService.findTeamById(team.getTeamId()).getTeamName(), newTeam.getTeamName()))) {
+                this.teamService.updateTeam(team);
+                return "redirect:/teams";
+            } else {
+                redirectAttributes.addAttribute("errorMessage",
+                        "Team with name " + team.getTeamName() + " already exist");
+                return "redirect:/errors";
+            }
         }
     }
 
@@ -133,9 +144,11 @@ public class TeamController {
             @PathVariable Integer id,
             Model model,
             RedirectAttributes redirectAttributes) {
+
         logger.debug("delete({},{})", id, model);
-        teamService.isTeamWithPlayers(id);
-        if (teamService.isTeamWithPlayers(id)) {
+
+        teamService.checkOnTeamWithPlayers(id);
+        if (teamService.checkOnTeamWithPlayers(id)) {
             redirectAttributes.addAttribute("errorMessage",
                     "You can't delete this team, because it has players");
             return "redirect:/errors";
