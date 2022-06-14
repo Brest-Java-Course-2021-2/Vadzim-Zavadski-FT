@@ -18,7 +18,6 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<Team> getAllTeams() {
         return teamDao.findAll();
     }
@@ -29,7 +28,6 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    @Transactional
     public Integer create(Team team) {
         return this.teamDao.create(team);
     }
@@ -45,7 +43,6 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Integer count() {
         return this.teamDao.count();
     }
@@ -53,5 +50,10 @@ public class TeamServiceImpl implements TeamService {
     @Override
     public boolean isTeamWithPlayers(Integer teamId) {
         return teamDao.isTeamWithPlayers(teamId);
+    }
+
+    @Override
+    public boolean checkTeamOnUnique(String teamName) {
+        return teamDao.checkTeamOnUnique(teamName);
     }
 }

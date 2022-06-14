@@ -1,7 +1,6 @@
 package com.zavadski.dao.jdbc;
 
 import com.zavadski.dao.api.TeamDao;
-import com.zavadski.dao.jdbc.exception.FieldNullPointerException;
 import com.zavadski.dao.jdbc.exception.TeamWithPlayerException;
 import com.zavadski.dao.jdbc.exception.UnacceptableName;
 import com.zavadski.model.Team;
@@ -19,8 +18,6 @@ import org.springframework.stereotype.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-
-import static com.zavadski.model.constants.TeamConstants.TEAM_NAME_SIZE;
 
 @Component
 public class TeamDaoJDBCImpl implements TeamDao {
@@ -80,19 +77,9 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
         logger.debug("Create team: create({})", team);
 
-        if (!isTeamUnique(team.getTeamName(), 0)) {
+        if (!checkTeamOnUnique(team.getTeamName())) {
             logger.warn("Team with the same name {} already exists.", team.getTeamName());
             throw new UnacceptableName("Team with the same name already exists in DB.");
-        }
-
-        if (team.getTeamName().length() > TEAM_NAME_SIZE) {
-            logger.warn("Team name {} is too long", team.getTeamName());
-            throw new UnacceptableName("Team name length should be <=" + TEAM_NAME_SIZE);
-        }
-
-        if (team.getTeamName().isEmpty()) {
-            logger.error("Not all fields are filled in Team");
-            throw new FieldNullPointerException("Not all fields are filled in Team");
         }
 
         SqlParameterSource sqlParameterSource =
@@ -101,31 +88,20 @@ public class TeamDaoJDBCImpl implements TeamDao {
         return namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
     }
 
-    private boolean isTeamUnique(String teamName, Integer count) {
+    @Override
+    public boolean checkTeamOnUnique(String teamName) {
+
         logger.debug("Check TeamName: {} on unique", teamName);
+
         SqlParameterSource sqlParameterSource = new MapSqlParameterSource("teamName", teamName);
-        return namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueTeamName, sqlParameterSource, Integer.class) <= count;
+        Long result = namedParameterJdbcTemplate.queryForObject(sqlCheckUniqueTeamName, sqlParameterSource, Long.class);
+        return result == 0;
     }
 
     @Override
     public Integer update(Team team) {
 
         logger.debug("Update team: update({})", team);
-
-        if (!isTeamUnique(team.getTeamName(), 1)) {
-            logger.warn("Team with the same name {} already exists.", team.getTeamName());
-            throw new UnacceptableName("Team with the same name already exists in DB.");
-        }
-
-        if (team.getTeamName().length() > TEAM_NAME_SIZE) {
-            logger.warn("Team name {} is too long", team.getTeamName());
-            throw new UnacceptableName("Team name length should be <=" + TEAM_NAME_SIZE);
-        }
-
-        if (team.getTeamName().isEmpty()) {
-            logger.error("Not all fields are filled in Team");
-            throw new FieldNullPointerException("Not all fields are filled in Team");
-        }
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName()).

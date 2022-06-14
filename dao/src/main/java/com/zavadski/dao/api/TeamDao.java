@@ -20,4 +20,6 @@ public interface TeamDao {
 
     boolean isTeamWithPlayers(Integer teamId);
 
+    boolean checkTeamOnUnique(String teamName);
+
 }

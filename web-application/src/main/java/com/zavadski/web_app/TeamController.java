@@ -89,13 +89,16 @@ public class TeamController {
         teamValidator.validate(team, result);
 
         if (result.hasErrors()) {
-            //fixme
-            redirectAttributes.addAttribute("errorMessage",
-                    "Incorrect data entered");
             return "team";
         } else {
-            this.teamService.create(team);
-            return "redirect:/teams";
+            if (teamService.checkTeamOnUnique(team.getTeamName())) {
+                teamService.create(team);
+                return "redirect:/teams";
+            } else {
+                redirectAttributes.addAttribute("errorMessage",
+                        "Team with name " + team.getTeamName() + " already exist");
+                return "redirect:/errors";
+            }
         }
     }
 
@@ -107,7 +110,7 @@ public class TeamController {
      */
     @PostMapping(value = "/team/{id}")
     public String updateTeam(Team team, BindingResult result, RedirectAttributes redirectAttributes) {
-        logger.debug("updateTeam({}, {})", team);
+        logger.debug("updateTeam({})", team);
         teamValidator.validate(team, result);
 
         if (result.hasErrors()) {

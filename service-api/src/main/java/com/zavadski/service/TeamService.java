@@ -19,4 +19,7 @@ public interface TeamService {
     Integer count();
 
     boolean isTeamWithPlayers(Integer teamId);
+
+    boolean checkTeamOnUnique(String teamName);
+
 }
