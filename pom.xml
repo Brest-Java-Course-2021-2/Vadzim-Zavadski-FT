@@ -18,6 +18,7 @@
         <module>service-rest</module>
         <module>rest-app</module>
         <module>web-application</module>
+        <module>mongo-db</module>
     </modules>
 
     <properties>
@@ -103,6 +104,11 @@
                 <artifactId>web-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.zavadski</groupId>
+                <artifactId>mongo-db</artifactId>
+                <version>${project.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -112,6 +118,11 @@
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-actuator</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-mongodb</artifactId>
                 <version>${spring-boot.version}</version>
             </dependency>
 
