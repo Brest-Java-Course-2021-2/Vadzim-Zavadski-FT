@@ -5,12 +5,12 @@ import com.zavadski.mongo.model.PlayersByAgeAndTeam;
 import com.zavadski.mongo.model.TeamMongo;
 import com.zavadski.service.PlayerService;
 import com.zavadski.service.TeamService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 public class PlayersByInterval {
 
     private final TeamService teamService;

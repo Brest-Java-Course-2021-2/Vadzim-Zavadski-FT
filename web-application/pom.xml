@@ -20,6 +20,10 @@
             <groupId>com.zavadski</groupId>
             <artifactId>service-rest</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zavadski</groupId>
+            <artifactId>mongo-db</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -73,6 +77,7 @@
             <groupId>org.hamcrest</groupId>
             <artifactId>hamcrest-all</artifactId>
         </dependency>
+
     </dependencies>
 
     <build>
