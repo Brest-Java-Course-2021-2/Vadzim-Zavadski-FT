@@ -51,6 +51,19 @@
                 </li>
             </ul>
 
+            <form id="writeToMongoForm"
+                  th:object="${write_to_mongo}"
+                  action="teams.html"
+                  th:action="@{${#httpServletRequest.servletPath}}"
+                  th:method="@{get}">
+
+                 <a href="teams.html"
+                       th:href="@{/write_to_mongo}"
+                       th:onclick="@{document.forms['writeToMongoForm'].submit(); return false;}"
+                       class="btn btn-primary"
+                       title="Save team">Save</a>
+            </form>
+
 
         </div>
     </nav>

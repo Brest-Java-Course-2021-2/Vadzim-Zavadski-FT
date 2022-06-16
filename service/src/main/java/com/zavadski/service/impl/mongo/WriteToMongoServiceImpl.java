@@ -54,7 +54,8 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
                 ));
     }
 
-    public void createCollection() {
+    @Override
+    public PlayersDocument createCollection() {
         String uri = "mongodb://localhost:27017";
         MongoClient mongoClient = MongoClients.create(uri);
 
@@ -74,8 +75,7 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
                         getPlayersByTimeInterval("from 23 to 28", 23, 28),
                         getPlayersByTimeInterval("over 28", 28, 150)
                 )));
-
         repository.insert(playersDocument);
-
+        return playersDocument;
     }
 }

@@ -1,11 +1,9 @@
 package com.zavadski.service.mongo;
 
-import com.zavadski.model.mongo.PlayersByAgeAndTeam;
+import com.zavadski.model.mongo.document.PlayersDocument;
 
 public interface WriteToMongoService {
 
-    PlayersByAgeAndTeam getPlayersByTimeInterval(String timeIntervalName, int min, int max);
-
-    void createCollection();
+    PlayersDocument createCollection();
 
 }
