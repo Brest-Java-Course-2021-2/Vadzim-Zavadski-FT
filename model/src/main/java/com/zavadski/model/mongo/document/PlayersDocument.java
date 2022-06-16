@@ -1,6 +1,6 @@
-package com.zavadski.mongo.document;
+package com.zavadski.model.mongo.document;
 
-import com.zavadski.mongo.model.PlayersByAgeAndTeam;
+import com.zavadski.model.mongo.PlayersByAgeAndTeam;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

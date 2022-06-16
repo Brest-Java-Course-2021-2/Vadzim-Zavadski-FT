@@ -18,7 +18,6 @@
         <module>service-rest</module>
         <module>rest-app</module>
         <module>web-application</module>
-        <module>mongo-db</module>
     </modules>
 
     <properties>
@@ -104,11 +103,6 @@
                 <artifactId>web-application</artifactId>
                 <version>${project.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.zavadski</groupId>
-                <artifactId>mongo-db</artifactId>
-                <version>${project.version}</version>
-            </dependency>
 
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -185,7 +179,6 @@
 
         </dependencies>
     </dependencyManagement>
-
 
     <build>
         <pluginManagement>

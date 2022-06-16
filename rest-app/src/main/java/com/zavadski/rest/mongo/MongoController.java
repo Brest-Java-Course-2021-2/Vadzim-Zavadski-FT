@@ -1,6 +1,6 @@
 package com.zavadski.rest.mongo;
 
-import com.zavadski.mongo.CreateMongoCollection;
+import com.zavadski.service.mongo.WriteToMongoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MongoController {
 
-    private final CreateMongoCollection createMongoCollection;
+    private final WriteToMongoService writeToMongoService;
 
     @Autowired
-    public MongoController(CreateMongoCollection createMongoCollection) {
-        this.createMongoCollection = createMongoCollection;
+    public MongoController(WriteToMongoService writeToMongoService) {
+        this.writeToMongoService = writeToMongoService;
     }
 
     @GetMapping(value = "/write_to_mongo")
     public final void writeToMongo() {
 
-        createMongoCollection.createCollection();
+        writeToMongoService.createCollection();
     }
 }

@@ -1,4 +1,4 @@
-package com.zavadski.mongo.model;
+package com.zavadski.model.mongo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

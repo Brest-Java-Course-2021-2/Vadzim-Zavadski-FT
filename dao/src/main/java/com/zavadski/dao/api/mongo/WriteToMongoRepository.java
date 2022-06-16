@@ -1,11 +1,10 @@
-package com.zavadski.mongo.repository;
+package com.zavadski.dao.api.mongo;
 
-import com.zavadski.mongo.document.PlayersDocument;
+import com.zavadski.model.mongo.document.PlayersDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface PlayersByAgeRepository
+public interface WriteToMongoRepository
         extends MongoRepository<PlayersDocument, String> {
 }
-
