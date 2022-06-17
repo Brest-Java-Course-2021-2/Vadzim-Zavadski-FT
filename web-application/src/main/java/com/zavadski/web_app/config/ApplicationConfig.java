@@ -4,10 +4,12 @@ import com.zavadski.service.PlayerDtoService;
 import com.zavadski.service.PlayerService;
 import com.zavadski.service.TeamDtoService;
 import com.zavadski.service.TeamService;
+import com.zavadski.service.mongo.WriteToMongoService;
 import com.zavadski.service.rest.PlayerDtoServiceRest;
 import com.zavadski.service.rest.PlayerServiceRest;
 import com.zavadski.service.rest.TeamDtoServiceRest;
 import com.zavadski.service.rest.TeamServiceRest;
+import com.zavadski.service.rest.mongo.WriteToMongoServiceRest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -53,5 +55,11 @@ public class ApplicationConfig {
     PlayerService playerService() {
         String url = String.format("%s://%s:%d/players", protocol, host, port);
         return new PlayerServiceRest(url, restTemplate());
+    }
+
+    @Bean
+    WriteToMongoService writeToMongoService() {
+        String url = String.format("%s://%s:%d/write_to_mongo", protocol, host, port);
+        return new WriteToMongoServiceRest(url, restTemplate());
     }
 }
