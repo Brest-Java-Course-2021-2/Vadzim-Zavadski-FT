@@ -19,7 +19,7 @@ public class MongoController {
     @GetMapping(value = "/write_to_mongo")
     public String writeToMongo(Model model) {
         model.addAttribute("write", writeToMongoService.createCollection());
-        return "teams";
+        return "redirect:teams";
     }
 
 }
