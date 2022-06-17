@@ -2,10 +2,12 @@ package com.zavadski.model.mongo;
 
 import com.zavadski.model.Team;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
+@NoArgsConstructor
 public class TeamMongo {
 
     private String teamName;
