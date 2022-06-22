@@ -12,6 +12,6 @@ import java.util.List;
 public class AllPlayers {
 
     private String age;
-    private List<Team> teams;
+    private List<TeamMongo> teams;
 
 }
