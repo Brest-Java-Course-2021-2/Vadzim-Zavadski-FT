@@ -1,6 +1,5 @@
 package com.zavadski.model.mongo;
 
-import com.zavadski.model.Team;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,13 +7,13 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class TeamMongo {
+public class Team {
 
     private String teamName;
-    private List<PlayerMongo> players;
+    private List<Player> players;
 
-    public static TeamMongo fromTeam(Team team) {
-        TeamMongo teamMongo = new TeamMongo();
+    public static Team fromTeam(com.zavadski.model.Team team) {
+        Team teamMongo = new Team();
         teamMongo.setTeamName(team.getTeamName());
         return teamMongo;
     }

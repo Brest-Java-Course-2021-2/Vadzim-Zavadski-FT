@@ -1,6 +1,6 @@
 package com.zavadski.model.mongo.document;
 
-import com.zavadski.model.mongo.PlayersByAgeAndTeam;
+import com.zavadski.model.mongo.AllPlayers;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -15,11 +15,11 @@ public class PlayersDocument {
 
     @Id
     private String id;
-    private String dateOfCreating;
-    private List<PlayersByAgeAndTeam> playersByAgeAndTeams;
+    private String date;
+    private List<AllPlayers> players;
 
-    public PlayersDocument(String dateOfCreating, List<PlayersByAgeAndTeam> playersByAgeAndTeams) {
-        this.dateOfCreating = dateOfCreating;
-        this.playersByAgeAndTeams = playersByAgeAndTeams;
+    public PlayersDocument(String date, List<AllPlayers> players) {
+        this.date = date;
+        this.players = players;
     }
 }

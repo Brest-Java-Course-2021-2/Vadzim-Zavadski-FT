@@ -9,9 +9,9 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PlayersByAgeAndTeam {
+public class AllPlayers {
 
     private String age;
-    private List<TeamMongo> teams;
+    private List<Team> teams;
 
 }

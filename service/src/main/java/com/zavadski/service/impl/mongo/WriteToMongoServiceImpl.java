@@ -6,9 +6,9 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.zavadski.dao.api.mongo.WriteToMongoRepository;
-import com.zavadski.model.mongo.PlayerMongo;
-import com.zavadski.model.mongo.PlayersByAgeAndTeam;
-import com.zavadski.model.mongo.TeamMongo;
+import com.zavadski.model.mongo.Player;
+import com.zavadski.model.mongo.AllPlayers;
+import com.zavadski.model.mongo.Team;
 import com.zavadski.model.mongo.document.PlayersDocument;
 import com.zavadski.service.PlayerService;
 import com.zavadski.service.TeamService;
@@ -38,19 +38,19 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
         this.repository = repository;
     }
 
-    public PlayersByAgeAndTeam getPlayersByTimeInterval(String timeIntervalName, int min, int max) {
+    public AllPlayers getPlayersByTimeInterval(String timeIntervalName, int min, int max) {
 
-        return new PlayersByAgeAndTeam(timeIntervalName,
+        return new AllPlayers(timeIntervalName,
                 (teamService.getAllTeams().stream()
-                        .map(TeamMongo::fromTeam)
+                        .map(Team::fromTeam)
                         .collect(Collectors.toList())
-                        .stream().peek(teamMongo -> teamMongo.setPlayers(playerService.getAllPlayers().stream()
-                                .filter(playerMongo -> Objects.equals(teamService.findTeamById(playerMongo.getTeamId()).getTeamName(), teamMongo.getTeamName()))
-                                .map(PlayerMongo::fromPlayer)
-                                .filter(playerMongo -> playerMongo.getAge() < max && playerMongo.getAge() >= min)
+                        .stream().peek(team -> team.setPlayers(playerService.getAllPlayers().stream()
+                                .filter(playerMongo -> Objects.equals(teamService.findTeamById(playerMongo.getTeamId()).getTeamName(), team.getTeamName()))
+                                .map(Player::fromPlayer)
+                                .filter(player -> player.getAge() < max && player.getAge() >= min)
                                 .collect(Collectors.toList())))
                         .collect(Collectors.toList())
-                        .stream().filter(teamMongo -> !teamMongo.getPlayers().isEmpty()).collect(Collectors.toList())
+                        .stream().filter(team -> !team.getPlayers().isEmpty()).collect(Collectors.toList())
                 ));
     }
 
