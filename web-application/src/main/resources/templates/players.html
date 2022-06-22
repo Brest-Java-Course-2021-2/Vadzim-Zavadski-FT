@@ -34,6 +34,21 @@
                     </li>
                 </ul>
             </div>
+
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a th:href="@{/write_to_mongo}"
+                       th:object="${playersListMongo}"
+                       th:action="@{${#httpServletRequest.servletPath}}"
+                       th:method="@{get}"
+                       class="btn btn-secondary"
+                       title="Write data to MongoDB">
+                        <i class="bi bi-file-earmark-arrow-down"></i>
+                        <span class="d-none d-sm-inline">Write to MongoDB</span>
+                    </a>
+                </li>
+            </ul>
+
         </div>
     </nav>
 

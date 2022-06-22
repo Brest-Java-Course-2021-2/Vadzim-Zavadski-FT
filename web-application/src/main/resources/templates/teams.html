@@ -37,7 +37,7 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a th:href="@{/write_to_mongo}"
-                       th:object="${write}"
+                       th:object="${playersListMongo}"
                        th:action="@{${#httpServletRequest.servletPath}}"
                        th:method="@{get}"
                        class="btn btn-secondary"
@@ -47,6 +47,7 @@
                     </a>
                 </li>
             </ul>
+
         </div>
     </nav>
 
