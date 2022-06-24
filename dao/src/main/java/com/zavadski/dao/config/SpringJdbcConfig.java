@@ -18,15 +18,7 @@ public class SpringJdbcConfig {
     @Value("${spring.profiles.active}")
     private String activeProfile;
 
-    @Profile("postgresql")
-    public DataSource dataSourcePostgresql() {
-        return new DriverManagerDataSource(
-                "jdbc:postgresql://localhost:5432/football_teams"
-                , System.getProperty("db_user")
-                , System.getProperty("db_pass"));
-    }
-
-    @Profile("h2")
+    @Profile("test")
     public DataSource dataSourceH2() {
         return new EmbeddedDatabaseBuilder()
                 .setType(EmbeddedDatabaseType.H2)
@@ -34,13 +26,19 @@ public class SpringJdbcConfig {
                 .build();
     }
 
-    @Bean
+    @Profile("dev")
+    public DataSource dataSourcePostgres() {
+        return new DriverManagerDataSource(
+                "jdbc:postgresql://localhost:5432/football_teams"
+                , System.getProperty("db_user")
+                , System.getProperty("db_pass"));
+    }
+
     public DataSource dataSource() {
-        if (Objects.equals(activeProfile, "h2")) {
-            return dataSourceH2();
-        } else {
-            return dataSourcePostgresql();
+        if (Objects.equals(activeProfile, "dev")) {
+            return dataSourcePostgres();
         }
+        return dataSourceH2();
     }
 
     @Bean
