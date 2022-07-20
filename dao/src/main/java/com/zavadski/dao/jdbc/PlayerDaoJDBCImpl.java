@@ -1,6 +1,6 @@
 package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.api.PlayerDao;
+import com.zavadski.dao.PlayerDao;
 import com.zavadski.model.Player;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -116,6 +116,5 @@ public class PlayerDaoJDBCImpl implements PlayerDao {
             player.setTeamId(resultSet.getInt("team_id"));
             return player;
         }
-
     }
 }

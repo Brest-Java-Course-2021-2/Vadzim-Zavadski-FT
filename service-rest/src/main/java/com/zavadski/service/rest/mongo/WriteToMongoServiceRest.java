@@ -1,7 +1,7 @@
 package com.zavadski.service.rest.mongo;
 
-import com.zavadski.model.mongo.document.PlayersDocument;
-import com.zavadski.service.mongo.WriteToMongoService;
+import com.zavadski.mongo.model.document.PlayersDocument;
+import com.zavadski.mongo.service.WriteToMongoService;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -27,5 +27,4 @@ public class WriteToMongoServiceRest implements WriteToMongoService {
         ResponseEntity<PlayersDocument> responseEntity = restTemplate.getForEntity(url, PlayersDocument.class);
         return responseEntity.getBody();
     }
-
 }

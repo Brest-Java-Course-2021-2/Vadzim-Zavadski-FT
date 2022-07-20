@@ -1,6 +1,6 @@
 package com.zavadski.service.impl;
 
-import com.zavadski.dao.api.TeamDtoDao;
+import com.zavadski.dao.TeamDtoDao;
 import com.zavadski.model.dto.TeamDto;
 import com.zavadski.service.TeamDtoService;
 import org.springframework.stereotype.Service;

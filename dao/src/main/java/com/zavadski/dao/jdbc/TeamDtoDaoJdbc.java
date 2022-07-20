@@ -1,6 +1,6 @@
 package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.api.TeamDtoDao;
+import com.zavadski.dao.TeamDtoDao;
 import com.zavadski.model.dto.TeamDto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,8 +30,7 @@ public class TeamDtoDaoJdbc implements TeamDtoDao {
 
         logger.debug("Start: findAllWithNumberOfPlayers");
 
-        List<TeamDto> teams = namedParameterJdbcTemplate.query(findAllWithNumberOfPlayersSql,
+        return namedParameterJdbcTemplate.query(findAllWithNumberOfPlayersSql,
                 BeanPropertyRowMapper.newInstance(TeamDto.class));
-        return teams;
     }
 }

@@ -46,6 +46,10 @@
             <artifactId>commons-lang3</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>com.zavadski</groupId>
+            <artifactId>mongo</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

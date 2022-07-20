@@ -1,22 +1,22 @@
-package com.zavadski.service.impl.mongo;
+package com.zavadski.mongo.service;
 
 import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.zavadski.dao.api.mongo.WriteToMongoRepository;
-import com.zavadski.model.mongo.AllPlayers;
-import com.zavadski.model.mongo.PlayerMongo;
-import com.zavadski.model.mongo.TeamMongo;
-import com.zavadski.model.mongo.document.PlayersDocument;
+import com.zavadski.mongo.model.AllPlayers;
+import com.zavadski.mongo.model.PlayerMongo;
+import com.zavadski.mongo.model.TeamMongo;
+import com.zavadski.mongo.model.document.PlayersDocument;
+import com.zavadski.mongo.repository.WriteToMongoRepository;
 import com.zavadski.service.PlayerService;
 import com.zavadski.service.TeamService;
-import com.zavadski.service.mongo.WriteToMongoService;
 import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,7 +32,8 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
     private final PlayerService playerService;
     private final WriteToMongoRepository repository;
 
-    public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerService, WriteToMongoRepository repository) {
+//    public WriteToMongoServiceImpl(TeamService teamService, @Qualifier("playerServiceImpl") PlayerService playerService, WriteToMongoRepository repository) {
+public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerService, WriteToMongoRepository repository) {
         this.teamService = teamService;
         this.playerService = playerService;
         this.repository = repository;

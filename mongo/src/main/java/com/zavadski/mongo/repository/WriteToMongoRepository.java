@@ -1,6 +1,6 @@
-package com.zavadski.dao.api.mongo;
+package com.zavadski.mongo.repository;
 
-import com.zavadski.model.mongo.document.PlayersDocument;
+import com.zavadski.mongo.model.document.PlayersDocument;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

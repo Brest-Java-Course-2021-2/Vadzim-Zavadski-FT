@@ -21,6 +21,10 @@
             <groupId>com.zavadski</groupId>
             <artifactId>service-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.zavadski</groupId>
+            <artifactId>mongo</artifactId>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

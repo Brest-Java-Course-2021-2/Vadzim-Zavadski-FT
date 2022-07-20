@@ -1,6 +1,6 @@
 package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.api.PlayerDtoDao;
+import com.zavadski.dao.PlayerDtoDao;
 import com.zavadski.dao.jdbc.exception.PlayerWrongFilterDate;
 import com.zavadski.model.dto.PlayerDto;
 import org.apache.logging.log4j.LogManager;

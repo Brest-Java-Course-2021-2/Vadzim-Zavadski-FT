@@ -1,4 +1,4 @@
-package com.zavadski.model.mongo;
+package com.zavadski.mongo.model;
 
 import com.zavadski.model.Team;
 import lombok.Data;

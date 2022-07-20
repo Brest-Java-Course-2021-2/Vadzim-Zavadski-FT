@@ -1,6 +1,6 @@
 package com.zavadski.dao.jdbc;
 
-import com.zavadski.dao.api.TeamDao;
+import com.zavadski.dao.TeamDao;
 import com.zavadski.dao.jdbc.exception.TeamWithPlayerException;
 import com.zavadski.dao.jdbc.exception.UnacceptableName;
 import com.zavadski.model.Team;

@@ -1,6 +1,6 @@
 package com.zavadski.service.impl;
 
-import com.zavadski.dao.api.PlayerDao;
+import com.zavadski.dao.PlayerDao;
 import com.zavadski.model.Player;
 import com.zavadski.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;

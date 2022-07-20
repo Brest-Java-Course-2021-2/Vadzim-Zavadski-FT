@@ -1,12 +1,12 @@
-package com.zavadski.rest.mongo;
+package com.zavadski.web_app;
 
-import com.zavadski.model.mongo.document.PlayersDocument;
-import com.zavadski.service.mongo.WriteToMongoService;
+import com.zavadski.mongo.service.WriteToMongoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class MongoController {
 
     private final WriteToMongoService writeToMongoService;
@@ -17,8 +17,8 @@ public class MongoController {
     }
 
     @GetMapping(value = "/write_to_mongo")
-    public PlayersDocument writeToMongo() {
-
-        return writeToMongoService.createCollection();
+    public String writeToMongo(Model model) {
+        model.addAttribute("playersListMongo", writeToMongoService.createCollection());
+        return "mongo";
     }
 }
