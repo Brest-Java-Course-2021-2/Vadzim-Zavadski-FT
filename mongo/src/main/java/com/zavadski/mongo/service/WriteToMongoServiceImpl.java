@@ -16,7 +16,6 @@ import org.bson.Document;
 import org.bson.codecs.configuration.CodecRegistries;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -32,7 +31,6 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
     private final PlayerService playerService;
     private final WriteToMongoRepository repository;
 
-//    public WriteToMongoServiceImpl(TeamService teamService, @Qualifier("playerServiceImpl") PlayerService playerService, WriteToMongoRepository repository) {
 public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerService, WriteToMongoRepository repository) {
         this.teamService = teamService;
         this.playerService = playerService;
