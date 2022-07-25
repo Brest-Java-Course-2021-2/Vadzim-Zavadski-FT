@@ -31,7 +31,7 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
     private final PlayerService playerService;
     private final WriteToMongoRepository repository;
 
-public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerService, WriteToMongoRepository repository) {
+    public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerService, WriteToMongoRepository repository) {
         this.teamService = teamService;
         this.playerService = playerService;
         this.repository = repository;
@@ -62,8 +62,7 @@ public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerServ
                 CodecRegistries.fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
         MongoDatabase db = mongoClient.getDatabase("Football-Teams").withCodecRegistry(pojoCodecRegistry);
-        db.getCollection("football-teams").drop();
-        MongoCollection<Document> coll = db.getCollection("football-teams");
+        MongoCollection<Document> collection = db.getCollection("football-teams");
 
         String currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("MMM d, uuuu"));
 
@@ -74,6 +73,7 @@ public WriteToMongoServiceImpl(TeamService teamService, PlayerService playerServ
                         getPlayersByTimeInterval("from 23 to 28", 23, 28),
                         getPlayersByTimeInterval("over 28", 28, 150)
                 )));
+        repository.deleteAll();
         repository.insert(playersDocument);
         return playersDocument;
     }
