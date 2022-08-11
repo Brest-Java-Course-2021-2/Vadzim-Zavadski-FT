@@ -6,8 +6,8 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.zavadski.mongo.model.AllPlayers;
-import com.zavadski.mongo.model.PlayerMongo;
-import com.zavadski.mongo.model.TeamMongo;
+import com.zavadski.mongo.model.AllPlayers.TeamMongo;
+import com.zavadski.mongo.model.AllPlayers.TeamMongo.PlayerMongo;
 import com.zavadski.mongo.model.document.PlayersDocument;
 import com.zavadski.mongo.repository.WriteToMongoRepository;
 import com.zavadski.service.PlayerService;
@@ -49,7 +49,7 @@ public class WriteToMongoServiceImpl implements WriteToMongoService {
                                 .filter(playerMongo -> playerMongo.getAge() < max && playerMongo.getAge() >= min)
                                 .collect(Collectors.toList())))
                         .collect(Collectors.toList())
-                        .stream().filter(teamMongo -> !teamMongo.getPlayers().isEmpty()).collect(Collectors.toList())
+                        .stream().filter(teamMongo1 -> !teamMongo1.getPlayers().isEmpty()).collect(Collectors.toList())
                 ));
     }
 
