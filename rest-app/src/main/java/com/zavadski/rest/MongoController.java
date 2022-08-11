@@ -1,6 +1,6 @@
 package com.zavadski.rest;
 
-import com.zavadski.mongo.model.document.PlayersDocument;
+import com.zavadski.mongo.model.PlayersDocument;
 import com.zavadski.mongo.service.WriteToMongoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

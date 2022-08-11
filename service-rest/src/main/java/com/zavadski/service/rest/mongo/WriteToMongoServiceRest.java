@@ -1,6 +1,6 @@
 package com.zavadski.service.rest.mongo;
 
-import com.zavadski.mongo.model.document.PlayersDocument;
+import com.zavadski.mongo.model.PlayersDocument;
 import com.zavadski.mongo.service.WriteToMongoService;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;

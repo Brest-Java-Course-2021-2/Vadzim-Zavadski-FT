@@ -1,6 +1,6 @@
-package com.zavadski.mongo.model.document;
+package com.zavadski.mongo.model;
 
-import com.zavadski.mongo.model.AllPlayers;
+import com.zavadski.mongo.mapper.AllPlayers;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;

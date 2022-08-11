@@ -1,4 +1,4 @@
-package com.zavadski.mongo.model;
+package com.zavadski.mongo.mapper;
 
 import com.zavadski.model.Player;
 import com.zavadski.model.Team;
