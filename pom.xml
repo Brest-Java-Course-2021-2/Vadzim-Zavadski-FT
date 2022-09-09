@@ -28,7 +28,7 @@
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <spring.version>5.3.14</spring.version>
         <springfox.version>2.9.2</springfox.version>
-        <log4j2.version>2.14.1</log4j2.version>
+        <log4j2.version>2.18.0</log4j2.version>
         <thymeleaf-spring5.version>3.0.12.RELEASE</thymeleaf-spring5.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>3.0.0-M5</maven-failsafe-plugin.version>
@@ -191,6 +191,17 @@
                 <scope>provided</scope>
             </dependency>
 
+            <!--            logging-->
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+                <version>${log4j2.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

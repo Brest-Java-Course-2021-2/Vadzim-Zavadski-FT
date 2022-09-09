@@ -14,10 +14,15 @@ public class Team {
 
     @ApiModelProperty(notes = "Teams id")
     private Integer teamId;
+
     @ApiModelProperty(notes = "Teams name")
     private String teamName;
 
-    public Team(String teamName) {
+    @ApiModelProperty(notes = "Teams description")
+    private String description;
+
+    public Team(String teamName, String description) {
         this.teamName = teamName;
+        this.description = description;
     }
 }

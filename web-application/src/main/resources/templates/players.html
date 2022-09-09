@@ -103,7 +103,7 @@
                                 var maxD = document.getElementById('hiddenEndDate').value.split("/").reverse().join("-");
                                    document.getElementById('endDate').value = maxD;
                                    document.getElementById('startDate').max = maxD;
-                            </script>
+                        </script>
                             <button type="submit" class="btn btn-info mb-2">Show</button>
                         </div>
                     </div>
@@ -132,16 +132,26 @@
 
                         <tbody>
                         <tr th:each="player : ${players}">
-                            <td th:text="${player.firstName}">P1</td>
-                            <td th:text="${player.surname}" class="text-center">2</td>
-                            <td th:text="${player.birthday}" class="text-center">21/10/2001</td>
+                            <td th:text="${player.firstName}"></td>
+                            <td th:text="${player.surname}" class="text-center"></td>
+                            <td th:text="${player.birthday}" class="text-center"></td>
                             <td class="text-end">
+                                <span data-bs-toggle="modal" data-bs-target="#biographyDialog"
+                                      th:attr="data-id=${player.playerId},data-name=${player.playerId}">
+                                 <a href="#" class="btn-sm btn btn-success"
+                                    title="biography">
+                                    <i class="bi bi-info-square"></i>
+                                    <span class="d-none d-md-inline"></span>
+                                </a>
+                                </span>
+
                                 <a href="player.html"
                                    th:href="@{|/player/${player.playerId}|}"
                                    class="btn-md btn-outline-secondary"
                                    title="Edit player">
                                     <i class="bi bi-pencil"></i>
-                                    <span class="d-none d-md-inline">Edit</span></a>
+                                    <span class="d-none d-md-inline">Edit</span>
+                                </a>
                                 <span data-bs-toggle="modal" data-bs-target="#deleteDialog"
                                       th:attr="data-id=${player.playerId},data-name=${player.firstName}">
                                 <a href="#" class="btn-md btn-outline-secondary"
@@ -171,7 +181,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Please confirm delete
             </div>
             <div class="modal-footer">
                 <a href="players.html"
@@ -182,10 +191,42 @@
     </div>
 </div>
 
+<!-- biography Modal -->
+<div class="modal fade" id="biographyDialog" tabindex="-1" role="dialog"
+     aria-labelledby="biographyModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header alert-info">
+                <h5 class="modal-title" id="biographyModalLabel">Biography</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="../../resources/static/js/bootstrap.bundle.min.js"
         th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <script src="../../resources/static/js/jquery-3.4.1.slim.min.js"
         th:src="@{/js/jquery-3.4.1.slim.min.js}"></script>
+
+<script>
+    $('#biographyDialog').on('show.bs.modal', function (event) {
+        var target = $(event.relatedTarget)
+        $(this).find('.modal-body').text('Loading...');
+
+        fetch('/biography/' + target.data('name'))
+            .then((response) => response.text())
+            .then((html) => {
+                $(this).find('.modal-body').html(html);
+            })
+    })
+</script>
+
 <script>
     $('#deleteDialog').on('show.bs.modal', function (event) {
         var target = $(event.relatedTarget)

@@ -48,7 +48,7 @@ class PlayerControllerTest {
 
         when(playerService.getAllPlayers()).thenReturn(players);
 
-        MvcResult mvcResult = mockMvc.perform(get("/playes"))
+        MvcResult mvcResult = mockMvc.perform(get("/players"))
                 .andExpect(status().isOk())
                 .andReturn();
 

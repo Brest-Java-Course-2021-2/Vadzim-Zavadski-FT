@@ -16,6 +16,9 @@ public class TeamDto {
     @ApiModelProperty(notes = "Teams name")
     private String teamName;
 
+    @ApiModelProperty(notes = "Teams description")
+    private String description;
+
     @ApiModelProperty(notes = "Number of players in team")
     private Integer numberOfPlayers;
 

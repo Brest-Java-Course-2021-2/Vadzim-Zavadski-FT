@@ -105,7 +105,7 @@ class TeamControllerTest {
                         .body("1")
                 );
 
-        Team team = new Team("Lester");
+        Team team = new Team("Lester", "aa");
 
         // THEN
         //Integer newTeamId = teamService.create(team);
