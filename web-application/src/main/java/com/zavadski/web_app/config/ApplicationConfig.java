@@ -1,6 +1,5 @@
 package com.zavadski.web_app.config;
 
-import com.zavadski.model.Biography;
 import com.zavadski.mongo.service.WriteToMongoService;
 import com.zavadski.service.*;
 import com.zavadski.service.rest.*;

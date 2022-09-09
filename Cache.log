@@ -1,0 +1,5 @@
+2022-09-09 15:58:37,855 INFO [http-nio-8088-exec-4] c.z.r.BiographyController [BiographyController.java:32] Method getBiographyByPlayerId() 4 started of class com.zavadski.rest.BiographyController started
+2022-09-09 15:58:37,860 INFO [http-nio-8088-exec-4] c.z.r.c.CacheBiographyGuavaConfig [CacheBiographyGuavaConfig.java:41] Method  load() started in class com.zavadski.rest.config.CacheBiographyGuavaConfig$1
+2022-09-09 15:58:37,882 INFO [http-nio-8088-exec-4] c.z.r.c.CacheBiographyGuavaConfig [CacheBiographyGuavaConfig.java:59] {4=Biography(biographyId=4, biography=text4, playerId=4)}
+2022-09-09 15:58:37,884 INFO [http-nio-8088-exec-4] c.z.r.BiographyController [BiographyController.java:37] CacheStats{hitCount=0, missCount=1, loadSuccessCount=1, loadExceptionCount=0, totalLoadTime=18624500, evictionCount=0}
+2022-09-09 15:58:37,885 INFO [http-nio-8088-exec-4] c.z.r.BiographyController [BiographyController.java:38] -------------------------------------------------------------------------------------------------------------------------
