@@ -24,7 +24,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
     private final Logger logger = LogManager.getLogger(TeamDaoJDBCImpl.class);
 
-    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Value("${SQL_TEAMS_COUNT}")
     public String sqlTeamCount;
@@ -41,7 +41,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
     @Value("${SQL_CREATE_TEAM}")
     private String sqlCreateTeam;
 
-    @Value("${SQL_UPDATE_TEAM_NAME}")
+    @Value("${SQL_UPDATE_TEAM}")
     private String sqlUpdateTeamName;
 
     @Value("${SQL_DELETE_TEAM_BY_ID}")
@@ -83,7 +83,8 @@ public class TeamDaoJDBCImpl implements TeamDao {
         }
 
         SqlParameterSource sqlParameterSource =
-                new MapSqlParameterSource("teamName", team.getTeamName());
+                new MapSqlParameterSource("teamName", team.getTeamName()).
+                        addValue("description", team.getDescription());
         KeyHolder keyHolder = new GeneratedKeyHolder();
         return namedParameterJdbcTemplate.update(sqlCreateTeam, sqlParameterSource, keyHolder);
     }
@@ -105,6 +106,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
 
         SqlParameterSource sqlParameterSource =
                 new MapSqlParameterSource("teamName", team.getTeamName()).
+                        addValue("description", team.getDescription()).
                         addValue("teamId", team.getTeamId());
         return namedParameterJdbcTemplate.update(sqlUpdateTeamName, sqlParameterSource);
     }
@@ -151,6 +153,7 @@ public class TeamDaoJDBCImpl implements TeamDao {
             Team team = new Team();
             team.setTeamId(resultSet.getInt("team_id"));
             team.setTeamName(resultSet.getString("team_name"));
+            team.setDescription(resultSet.getString("description"));
             return team;
         }
     }

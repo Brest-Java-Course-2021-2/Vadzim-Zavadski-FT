@@ -1,15 +1,10 @@
 package com.zavadski.web_app.config;
 
+import com.zavadski.model.Biography;
 import com.zavadski.mongo.service.WriteToMongoService;
+import com.zavadski.service.*;
+import com.zavadski.service.rest.*;
 import com.zavadski.service.rest.mongo.WriteToMongoServiceRest;
-import com.zavadski.service.PlayerDtoService;
-import com.zavadski.service.PlayerService;
-import com.zavadski.service.TeamDtoService;
-import com.zavadski.service.TeamService;
-import com.zavadski.service.rest.PlayerDtoServiceRest;
-import com.zavadski.service.rest.PlayerServiceRest;
-import com.zavadski.service.rest.TeamDtoServiceRest;
-import com.zavadski.service.rest.TeamServiceRest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -55,6 +50,12 @@ public class ApplicationConfig {
     PlayerService playerService() {
         String url = String.format("%s://%s:%d/players", protocol, host, port);
         return new PlayerServiceRest(url, restTemplate());
+    }
+
+    @Bean
+    BiographyService biographyService() {
+        String url = String.format("%s://%s:%d/biography", protocol, host, port);
+        return new BiographyServiceRest(url, restTemplate());
     }
 
     @Bean
